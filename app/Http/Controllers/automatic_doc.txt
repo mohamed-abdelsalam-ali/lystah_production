@@ -1,0 +1,78 @@
+ $automaicQayd = new QaydController();
+        $invoiceac = 0;
+        $taxac = 0;
+        $binvoiceac =0;
+        // $request->invTax الضريبة
+        // $request->invTotLbl السعر قبل الضريبة
+        // $request->invPaied; المدفوع
+        // $request->invAllTotal الاجمالي بعد الضريبة
+        // $request->payment 
+        // $request->taxInvolved // شامل الضريبة
+        
+        if(floatval($request->taxInvolved) == 1 ){
+            // غير شامل
+            if($request->invTax){
+                 $taxac = $request->invTotLbl * $request->invTax /100 ; // الضريبة
+            }else{
+                 $taxac = $request->invTotLbl * 10 /100 ; // الضريبة
+            }
+           
+            $invoiceac = $request->invTotLbl + $taxac; //الاجمالي بعد الضريبة
+            $binvoiceac =round($invoiceac - $taxac);
+               
+        }else{
+            // شامل
+            $binvoiceac = round($request->invAllTotal / 1.14); //  المشتريات غير شامل الضريبة
+            $taxac = $request->invAllTotal -$binvoiceac ; // الضريبة
+            $invoiceac =  round($binvoiceac + $taxac);
+        }
+        
+        if($request->payment == 0  && $invoiceac == $request->invPaied) // البيع كاش 
+        {
+           
+            array_push ( $quaditems , (object) [ 'acountant_id'=> 1314  , 'madin'=> $binvoiceac , 'dayin'=>0 ] ); // المخزون مدين
+            array_push ( $quaditems , (object) [ 'acountant_id'=> 1811 , 'madin'=> 0 , 'dayin'=> $request->invPaied ] ); // الخزنة دائن
+            
+        }elseif($request->payment == 1 && $invoiceac == $request->invPaied ) // البيع شيك
+        {
+            array_push ( $quaditems , (object) [ 'acountant_id'=> 1314  , 'madin'=> $binvoiceac , 'dayin'=>0 ] ); // المخزون مدين
+            array_push ( $quaditems , (object) [ 'acountant_id'=> 1821 , 'madin'=> 0 , 'dayin'=> $request->invPaied ] ); // بنك دائن
+            
+            
+        }else // البيع أجل
+        {
+            array_push ( $quaditems , (object) [ 'acountant_id'=> 1314  , 'madin'=> $binvoiceac , 'dayin'=>0 ] ); // المخزون مدين
+            array_push ( $quaditems , (object) [ 'acountant_id'=> 261001 , 'madin'=> 0 , 'dayin'=>($invoiceac- $request->invPaied) ] ); // العميل دائن
+            if( $request->store_id != 0  ) // خزنة
+            {
+                if($request->invPaied > 0){
+                    array_push ( $quaditems , (object) [ 'acountant_id'=> 1811 , 'madin'=> 0 , 'dayin'=> $request->invPaied ] ); // الخزنة دائن
+                }
+                
+            }else // بنك
+            {
+                 if($request->invPaied > 0){
+                     array_push ( $quaditems , (object) [ 'acountant_id'=> 1821 , 'madin'=> 0 , 'dayin'=> $request->invPaied ] ); // بنك دائن
+                 }
+                
+            }
+            
+        }
+        
+        if($taxac > 0){
+            array_push ( $quaditems , (object) [ 'acountant_id'=> 175  , 'dayin'=> 0 , 'madin'=> $taxac ] ); // الضريبة مدين
+        }
+        
+        
+        // array_push ( $quaditems , (object) [ 'acountant_id'=> 15 , 'dayin'=> 1000 , 'madin'=>0 ] ); //  الضريبة
+        // array_push ( $quaditems , (object) [ 'acountant_id'=> 15 , 'dayin'=> 1000 , 'madin'=>0 ] ); // المديونية
+        // array_push ( $quaditems , (object) [ 'acountant_id'=> 15 , 'dayin'=> 1000 , 'madin'=>0 ] );// الخصم
+        
+        // array_push ( $quaditems , (object) [ 'acountant_id'=> 15 , 'dayin'=> 1000 , 'madin'=>0 ] ); // البنك / الشركة
+        // array_push ( $quaditems , (object) [ 'acountant_id'=> 15 , 'dayin'=> 1000 , 'madin'=>0 ] ); // المورد
+        
+        
+        $date =Carbon::now();
+        $type = null;
+        $notes='فاتورة شراء رقم'.$BuyTransaction->id;
+        $automaicQayd->AutomaticQayd($quaditems,$date,$type,$notes);

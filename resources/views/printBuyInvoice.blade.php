@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+
+<!-- Mirrored from invoma.vercel.app/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 06 Dec 2023 09:56:08 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Laralink">
+    <!-- Site Title -->
+    <title>EMARA</title>
+    <link rel="stylesheet" href="{{ URL::asset('print-assets/css/style.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <style>
+        @font-face {
+            font-family: Cairo;
+            src: url('../fonts/Cairo-Light.ttf');
+
+
+        }
+
+        body {
+            font-family: Cairo !important;
+            color: black !important;
+        }
+
+        .headlbl {
+            padding: 4px !important;
+            font-weight: 600 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tm_container">
+        <div class="tm_invoice_wrap">
+            <div class="tm_invoice tm_style1" id="tm_download_section">
+                <div class="tm_invoice_in">
+                    <div class="tm_invoice_head tm_align_center tm_mb20">
+                        <div class="tm_invoice_left">
+                            {{-- <div class="tm_logo"><img src="{{ URL::asset('assets/printLogo.jpeg') }}" alt="Logo"></div> --}}
+                            {{-- <div class="tm_logo">
+                <svg data-v-0dd9719b="" version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 340.000000 250.000000" preserveAspectRatio="xMidYMid meet" color-interpolation-filters="sRGB" style="margin: auto;"> <rect data-v-0dd9719b="" x="0" y="0" width="100%" height="100%" fill="#feffff" fill-opacity="1" class="background"></rect> <rect data-v-0dd9719b="" x="0" y="0" width="100%" height="100%" fill="url(#watermark)" fill-opacity="1" class="watermarklayer"></rect> <g data-v-0dd9719b="" fill="#0a0a0a" class="iconlinesvg-g iconlinesvg" transform="translate(66.81999969482422,87.09210586547852)"><g class="tp-name" transform="translate(0,0)"><g transform="translate(0, 5.059890403029311)"><g data-gra="path-name" fill="#0a0a0a" transform="scale(1)"><path d="M2.28 0L23.58 0L23.58-10.02L12.78-10.02L12.78-21.84L22.50-21.84L22.50-31.56L12.78-31.56L12.78-41.58L22.92-41.58L22.92-51.54L2.28-51.54Z" transform="translate(-2.28, 51.54)"></path></g></g><g transform="translate(25, 0)"><g><g class="imagesvg"><g><rect fill="#0a0a0a" fill-opacity="0" stroke-width="2" x="0" y="0" width="90.44749926879126" height="61.65978080605862" class="image-rect"></rect> <svg x="0" y="0" width="90.44749926879126" height="61.65978080605862" filtersec="colorsb1784994088" class="image-svg-svg primary" style="overflow: visible;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0.6615809202194214 0.23946838080883026 98.67129516601562 67.26593780517578"><g transform="matrix(.69 0 0 .69 15.5 15.5)"><path fill="#0A0A0A" d="M121.1 70.57L82.1-.92a3.243 3.243 0 0 0-2.63-1.69c-1.12-.08-2.2.42-2.86 1.33L58.55 23.38l-21.9-43.71a3.247 3.247 0 0 0-4.36-1.44c-.57.29-1.04.73-1.36 1.28l-52 90.99a3.253 3.253 0 0 0 0 3.25 3.229 3.229 0 0 0 2.83 1.62h136.48c1.15 0 2.21-.61 2.79-1.59.6-.98.62-2.21.07-3.21zm-133.75-1.69l46.21-80.85 40.43 80.85h-86.64zm93.91 0l-19.5-39L78.79 6.55l33.99 62.33H81.26z"></path></g></svg></svg> <!----></g></g></g></g><g transform="translate(119, 5.059890403029311)"><g data-gra="path-name" fill="#0a0a0a" transform="scale(1)"><path d="M0.90 0L10.92 0L11.52-8.34L17.76-8.34L18.48 0L28.26 0L23.34-51.54L5.88-51.54ZM12.30-16.56L14.22-42.78L14.70-42.78L16.98-16.56Z" transform="translate(-0.8999999999999999, 51.54)"></path></g></g><g transform="translate(150, 5.059890403029311)"><g data-gra="path-name" fill="#0a0a0a" transform="scale(1)"><path d="M22.38-26.88C26.37-28.24 27.48-31.62 27.48-37.14C27.48-45.48 26.27-51.54 18.12-51.54L2.28-51.54L2.28 0L12.72 0L12.72-23.52C15.66-23.52 16.62-23.09 16.62-20.16L16.62 0L26.70 0L26.82-19.50C26.82-23.54 25.64-26.21 22.38-26.88ZM17.40-37.14C17.40-34.02 16.68-32.46 15.24-32.46L12.78-32.46L12.78-42L15.18-42C17.54-42 17.40-39.77 17.40-37.14Z" transform="translate(-2.28, 51.54)"></path></g></g><g transform="translate(179, 5.059890403029311)"><g data-gra="path-name" fill="#0a0a0a" transform="scale(1)"><path d="M0.90 0L10.92 0L11.52-8.34L17.76-8.34L18.48 0L28.26 0L23.34-51.54L5.88-51.54ZM12.30-16.56L14.22-42.78L14.70-42.78L16.98-16.56Z" transform="translate(-0.8999999999999999, 51.54)"></path></g></g></g> <g data-gra="path-slogan" fill-rule="" class="tp-slogan" fill="#0a0a0a" transform="translate(5.000007629394531,67.65978240966797)"><rect x="0" height="1" y="3.580000400543213" width="62.209999084472656"></rect> <rect height="1" y="3.580000400543213" width="62.209999084472656" x="134.1500015258789"></rect> <g transform="translate(65.20999908447266,0)"><g transform="scale(1)"><path d="M1.10-1.72L0.50-1.02C0.85-0.66 1.26-0.38 1.73-0.17C2.20 0.04 2.71 0.14 3.26 0.14C3.68 0.14 4.05 0.09 4.38-0.03C4.71-0.15 4.99-0.31 5.22-0.51C5.45-0.71 5.63-0.95 5.75-1.22C5.88-1.50 5.94-1.79 5.94-2.10C5.94-2.39 5.90-2.64 5.81-2.86C5.73-3.08 5.62-3.27 5.47-3.44C5.33-3.60 5.16-3.75 4.96-3.87C4.76-3.99 4.54-4.10 4.32-4.20L3.20-4.68C3.04-4.74 2.89-4.81 2.74-4.89C2.58-4.97 2.44-5.05 2.32-5.15C2.19-5.25 2.09-5.37 2.01-5.50C1.93-5.63 1.90-5.80 1.90-5.99C1.90-6.35 2.03-6.63 2.30-6.83C2.57-7.04 2.92-7.14 3.36-7.14C3.73-7.14 4.06-7.07 4.35-6.94C4.64-6.81 4.91-6.63 5.15-6.40L5.69-7.04C5.41-7.33 5.07-7.57 4.67-7.75C4.27-7.93 3.83-8.02 3.36-8.02C3-8.02 2.67-7.96 2.37-7.86C2.07-7.76 1.81-7.61 1.59-7.42C1.37-7.23 1.20-7.01 1.07-6.76C0.95-6.50 0.89-6.22 0.89-5.93C0.89-5.64 0.94-5.39 1.03-5.17C1.13-4.95 1.25-4.76 1.40-4.60C1.56-4.44 1.73-4.30 1.92-4.19C2.11-4.08 2.30-3.98 2.48-3.90L3.61-3.41C3.80-3.32 3.97-3.24 4.13-3.16C4.29-3.08 4.43-2.99 4.54-2.89C4.66-2.79 4.75-2.67 4.82-2.53C4.89-2.39 4.92-2.22 4.92-2.02C4.92-1.63 4.78-1.32 4.49-1.09C4.20-0.85 3.80-0.73 3.28-0.73C2.87-0.73 2.47-0.82 2.09-1.00C1.71-1.18 1.38-1.42 1.10-1.72ZM7.49-7.87L7.49 0L8.48 0L8.48-3.12L9.90-3.12C10.33-3.12 10.73-3.17 11.08-3.27C11.44-3.37 11.74-3.52 12-3.72C12.26-3.92 12.45-4.17 12.59-4.48C12.73-4.78 12.80-5.14 12.80-5.56C12.80-5.99 12.73-6.35 12.59-6.65C12.45-6.94 12.26-7.18 12.01-7.36C11.75-7.54 11.45-7.67 11.09-7.75C10.73-7.83 10.33-7.87 9.90-7.87ZM9.78-3.94L8.48-3.94L8.48-7.07L9.78-7.07C10.46-7.07 10.97-6.96 11.30-6.74C11.64-6.52 11.81-6.12 11.81-5.56C11.81-5.00 11.64-4.59 11.31-4.33C10.98-4.07 10.47-3.94 9.78-3.94ZM17.15-3.20L14.78-3.20L15.16-4.40C15.30-4.84 15.44-5.28 15.56-5.72C15.69-6.15 15.82-6.60 15.94-7.06L15.98-7.06C16.11-6.60 16.24-6.15 16.37-5.72C16.50-5.28 16.63-4.84 16.78-4.40ZM17.40-2.40L18.14 0L19.21 0L16.55-7.87L15.42-7.87L12.76 0L13.78 0L14.53-2.40ZM21.32-4.14L21.32-7.07L22.64-7.07C23.26-7.07 23.73-6.96 24.06-6.76C24.39-6.55 24.55-6.18 24.55-5.66C24.55-5.15 24.39-4.77 24.06-4.52C23.73-4.27 23.26-4.14 22.64-4.14ZM24.65 0L25.78 0L23.78-3.43C24.32-3.57 24.75-3.82 25.07-4.19C25.39-4.56 25.55-5.05 25.55-5.66C25.55-6.07 25.48-6.42 25.34-6.70C25.21-6.98 25.02-7.20 24.77-7.38C24.53-7.56 24.24-7.68 23.90-7.76C23.56-7.83 23.19-7.87 22.79-7.87L20.33-7.87L20.33 0L21.32 0L21.32-3.32L22.75-3.32ZM27.30-7.87L27.30 0L31.96 0L31.96-0.85L28.30-0.85L28.30-3.71L31.28-3.71L31.28-4.56L28.30-4.56L28.30-7.03L31.84-7.03L31.84-7.87ZM36.05-7.87L36.05 0L37.04 0L37.04-3.12L38.46-3.12C38.89-3.12 39.29-3.17 39.64-3.27C40.00-3.37 40.30-3.52 40.56-3.72C40.82-3.92 41.01-4.17 41.15-4.48C41.29-4.78 41.36-5.14 41.36-5.56C41.36-5.99 41.29-6.35 41.15-6.65C41.01-6.94 40.82-7.18 40.57-7.36C40.31-7.54 40.01-7.67 39.65-7.75C39.29-7.83 38.89-7.87 38.46-7.87ZM38.34-3.94L37.04-3.94L37.04-7.07L38.34-7.07C39.02-7.07 39.53-6.96 39.86-6.74C40.20-6.52 40.37-6.12 40.37-5.56C40.37-5.00 40.20-4.59 39.87-4.33C39.54-4.07 39.03-3.94 38.34-3.94ZM45.71-3.20L43.34-3.20L43.72-4.40C43.86-4.84 44.00-5.28 44.12-5.72C44.25-6.15 44.38-6.60 44.50-7.06L44.54-7.06C44.67-6.60 44.80-6.15 44.93-5.72C45.06-5.28 45.19-4.84 45.34-4.40ZM45.96-2.40L46.70 0L47.77 0L45.11-7.87L43.98-7.87L41.32 0L42.34 0L43.09-2.40ZM49.88-4.14L49.88-7.07L51.20-7.07C51.82-7.07 52.29-6.96 52.62-6.76C52.95-6.55 53.11-6.18 53.11-5.66C53.11-5.15 52.95-4.77 52.62-4.52C52.29-4.27 51.82-4.14 51.20-4.14ZM53.21 0L54.34 0L52.34-3.43C52.88-3.57 53.31-3.82 53.63-4.19C53.95-4.56 54.11-5.05 54.11-5.66C54.11-6.07 54.04-6.42 53.90-6.70C53.77-6.98 53.58-7.20 53.33-7.38C53.09-7.56 52.80-7.68 52.46-7.76C52.12-7.83 51.75-7.87 51.35-7.87L48.89-7.87L48.89 0L49.88 0L49.88-3.32L51.31-3.32ZM57.25-7.03L57.25 0L58.26 0L58.26-7.03L60.64-7.03L60.64-7.87L54.88-7.87L54.88-7.03ZM61.61-1.72L61.01-1.02C61.35-0.66 61.76-0.38 62.23-0.17C62.70 0.04 63.22 0.14 63.77 0.14C64.18 0.14 64.56 0.09 64.88-0.03C65.21-0.15 65.49-0.31 65.72-0.51C65.96-0.71 66.13-0.95 66.26-1.22C66.38-1.50 66.44-1.79 66.44-2.10C66.44-2.39 66.40-2.64 66.32-2.86C66.23-3.08 66.12-3.27 65.98-3.44C65.83-3.60 65.66-3.75 65.46-3.87C65.26-3.99 65.05-4.10 64.82-4.20L63.71-4.68C63.55-4.74 63.39-4.81 63.24-4.89C63.09-4.97 62.95-5.05 62.82-5.15C62.69-5.25 62.59-5.37 62.51-5.50C62.44-5.63 62.40-5.80 62.40-5.99C62.40-6.35 62.53-6.63 62.80-6.83C63.07-7.04 63.42-7.14 63.86-7.14C64.23-7.14 64.56-7.07 64.85-6.94C65.15-6.81 65.41-6.63 65.65-6.40L66.19-7.04C65.91-7.33 65.57-7.57 65.17-7.75C64.77-7.93 64.34-8.02 63.86-8.02C63.50-8.02 63.17-7.96 62.87-7.86C62.57-7.76 62.31-7.61 62.09-7.42C61.87-7.23 61.70-7.01 61.58-6.76C61.45-6.50 61.39-6.22 61.39-5.93C61.39-5.64 61.44-5.39 61.54-5.17C61.63-4.95 61.76-4.76 61.91-4.60C62.06-4.44 62.23-4.30 62.42-4.19C62.62-4.08 62.80-3.98 62.99-3.90L64.12-3.41C64.30-3.32 64.47-3.24 64.63-3.16C64.79-3.08 64.93-2.99 65.05-2.89C65.16-2.79 65.25-2.67 65.32-2.53C65.39-2.39 65.42-2.22 65.42-2.02C65.42-1.63 65.28-1.32 64.99-1.09C64.70-0.85 64.30-0.73 63.78-0.73C63.37-0.73 62.98-0.82 62.60-1.00C62.22-1.18 61.89-1.42 61.61-1.72Z" transform="translate(-0.504, 8.016)"></path></g></g></g></g><defs v-gra="od"></defs></svg>
+              </div> --}}
+              @php
+                                use App\Models\Company\User;
+                                $user = auth()->user();
+                                $generalUser = User::on('mysql_general')->where('email', $user->email)->first();
+                            @endphp
+                            <div class="tm_f15 tm_primary_color headlbl" id="qrcode" style="width: 80px"></div>
+                            <div class="tm_f15 tm_primary_color headlbl">{{ $generalUser->company_name }}.</div>
+                            <div class="tm_f15 tm_primary_color headlbl">Import & Export</div>
+
+                        </div>
+
+                        <div class="tm_invoice_right tm_text_right">
+                            <div class="tm_logo " style="float: left;">
+                                {{-- <div class="tm_logo"><img src="{{ URL::asset('assets/printLogo.jpeg') }}" alt="Logo"></div> --}}
+                                <!-- <svg data-v-0dd9719b="" version="1.0" xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%"
+                                    viewBox="0 0 340.000000 250.000000" preserveAspectRatio="xMidYMid meet"
+                                    color-interpolation-filters="sRGB" style="margin: auto;">
+                                    <rect data-v-0dd9719b="" x="0" y="0" width="100%" height="100%" fill="#feffff"
+                                        fill-opacity="1" class="background"></rect>
+                                    <rect data-v-0dd9719b="" x="0" y="0" width="100%" height="100%"
+                                        fill="url(#watermark)" fill-opacity="1" class="watermarklayer"></rect>
+                                    <g data-v-0dd9719b="" fill="#0a0a0a" class="iconlinesvg-g iconlinesvg"
+                                        transform="translate(66.81999969482422,87.09210586547852)">
+                                        <g class="tp-name" transform="translate(0,0)">
+                                            <g transform="translate(0, 5.059890403029311)">
+                                                <g data-gra="path-name" fill="#0a0a0a" transform="scale(1)">
+                                                    <path
+                                                        d="M2.28 0L23.58 0L23.58-10.02L12.78-10.02L12.78-21.84L22.50-21.84L22.50-31.56L12.78-31.56L12.78-41.58L22.92-41.58L22.92-51.54L2.28-51.54Z"
+                                                        transform="translate(-2.28, 51.54)"></path>
+                                                </g>
+                                            </g>
+                                            <g transform="translate(25, 0)">
+                                                <g>
+                                                    <g class="imagesvg">
+                                                        <g>
+                                                            <rect fill="#0a0a0a" fill-opacity="0" stroke-width="2" x="0"
+                                                                y="0" width="90.44749926879126"
+                                                                height="61.65978080605862" class="image-rect"></rect>
+                                                            <svg x="0" y="0" width="90.44749926879126"
+                                                                height="61.65978080605862" filtersec="colorsb1784994088"
+                                                                class="image-svg-svg primary"
+                                                                style="overflow: visible;"><svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0.6615809202194214 0.23946838080883026 98.67129516601562 67.26593780517578">
+                                                                    <g transform="matrix(.69 0 0 .69 15.5 15.5)">
+                                                                        <path fill="#0A0A0A"
+                                                                            d="M121.1 70.57L82.1-.92a3.243 3.243 0 0 0-2.63-1.69c-1.12-.08-2.2.42-2.86 1.33L58.55 23.38l-21.9-43.71a3.247 3.247 0 0 0-4.36-1.44c-.57.29-1.04.73-1.36 1.28l-52 90.99a3.253 3.253 0 0 0 0 3.25 3.229 3.229 0 0 0 2.83 1.62h136.48c1.15 0 2.21-.61 2.79-1.59.6-.98.62-2.21.07-3.21zm-133.75-1.69l46.21-80.85 40.43 80.85h-86.64zm93.91 0l-19.5-39L78.79 6.55l33.99 62.33H81.26z">
+                                                                        </path>
+                                                                    </g>
+                                                                </svg></svg>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                            <g transform="translate(119, 5.059890403029311)">
+                                                <g data-gra="path-name" fill="#0a0a0a" transform="scale(1)">
+                                                    <path
+                                                        d="M0.90 0L10.92 0L11.52-8.34L17.76-8.34L18.48 0L28.26 0L23.34-51.54L5.88-51.54ZM12.30-16.56L14.22-42.78L14.70-42.78L16.98-16.56Z"
+                                                        transform="translate(-0.8999999999999999, 51.54)"></path>
+                                                </g>
+                                            </g>
+                                            <g transform="translate(150, 5.059890403029311)">
+                                                <g data-gra="path-name" fill="#0a0a0a" transform="scale(1)">
+                                                    <path
+                                                        d="M22.38-26.88C26.37-28.24 27.48-31.62 27.48-37.14C27.48-45.48 26.27-51.54 18.12-51.54L2.28-51.54L2.28 0L12.72 0L12.72-23.52C15.66-23.52 16.62-23.09 16.62-20.16L16.62 0L26.70 0L26.82-19.50C26.82-23.54 25.64-26.21 22.38-26.88ZM17.40-37.14C17.40-34.02 16.68-32.46 15.24-32.46L12.78-32.46L12.78-42L15.18-42C17.54-42 17.40-39.77 17.40-37.14Z"
+                                                        transform="translate(-2.28, 51.54)"></path>
+                                                </g>
+                                            </g>
+                                            <g transform="translate(179, 5.059890403029311)">
+                                                <g data-gra="path-name" fill="#0a0a0a" transform="scale(1)">
+                                                    <path
+                                                        d="M0.90 0L10.92 0L11.52-8.34L17.76-8.34L18.48 0L28.26 0L23.34-51.54L5.88-51.54ZM12.30-16.56L14.22-42.78L14.70-42.78L16.98-16.56Z"
+                                                        transform="translate(-0.8999999999999999, 51.54)"></path>
+                                                </g>
+                                            </g>
+                                        </g>
+                                        <g data-gra="path-slogan" fill-rule="" class="tp-slogan" fill="#0a0a0a"
+                                            transform="translate(5.000007629394531,67.65978240966797)">
+                                            <rect x="0" height="1" y="3.580000400543213"
+                                                width="62.209999084472656"></rect>
+                                            <rect height="1" y="3.580000400543213" width="62.209999084472656"
+                                                x="134.1500015258789"></rect>
+                                            <g transform="translate(65.20999908447266,0)">
+                                                <g transform="scale(1)">
+                                                    <path
+                                                        d="M1.10-1.72L0.50-1.02C0.85-0.66 1.26-0.38 1.73-0.17C2.20 0.04 2.71 0.14 3.26 0.14C3.68 0.14 4.05 0.09 4.38-0.03C4.71-0.15 4.99-0.31 5.22-0.51C5.45-0.71 5.63-0.95 5.75-1.22C5.88-1.50 5.94-1.79 5.94-2.10C5.94-2.39 5.90-2.64 5.81-2.86C5.73-3.08 5.62-3.27 5.47-3.44C5.33-3.60 5.16-3.75 4.96-3.87C4.76-3.99 4.54-4.10 4.32-4.20L3.20-4.68C3.04-4.74 2.89-4.81 2.74-4.89C2.58-4.97 2.44-5.05 2.32-5.15C2.19-5.25 2.09-5.37 2.01-5.50C1.93-5.63 1.90-5.80 1.90-5.99C1.90-6.35 2.03-6.63 2.30-6.83C2.57-7.04 2.92-7.14 3.36-7.14C3.73-7.14 4.06-7.07 4.35-6.94C4.64-6.81 4.91-6.63 5.15-6.40L5.69-7.04C5.41-7.33 5.07-7.57 4.67-7.75C4.27-7.93 3.83-8.02 3.36-8.02C3-8.02 2.67-7.96 2.37-7.86C2.07-7.76 1.81-7.61 1.59-7.42C1.37-7.23 1.20-7.01 1.07-6.76C0.95-6.50 0.89-6.22 0.89-5.93C0.89-5.64 0.94-5.39 1.03-5.17C1.13-4.95 1.25-4.76 1.40-4.60C1.56-4.44 1.73-4.30 1.92-4.19C2.11-4.08 2.30-3.98 2.48-3.90L3.61-3.41C3.80-3.32 3.97-3.24 4.13-3.16C4.29-3.08 4.43-2.99 4.54-2.89C4.66-2.79 4.75-2.67 4.82-2.53C4.89-2.39 4.92-2.22 4.92-2.02C4.92-1.63 4.78-1.32 4.49-1.09C4.20-0.85 3.80-0.73 3.28-0.73C2.87-0.73 2.47-0.82 2.09-1.00C1.71-1.18 1.38-1.42 1.10-1.72ZM7.49-7.87L7.49 0L8.48 0L8.48-3.12L9.90-3.12C10.33-3.12 10.73-3.17 11.08-3.27C11.44-3.37 11.74-3.52 12-3.72C12.26-3.92 12.45-4.17 12.59-4.48C12.73-4.78 12.80-5.14 12.80-5.56C12.80-5.99 12.73-6.35 12.59-6.65C12.45-6.94 12.26-7.18 12.01-7.36C11.75-7.54 11.45-7.67 11.09-7.75C10.73-7.83 10.33-7.87 9.90-7.87ZM9.78-3.94L8.48-3.94L8.48-7.07L9.78-7.07C10.46-7.07 10.97-6.96 11.30-6.74C11.64-6.52 11.81-6.12 11.81-5.56C11.81-5.00 11.64-4.59 11.31-4.33C10.98-4.07 10.47-3.94 9.78-3.94ZM17.15-3.20L14.78-3.20L15.16-4.40C15.30-4.84 15.44-5.28 15.56-5.72C15.69-6.15 15.82-6.60 15.94-7.06L15.98-7.06C16.11-6.60 16.24-6.15 16.37-5.72C16.50-5.28 16.63-4.84 16.78-4.40ZM17.40-2.40L18.14 0L19.21 0L16.55-7.87L15.42-7.87L12.76 0L13.78 0L14.53-2.40ZM21.32-4.14L21.32-7.07L22.64-7.07C23.26-7.07 23.73-6.96 24.06-6.76C24.39-6.55 24.55-6.18 24.55-5.66C24.55-5.15 24.39-4.77 24.06-4.52C23.73-4.27 23.26-4.14 22.64-4.14ZM24.65 0L25.78 0L23.78-3.43C24.32-3.57 24.75-3.82 25.07-4.19C25.39-4.56 25.55-5.05 25.55-5.66C25.55-6.07 25.48-6.42 25.34-6.70C25.21-6.98 25.02-7.20 24.77-7.38C24.53-7.56 24.24-7.68 23.90-7.76C23.56-7.83 23.19-7.87 22.79-7.87L20.33-7.87L20.33 0L21.32 0L21.32-3.32L22.75-3.32ZM27.30-7.87L27.30 0L31.96 0L31.96-0.85L28.30-0.85L28.30-3.71L31.28-3.71L31.28-4.56L28.30-4.56L28.30-7.03L31.84-7.03L31.84-7.87ZM36.05-7.87L36.05 0L37.04 0L37.04-3.12L38.46-3.12C38.89-3.12 39.29-3.17 39.64-3.27C40.00-3.37 40.30-3.52 40.56-3.72C40.82-3.92 41.01-4.17 41.15-4.48C41.29-4.78 41.36-5.14 41.36-5.56C41.36-5.99 41.29-6.35 41.15-6.65C41.01-6.94 40.82-7.18 40.57-7.36C40.31-7.54 40.01-7.67 39.65-7.75C39.29-7.83 38.89-7.87 38.46-7.87ZM38.34-3.94L37.04-3.94L37.04-7.07L38.34-7.07C39.02-7.07 39.53-6.96 39.86-6.74C40.20-6.52 40.37-6.12 40.37-5.56C40.37-5.00 40.20-4.59 39.87-4.33C39.54-4.07 39.03-3.94 38.34-3.94ZM45.71-3.20L43.34-3.20L43.72-4.40C43.86-4.84 44.00-5.28 44.12-5.72C44.25-6.15 44.38-6.60 44.50-7.06L44.54-7.06C44.67-6.60 44.80-6.15 44.93-5.72C45.06-5.28 45.19-4.84 45.34-4.40ZM45.96-2.40L46.70 0L47.77 0L45.11-7.87L43.98-7.87L41.32 0L42.34 0L43.09-2.40ZM49.88-4.14L49.88-7.07L51.20-7.07C51.82-7.07 52.29-6.96 52.62-6.76C52.95-6.55 53.11-6.18 53.11-5.66C53.11-5.15 52.95-4.77 52.62-4.52C52.29-4.27 51.82-4.14 51.20-4.14ZM53.21 0L54.34 0L52.34-3.43C52.88-3.57 53.31-3.82 53.63-4.19C53.95-4.56 54.11-5.05 54.11-5.66C54.11-6.07 54.04-6.42 53.90-6.70C53.77-6.98 53.58-7.20 53.33-7.38C53.09-7.56 52.80-7.68 52.46-7.76C52.12-7.83 51.75-7.87 51.35-7.87L48.89-7.87L48.89 0L49.88 0L49.88-3.32L51.31-3.32ZM57.25-7.03L57.25 0L58.26 0L58.26-7.03L60.64-7.03L60.64-7.87L54.88-7.87L54.88-7.03ZM61.61-1.72L61.01-1.02C61.35-0.66 61.76-0.38 62.23-0.17C62.70 0.04 63.22 0.14 63.77 0.14C64.18 0.14 64.56 0.09 64.88-0.03C65.21-0.15 65.49-0.31 65.72-0.51C65.96-0.71 66.13-0.95 66.26-1.22C66.38-1.50 66.44-1.79 66.44-2.10C66.44-2.39 66.40-2.64 66.32-2.86C66.23-3.08 66.12-3.27 65.98-3.44C65.83-3.60 65.66-3.75 65.46-3.87C65.26-3.99 65.05-4.10 64.82-4.20L63.71-4.68C63.55-4.74 63.39-4.81 63.24-4.89C63.09-4.97 62.95-5.05 62.82-5.15C62.69-5.25 62.59-5.37 62.51-5.50C62.44-5.63 62.40-5.80 62.40-5.99C62.40-6.35 62.53-6.63 62.80-6.83C63.07-7.04 63.42-7.14 63.86-7.14C64.23-7.14 64.56-7.07 64.85-6.94C65.15-6.81 65.41-6.63 65.65-6.40L66.19-7.04C65.91-7.33 65.57-7.57 65.17-7.75C64.77-7.93 64.34-8.02 63.86-8.02C63.50-8.02 63.17-7.96 62.87-7.86C62.57-7.76 62.31-7.61 62.09-7.42C61.87-7.23 61.70-7.01 61.58-6.76C61.45-6.50 61.39-6.22 61.39-5.93C61.39-5.64 61.44-5.39 61.54-5.17C61.63-4.95 61.76-4.76 61.91-4.60C62.06-4.44 62.23-4.30 62.42-4.19C62.62-4.08 62.80-3.98 62.99-3.90L64.12-3.41C64.30-3.32 64.47-3.24 64.63-3.16C64.79-3.08 64.93-2.99 65.05-2.89C65.16-2.79 65.25-2.67 65.32-2.53C65.39-2.39 65.42-2.22 65.42-2.02C65.42-1.63 65.28-1.32 64.99-1.09C64.70-0.85 64.30-0.73 63.78-0.73C63.37-0.73 62.98-0.82 62.60-1.00C62.22-1.18 61.89-1.42 61.61-1.72Z"
+                                                        transform="translate(-0.504, 8.016)"></path>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                    <defs v-gra="od"></defs>
+                                </svg> -->
+                                <img src="{{ $generalUser->company_logo }}" alt="{{ $generalUser->profile_img }}">
+                                <div
+                                    class="tm_f20 tm_flex tm_primary_color tm_text_uppercase tm_text_center papertitleCls">
+                                    فاتورة شراء</div>
+
+                            </div>
+                           
+                            <div class="tm_f15 tm_primary_color headlbl"> شركـــــة {{ $generalUser->company_name }} </div>
+                            <div class="tm_f15 tm_primary_color headlbl">للاستيراد والتصدير والتوريدات</div>
+                            <div class="tm_f15 tm_primary_color headlbl">ملف ضريبي 11236/1919/19/5 </div>
+                            <div class="tm_f15 tm_primary_color headlbl">سجل تجاري 70108 </div>
+
+                        </div>
+                    </div>
+                    <div class="tm_invoice_info tm_mb20">
+                        <div class="tm_invoice_seperator tm_gray_bg"></div>
+                        <div class="tm_invoice_info_list">
+                            <p class="tm_invoice_number tm_m0">المورد: <b
+                                    class="tm_primary_color">{{ $orderSup[0]->supplier->name }}</b></p>
+                            <p class="tm_invoice_date tm_m0">Date: <b class="tm_primary_color"
+                                    id="datenowLbl0">{{ explode(' ', $orderSup[0]->confirmation_date)[0] }}</b></p>
+                        </div>
+                    </div>
+                    <h5 class="w-100 tm_text_center tm_accent_10_bg">فاتورة شراء رقم : {{ $orderSup[0]->transaction_id  }}</h5>
+                    <table class="table table-striped table-bordered cell-border tbl1">
+                    <thead style="background-color:#84B0CA ; text-align: center;" >
+                    <tr>
+                            <th >مسلسل</th>
+                                <th >الصنف</th>
+                                <th >الكمية</th>
+                                <th>سعر الوحدة </th>
+                                <th >الإجمالى</th>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center;">
+                            @php
+                                $m = 1;
+
+                            @endphp
+                            @foreach ($items as $item)
+                            <?php 
+                                 $Itempart=[];
+
+                                ?>
+                                  <tr>
+                                    <th scope="row">{{ $m }}</th>
+                                    @if (isset($item->part))
+                                        <td>{{ $item->part[0]->name }}</td>
+                                        <?php 
+                                            $Itempart=$item->part[0];
+                                        ?>
+                                    @elseif (isset($item->kit))
+                                        <td>{{ $item->kit[0]->name }}</td>
+                                        <?php 
+                                            $Itempart=$item->kit[0];
+                                        ?>
+                                    @elseif (isset($item->wheel))
+                                        <td>{{ $item->wheel[0]->name }}</td>
+                                    @elseif (isset($item->tractor))
+                                    <?php 
+                                        $Itempart=$item->tractor[0];
+                                    ?>
+                                    <td>{{ $item->tractor[0]->name }}</td>
+                                    @elseif (isset($item->clark))
+                                    <?php 
+                                            $Itempart=$item->clark[0];
+                                        ?>
+                                        <td>{{ $item->clark[0]->name }}</td>
+                                    @elseif (isset($item->equip))
+                                    <?php 
+                                        $Itempart=$item->equip[0];
+                                    ?>
+                                    <td>{{ $item->equip[0]->name }}</td>
+                                    @endif
+
+                                  <?php  $ratioamount=getSmallUnit($item->unit_id,$Itempart->small_unit);
+                                    ?>
+                                    <td>{{ $item->amount /$ratioamount }} / {{ $item->unit->name }} </td>
+                                    <td>{{ isset($item->price ) ? $item->price *  floatVal($ratioamount ) : 0 }}
+                                    </td>
+                                    <td>{{ floatVal($item->amount /$ratioamount) * floatVal($item->price ) * floatVal($ratioamount ) }}
+                                    </td>
+                                </tr>
+                                @php
+                                    $m++;
+
+                                @endphp
+                            @endforeach
+                        </tbody>
+
+                    </table>
+                    <br>
+                    <hr>
+                    <br>
+                    <div class="tm_invoice_info">
+                         <div>
+                            <p class="tm_invoice_number tm_m0">العملة: <b
+                                    class="tm_primary_color">{{ $orderSup[0]->currency_type->name }}</b></p>
+                        </div>
+                        <div>
+                            <p class="tm_invoice_number tm_m0">الضريبة: <b
+                                    class="tm_primary_color">{{ $orderSup[0]->tax }}</b></p>
+                        </div>
+                        <div class="">
+                            @if ($orderSup[0]->taxInvolved_flag == 1)
+                                <b class="tm_invoice_number tm_m0"> غير شامل الضريبة </b>
+                            @else
+                                <b class="tm_invoice_number tm_m0">شامل الضريبة </b>
+                            @endif
+                        </div>
+                        <div class="">
+                            <p class="tm_invoice_number tm_m0">السعر: <b
+                                    class="tm_primary_color">{{ $orderSup[0]->pricebeforeTax }}</b></p>
+                        </div>
+
+
+
+                    </div>
+                    <br>
+                    <br>
+                    <div class="tm_invoice_info_2">
+                        <div class="">
+                            <div>
+                                <p class="tm_invoice_number tm_m0"> إجمالي بالضريبة: <b
+                                        class="tm_primary_color">{{ $orderSup[0]->total_price }}</b></p>
+                            </div>
+                            <div>
+                                <p class="tm_invoice_number tm_m0"> المدفوع: <b
+                                        class="tm_primary_color">{{ $orderSup[0]->paied }}</b></p>
+                            </div>
+                            <div>
+                                <p class="tm_invoice_number tm_m0"> المتبقي : <b
+                                        class="tm_primary_color">{{ floatval($orderSup[0]->total_price) - floatval($orderSup[0]->paied) }}</b>
+                                </p>
+                            </div>
+                            @if (floatval($orderSup[0]->total_price) - floatval($orderSup[0]->paied) > 0)
+                                <div>
+                                    <p class="tm_invoice_number tm_m0"> تاريخ استحقاق: <b
+                                            class="tm_primary_color">{{ $orderSup[0]->due_date }}</b></p>
+                                </div>
+                            @endif
+
+
+
+
+                        </div>
+                        <div class="">
+                            <div>
+                                <p class="tm_invoice_number tm_m0">مصروفات شحن ونقل المشتريات: <b
+                                        class="tm_primary_color">{{ $orderSup[0]->transport_coast }}</b></p>
+                            </div>
+                            <div>
+                                <p class="tm_invoice_number tm_m0">مصروفات التأمين على البضاعة المشتراة: <b
+                                        class="tm_primary_color">{{ $orderSup[0]->insurant_coast }}</b></p>
+                            </div>
+                            <div>
+                                <p class="tm_invoice_number tm_m0">الرسوم الجمركية على البضاعة المشتراة: <b
+                                        class="tm_primary_color">{{ $orderSup[0]->customs_coast }}</b></p>
+                            </div>
+                            <div>
+                                <p class="tm_invoice_number tm_m0">عمولة وكلاء الشراء: <b
+                                        class="tm_primary_color">{{ $orderSup[0]->commotion_coast }}</b></p>
+                            </div>
+                            <div>
+                                <p class="tm_invoice_number tm_m0"> مصروفات اخرى: <b
+                                        class="tm_primary_color">{{ $orderSup[0]->other_coast }}</b></p>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <h6> System Created by WBS.  Lystah app support mail : app.lystah.com -  Phone : 01002058529</h6>
+
+            </div>
+            <div class="tm_invoice_btns tm_hide_print">
+                <a href="javascript:window.print()" class="tm_invoice_btn tm_color1">
+                    <span class="tm_btn_icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                            <path
+                                d="M384 368h24a40.12 40.12 0 0040-40V168a40.12 40.12 0 00-40-40H104a40.12 40.12 0 00-40 40v160a40.12 40.12 0 0040 40h24"
+                                fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+                            <rect x="128" y="240" width="256" height="208" rx="24.32" ry="24.32"
+                                fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+                            <path d="M384 128v-24a40.12 40.12 0 00-40-40H168a40.12 40.12 0 00-40 40v24" fill="none"
+                                stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+                            <circle cx="392" cy="184" r="24" fill='currentColor' />
+                        </svg>
+                    </span>
+                    <span class="tm_btn_text">Print</span>
+                </a>
+                <button id="tm_download_btn" class="tm_invoice_btn tm_color2">
+                    <span class="tm_btn_icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                            <path
+                                d="M320 336h76c55 0 100-21.21 100-75.6s-53-73.47-96-75.6C391.11 99.74 329 48 256 48c-69 0-113.44 45.79-128 91.2-60 5.7-112 35.88-112 98.4S70 336 136 336h56M192 400.1l64 63.9 64-63.9M256 224v224.03"
+                                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="32" />
+                        </svg>
+                    </span>
+                    <span class="tm_btn_text">Download</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="{{ URL::asset('print-assets/js/jquery.min.js') }}"></script>
+    <script src="{{ URL::asset('print-assets/js/jspdf.min.js') }}"></script>
+    <script src="{{ URL::asset('print-assets/js/html2canvas.min.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js">
+    </script>
+    <script src="{{ URL::asset('print-assets/js/main.js') }}"></script>
+    <script>
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        let mm = today.getMonth() + 1; // Months start at 0!
+        let dd = today.getDate();
+
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
+
+        const formattedToday = dd + '/' + mm + '/' + yyyy;
+        $("#datenowLbl").html(formattedToday)
+    </script>
+
+    <script></script>
+    @yield('js')
+</body>
+
+</html>

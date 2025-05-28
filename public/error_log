@@ -1,0 +1,60 @@
+[08-Jul-2023 18:20:44 UTC] PHP Warning:  require_once(/home/wpzvp4nm7ofw/public_html/public/../../bootstrap/app.php): Failed to open stream: No such file or directory in /home/wpzvp4nm7ofw/public_html/public/index.php on line 47
+[08-Jul-2023 18:20:44 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/wpzvp4nm7ofw/public_html/public/../../bootstrap/app.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/wpzvp4nm7ofw/public_html/public/index.php:47
+Stack trace:
+#0 {main}
+  thrown in /home/wpzvp4nm7ofw/public_html/public/index.php on line 47
+[08-Jul-2023 18:20:46 UTC] PHP Warning:  require_once(/home/wpzvp4nm7ofw/public_html/public/../../bootstrap/app.php): Failed to open stream: No such file or directory in /home/wpzvp4nm7ofw/public_html/public/index.php on line 47
+[08-Jul-2023 18:20:46 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/wpzvp4nm7ofw/public_html/public/../../bootstrap/app.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/wpzvp4nm7ofw/public_html/public/index.php:47
+Stack trace:
+#0 {main}
+  thrown in /home/wpzvp4nm7ofw/public_html/public/index.php on line 47
+[08-Jul-2023 18:20:48 UTC] PHP Warning:  require_once(/home/wpzvp4nm7ofw/public_html/public/../../bootstrap/app.php): Failed to open stream: No such file or directory in /home/wpzvp4nm7ofw/public_html/public/index.php on line 47
+[08-Jul-2023 18:20:48 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/wpzvp4nm7ofw/public_html/public/../../bootstrap/app.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/wpzvp4nm7ofw/public_html/public/index.php:47
+Stack trace:
+#0 {main}
+  thrown in /home/wpzvp4nm7ofw/public_html/public/index.php on line 47
+[08-Jul-2023 18:20:48 UTC] PHP Warning:  require_once(/home/wpzvp4nm7ofw/public_html/public/../../bootstrap/app.php): Failed to open stream: No such file or directory in /home/wpzvp4nm7ofw/public_html/public/index.php on line 47
+[08-Jul-2023 18:20:48 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/wpzvp4nm7ofw/public_html/public/../../bootstrap/app.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/wpzvp4nm7ofw/public_html/public/index.php:47
+Stack trace:
+#0 {main}
+  thrown in /home/wpzvp4nm7ofw/public_html/public/index.php on line 47
+[08-Jul-2023 18:20:50 UTC] PHP Warning:  require_once(/home/wpzvp4nm7ofw/public_html/public/../../bootstrap/app.php): Failed to open stream: No such file or directory in /home/wpzvp4nm7ofw/public_html/public/index.php on line 47
+[08-Jul-2023 18:20:50 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/wpzvp4nm7ofw/public_html/public/../../bootstrap/app.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/wpzvp4nm7ofw/public_html/public/index.php:47
+Stack trace:
+#0 {main}
+  thrown in /home/wpzvp4nm7ofw/public_html/public/index.php on line 47
+[15-Aug-2023 19:49:58 UTC] PHP Fatal error:  Cannot use empty array elements in arrays in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/POSController.php on line 814
+[15-Aug-2023 19:51:17 UTC] PHP Fatal error:  Cannot use empty array elements in arrays in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/POSController.php on line 814
+[15-Aug-2023 19:51:17 UTC] PHP Fatal error:  Cannot use empty array elements in arrays in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/POSController.php on line 814
+[02-Mar-2024 20:05:14 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 182
+[02-Mar-2024 20:05:14 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 192
+[02-Mar-2024 20:05:14 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 203
+[02-Apr-2024 14:30:17 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 182
+[02-Apr-2024 14:30:17 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 192
+[02-Apr-2024 14:30:17 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 203
+[03-Apr-2024 19:32:04 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 182
+[03-Apr-2024 19:32:04 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 192
+[03-Apr-2024 19:32:04 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 203
+[05-Apr-2024 20:08:19 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 182
+[05-Apr-2024 20:08:19 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 192
+[05-Apr-2024 20:08:19 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 203
+[21-Apr-2024 20:43:41 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 182
+[21-Apr-2024 20:43:41 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 192
+[21-Apr-2024 20:43:41 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 203
+[26-Apr-2024 19:18:08 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 182
+[26-Apr-2024 19:18:08 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 192
+[26-Apr-2024 19:18:08 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 203
+[30-Apr-2024 16:50:59 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 182
+[30-Apr-2024 16:50:59 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 192
+[30-Apr-2024 16:50:59 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 203
+[01-May-2024 08:47:43 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 182
+[01-May-2024 08:47:43 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 192
+[01-May-2024 08:47:43 UTC] PHP Deprecated:  Optional parameter $branchId declared before required parameter $to is implicitly treated as a required parameter in /home/wpzvp4nm7ofw/public_html/app/Http/Controllers/accountingController.php on line 203
+[04-May-2024 18:42:55 UTC] PHP Fatal error:  Allowed memory size of 268435456 bytes exhausted (tried to allocate 40960 bytes) in /home/wpzvp4nm7ofw/public_html/vendor/laravel/framework/src/Illuminate/Collections/Arr.php on line 116
+[04-May-2024 18:50:37 UTC] PHP Fatal error:  Allowed memory size of 268435456 bytes exhausted (tried to allocate 40960 bytes) in /home/wpzvp4nm7ofw/public_html/vendor/laravel/framework/src/Illuminate/Collections/Arr.php on line 116
+[04-May-2024 21:36:15 UTC] PHP Fatal error:  Allowed memory size of 268435456 bytes exhausted (tried to allocate 28209576 bytes) in /home/wpzvp4nm7ofw/public_html/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 63
+[04-May-2024 21:36:44 UTC] PHP Fatal error:  Allowed memory size of 268435456 bytes exhausted (tried to allocate 28209576 bytes) in /home/wpzvp4nm7ofw/public_html/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 63
+[04-May-2024 21:37:32 UTC] PHP Fatal error:  Allowed memory size of 268435456 bytes exhausted (tried to allocate 28209576 bytes) in /home/wpzvp4nm7ofw/public_html/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 63
+[04-May-2024 21:59:36 UTC] PHP Fatal error:  Allowed memory size of 268435456 bytes exhausted (tried to allocate 28209400 bytes) in /home/wpzvp4nm7ofw/public_html/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 63
+[04-May-2024 22:00:23 UTC] PHP Fatal error:  Allowed memory size of 268435456 bytes exhausted (tried to allocate 28209400 bytes) in /home/wpzvp4nm7ofw/public_html/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 63
+[04-May-2024 22:10:24 UTC] PHP Fatal error:  Allowed memory size of 268435456 bytes exhausted (tried to allocate 28209400 bytes) in /home/wpzvp4nm7ofw/public_html/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 63

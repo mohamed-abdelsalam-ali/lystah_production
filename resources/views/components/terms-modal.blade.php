@@ -1,0 +1,5 @@
+<!-- Terms Modal -->
+
+<script>
+
+</script> 

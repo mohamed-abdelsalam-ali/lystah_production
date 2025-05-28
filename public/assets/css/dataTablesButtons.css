@@ -1,0 +1,162 @@
+.addButton {
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(30deg, #28badb, #7eddf3);
+    border-radius: 20px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 18px;
+    padding: 0.2em 1.5em 0.2em 1.5em;
+    margin-bottom: 2.322px; 
+}
+
+.addButton:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse5123 1.5s infinite;
+}
+
+@keyframes pulse5123 {
+    0% {
+        box-shadow: 0 0 0 0 #28badb;
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+    }
+
+    100% {
+    box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+    }
+}
+.deleteButton {
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(30deg, #ff0044, #f0c7d2);
+    border-radius: 20px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 17px;
+    padding: 0.0em 1.5em 0.0em 1.5em;
+    margin-bottom: 2.322px; 
+}
+
+.deleteButton:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse5121 1.5s infinite;
+}
+
+@keyframes pulse5121 {
+    0% {
+        box-shadow: 0 0 0 0 #ed4e4e66;
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+    }
+
+    100% {
+    box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+    }
+}
+.printButton {
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(30deg, #09861e, #bdf4c4);
+    border-radius: 20px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 17px;
+    padding: 0.2em 1.5em;
+}
+
+.printButton:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse5122 1.5s infinite;
+}
+
+@keyframes pulse5122 {
+    0% {
+        box-shadow: 0 0 0 0 #8eb794;
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+    }
+
+    100% {
+    box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+    }
+}
+.editButton {
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(30deg, #0400ff, #4ce3f7);
+    border-radius: 20px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 17px;
+    padding: 0.2em 1.5em;
+}
+
+.editButton:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse512 1.5s infinite;
+}
+
+.deleteServiceButton {
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(30deg, #ff0044, #f0c7d2);
+    border-radius: 20px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 17px;
+    padding: 0.2em 1.5em;
+}
+
+.deleteServiceButton:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse5121 1.5s infinite;
+}
+
+@keyframes pulse512 {
+    0% {
+        box-shadow: 0 0 0 0 #05bada66;
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+    }
+
+    100% {
+    box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+    }
+}
+
+.inputText {
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    padding: 0px;
+    padding-bottom: 0px;
+    background-color: #dad7d7;
+    box-shadow: inset 2px 5px 10px rgba(30, 29, 29, 0.3);
+    transition: 300ms ease-in-out;
+  }
+  
+  .inputText:focus {
+    background-color: rgb(234, 238, 129);
+    transform: scale(1.05);
+    box-shadow: 13px 13px 100px #dcdada,
+               -13px -13px 100px #ffffff;
+  }

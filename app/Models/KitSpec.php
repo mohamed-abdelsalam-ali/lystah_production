@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * Created by Reliese Model.
+ */
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
+
+
+/**
+ * Class KitSpec
+ * 
+ * @property int $id
+ * @property string|null $name
+ * @property string|null $unit
+ * @property int|null $general_flag
+ * 
+ * @property Collection|KitDetail[] $kit_details
+ *
+ * @package App\Models
+ */
+class KitSpec extends Model implements Auditable
+{
+        use \OwenIt\Auditing\Auditable;
+
+	protected $table = 'kit_specs';
+	public $timestamps = false;
+
+	protected $casts = [
+		'general_flag' => 'int'
+	];
+
+	protected $fillable = [
+		'name',
+		'unit',
+		'general_flag'
+	];
+
+	public function kit_details()
+	{
+		return $this->hasMany(KitDetail::class, 'kitpecs_id');
+	}
+}
