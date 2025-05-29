@@ -101,9 +101,9 @@ class CompanyRegesterController extends Controller
     protected function createCompanyDatabase($dbName)
     {
         $startTime = microtime(true);
-        $baseDb = 'emdb';
-        $username = config('database.connections.mysql.username');
-        $password = config('database.connections.mysql.password');
+        $baseDb = 'u683464483_lystah_db';
+        $username = config('database.connections.mysql.backupusername');
+        $password = config('database.connections.mysql.backuppassword');
         $host = config('database.connections.mysql.host');
 
         try {
