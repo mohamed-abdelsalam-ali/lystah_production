@@ -6761,6 +6761,8 @@ class POSController extends Controller
 
         if ($request->ajax()) {
 
+
+            
             ////           Get Store Entity /////////////////
             $store = Store::where('id', $request->storeId)->first();
 
