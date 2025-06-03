@@ -862,6 +862,7 @@ class POSController extends Controller
             }
            
             if ($Store_log_id > 0) {
+                $store_logData = StoresLog::where('id',$Store_log_id)->first();
                 $res = $this->check_p_type($type_id);
                 // return $res;
                 $all_part_table_name = $res[0];
@@ -899,6 +900,7 @@ class POSController extends Controller
                     $entity::where($store_table_name . '.store_log_id', '=', $founded_row[0]->store_log_id)->update([
                         'amount' => intval($founded_row[0]->oldamount) + intval($amount),
                         'store_log_id' => $founded_row[0]->store_log_id,
+                        'unit_id'=>$store_logData->unit_id
                     ]);
                     
                     $logMessage.='تم دخول part id '.$founded_row[0]->part_id.'الكمية والتعديل'.intval($founded_row[0]->oldamount) + intval($amount).' الي'.$store_table_name.'<br/>';
@@ -912,6 +914,7 @@ class POSController extends Controller
                         'type_id' => $type_id,
                         'store_log_id' => $Store_log_id,
                         'date' => date('Y-m-d H:i:s'),
+                        'unit_id'=>$store_logData->unit_id
                     ]);
                      $logMessage.='تم دخول part id '.$founded_row[0]->part_id.'الكمية '.$amount .' الي'.$store_table_name.'<br/>';
                  
@@ -6762,7 +6765,7 @@ class POSController extends Controller
         if ($request->ajax()) {
 
 
-            
+
             ////           Get Store Entity /////////////////
             $store = Store::where('id', $request->storeId)->first();
 
@@ -6786,6 +6789,7 @@ class POSController extends Controller
                     ->groupBy('all_parts.part_id', 'all_parts.source_id', 'all_parts.status_id', 'all_parts.quality_id',  $store->table_name . '.type_id')
                     ->with([
                         'unit',
+
                         'stores_log.all_parts.part.part_numbers',
                         'stores_log.all_parts.part.part_images',
                         'stores_log.all_parts.part.getsmallunit.unit',
