@@ -900,7 +900,7 @@ class POSController extends Controller
                     $entity::where($store_table_name . '.store_log_id', '=', $founded_row[0]->store_log_id)->update([
                         'amount' => intval($founded_row[0]->oldamount) + intval($amount),
                         'store_log_id' => $founded_row[0]->store_log_id,
-                        'unit_id'=>$store_logData->unit_id
+                        'unit_id'=>$unit_id ,
                     ]);
                     
                     $logMessage.='تم دخول part id '.$founded_row[0]->part_id.'الكمية والتعديل'.intval($founded_row[0]->oldamount) + intval($amount).' الي'.$store_table_name.'<br/>';
@@ -914,7 +914,7 @@ class POSController extends Controller
                         'type_id' => $type_id,
                         'store_log_id' => $Store_log_id,
                         'date' => date('Y-m-d H:i:s'),
-                        'unit_id'=>$store_logData->unit_id
+                        'unit_id'=>$unit_id ,
                     ]);
                      $logMessage.='تم دخول part id '.$founded_row[0]->part_id.'الكمية '.$amount .' الي'.$store_table_name.'<br/>';
                  
