@@ -1128,7 +1128,12 @@
                     }
                 });
             } else {
-                alert("This Process Can`t Deleted")
+                // alert("This Process Can`t Deleted")
+                Swal.fire({
+                icon: 'error',
+                title: 'error',
+                text: 'This Process Can`t Deleted !',
+                });
             }
         }
 
@@ -1190,7 +1195,12 @@
                     }
                 });
             } else {
-                alert("Need  Store To recive Amount");
+                Swal.fire({
+                icon: 'error',
+                title: 'error',
+                text: 'Need  Store To recive Amount !',
+                });
+                // alert("Need  Store To recive Amount");
             }
 
         }

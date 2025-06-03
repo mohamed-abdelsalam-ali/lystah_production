@@ -51,9 +51,13 @@ class Store2 extends Model implements Auditable
 		'notes',
 		'type_id',
 		'store_log_id',
-		'date'
+		'date',
+		'unit_id'
 	];
-
+	public function unit()
+	{
+		return $this->belongsTo(Unit::class, 'unit_id');
+	}
 	public function order_supplier()
 	{
 		return $this->belongsTo(OrderSupplier::class, 'supplier_order_id');

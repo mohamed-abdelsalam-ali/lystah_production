@@ -326,7 +326,27 @@
                     },
                     {
                         data: 'trans_amount',
-                        name: 'trans_amount'
+                        name: 'trans_amount' ,
+                        render: function(data, type, row) {
+        
+                            return data/row.ratio 
+    
+                        }
+                    },
+                    {
+                        data: 'ratio',
+                        name: 'ratio' ,
+                      "visible": false
+                    },
+                    {
+                        data: 'bigunit',
+                        name: 'unit' ,
+                      
+                    },
+                    {
+                        data: 'buy_unit_id',
+                        name: 'buy_unit_id' ,
+                        "visible": false
                     },
 
                     {
@@ -798,10 +818,11 @@
 
             var row_clicked = $(el).closest('tr');
             var row_object = table.row(row_clicked).data();
-            // console.log(row_object.trans_amount)
+            console.log(row_object.trans_amount)
             var row_accept_amount = table.row(row_clicked).node();
-            var row_accept_amount = parseInt(row_clicked.find('.acceptedamount').val());
-            var actual_amount = parseInt(row_object.trans_amount);
+            var row_accept_amount = parseFloat(row_clicked.find('.acceptedamount').val()) * parseFloat(row_object.ratio);
+            var actual_amount = parseFloat(row_object.trans_amount) ;
+            var unit_id = row_object.unit_id;
             store_idx = row_object.store_id;
             if (row_accept_amount == actual_amount) {
                 flages = 1;
@@ -841,11 +862,12 @@
                                 'store_action_id': row_object.store_action_id,
                                 'all_p_id': row_object.All_part_id,
                                 'part_id': row_object.part_id,
-                                'accamount': row_accept_amount,
+                                'accamount': row_accept_amount ,
                                 'type_id': row_object.type_id,
                                 'store_id': row_object.store_id,
                                 'flag_completed': flages,
-                                'actual_amount': actual_amount
+                                'actual_amount': actual_amount,
+                                'unit_id':unit_id
                             }
 
 
@@ -912,6 +934,15 @@
 
 
             }
+            
+                var row = $(el).closest('tr');
+
+                //console.log(priceList);
+                var priceList1 =JSON.stringify(priceList);
+                var indexRw = partsDt.row(row).index();
+
+                var rowData = partsDt.row(row).data();
+                console.log(rowData);
             if(type_id == 1){
                 if(part_specs.length > 0){
                     var p_weight1={};
@@ -921,6 +952,26 @@
                     }
                 }else{
                     weight=0;
+                }
+                var measureUnits = rowData.stores_log.all_parts[0].part.getsmallunit;
+                var samllmeasureUnits = rowData.stores_log.all_parts[0].part.small_unit;
+                var bigmeasureUnits = rowData.stores_log.all_parts[0].part.bigunit;
+                // console.log(bigmeasureUnits);
+                var measureUnitsElement = '<select name="measureUnit[]" required class="form-control-sm py-0 mesureClass"><option value="" selected disabled>Choose Units</option>';
+                if(measureUnits.length > 0){
+                    measureUnits.forEach(element => {
+                        if(element.unit.id == bigmeasureUnits.id){
+                            measureUnitsElement +='<option value="'+element.unit.id+'"  data-val="'+element.value+'" selected>'+element.unit.name+'</option>';    
+        
+                        }else{
+                            measureUnitsElement +='<option value="'+element.unit.id+'"  data-val="'+element.value+'">'+element.unit.name+'</option>';    
+        
+                        }
+                    });
+                    measureUnitsElement +='</select>';
+                }else{
+                    measureUnitsElement +='</select>';
+            
                 }
             }else if(type_id == 2){
                 if(part_specs.length > 0){
@@ -941,6 +992,26 @@
                     }
                 }else{
                     weight=0;
+                }
+                var measureUnits = rowData.stores_log.all_parts[0].part.getsmallunit;
+                var samllmeasureUnits = rowData.stores_log.all_parts[0].part.small_unit;
+                var bigmeasureUnits = rowData.stores_log.all_kits[0].kit_part.part.bigunit;
+                console.log(bigmeasureUnits);
+                var measureUnitsElement = '<select name="measureUnit[]" required class="form-control-sm py-0 mesureClass"><option value=""  disabled>Choose Units</option>';
+                if(measureUnits.length > 0){
+                    measureUnits.forEach(element => {
+                        if(element.unit.id == bigmeasureUnits.id){
+                            measureUnitsElement +='<option value="'+element.unit.id+'"  data-val="'+element.value+'" selected>'+element.unit.name+'</option>';    
+        
+                        }else{
+                            measureUnitsElement +='<option value="'+element.unit.id+'"  data-val="'+element.value+'">'+element.unit.name+'</option>';    
+        
+                        }
+                    });
+                    measureUnitsElement +='</select>';
+                }else{
+                    measureUnitsElement +='</select>';
+            
                 }
             }else if(type_id == 3){
                 if(part_specs.length > 0){
@@ -1018,11 +1089,6 @@
               $(el).closest('.addBtn').addClass('d-none');
 
 
-            var row = $(el).closest('tr');
-
-            //console.log(priceList);
-            var priceList1 =JSON.stringify(priceList);
-            var indexRw = partsDt.row(row).index();
             // <td>${$(el).closest('tr').find('.sectionList').parent().html()}</td>
 
             if($(`#invoiceItems tr[data-val='${type_id}-${partId}-${SourceId}-${StatusId}-${qualityId}']`).length > 0 ){
@@ -1042,15 +1108,18 @@
                     <td class="itemTotalPrice">${parseFloat(price) * parseFloat(Amount)}</td>
                     <td class="p-3" style="cursor: pointer;" onclick="removeItemFromInvoice(${indexRw},this)"><i class="mdi mdi-trash-can-outline p-1 rounded text-bg-danger"></i></td>
                     <td style="">${weight}</td>
+                       <td style="">${measureUnitsElement}</td>
                       <input type="hidden" name="items_part[]" value="${partId}-${SourceId}-${StatusId}-${qualityId}-${type_id}">
                         <input type="hidden" name="pricetype[]" value="${PriceTypeId}">
                         <input type="hidden" name="itemPrice[]" value="${price}">
+                           <input type="hidden" name="samllmeasureUnits[]" value="${samllmeasureUnits}">
+                <input type="hidden" name="bigunitid[]" value="${bigmeasureUnits.id}">
                 </tr>
 
                 `);
             }
 
-
+            $('.mesureClass').trigger('change');
             calcTotal();
             calcWeight();
             
@@ -1058,7 +1127,7 @@
             
               options.push({'part_specs': JSON.stringify(part_specs) , 'partId' : partId,'name' : name
                 ,'SourceId' : SourceId,'StatusId' : StatusId,'qualityId' : qualityId,'Amount' : Amount ,'weight' : weight,'PriceTypeId' : PriceTypeId
-                ,'price' : price,'totalAmount' : totalAmount,'type_id' : type_id,'priceList' : priceList1,'card' : card});
+                ,'price' : price,'totalAmount' : totalAmount,'type_id' : type_id,'priceList' : priceList1,'card' : card,'measureUnitsElement' : measureUnitsElement ,'samllmeasureUnits' : samllmeasureUnits ,'bigunitid' : bigmeasureUnits.id});
             cardOptions.push(JSON.stringify(options))
             localStorage.setItem('cardOptions',cardOptions);
 
@@ -1085,7 +1154,11 @@
 
             }
             var jsonSting = localStorage.getItem('cardOptions')
-            jsonSting = '[' + jsonSting.split('],[').join(',') + ']';
+            if(jsonSting){
+                jsonSting = '[' + jsonSting.split('],[').join(',') + ']';
+            }
+              
+        
 
             var storedData = JSON.parse(jsonSting) || [];
             if (storedData.length > 0){
@@ -1111,9 +1184,13 @@
                                     <td class="itemTotalPrice">${parseFloat(item.price) * parseFloat(item.Amount)}</td>
                                     <td class="p-3" style="cursor: pointer;" onclick="removeItemFromInvoice(${item.indexRw},this)"><i class="mdi mdi-trash-can-outline p-1 rounded text-bg-danger"></i></td>
                                     <td style="">${item.weight}</td>
+                                    <td style=""></td>
+
                                     <input type="hidden" name="items_part[]" value="${item.partId}-${item.SourceId}-${item.StatusId}-${item.qualityId}-${item.type_id}">
                                         <input type="hidden" name="pricetype[]" value="${item.PriceTypeId}">
                                         <input type="hidden" name="itemPrice[]" value="${item.price}">
+                                             <input type="hidden" name="samllmeasureUnits[]" value="${item.samllmeasureUnits}">
+                                            <input type="hidden" name="bigunitid[]" value="${item.bigunitid}">
                                 </tr>
 
                                 `);
@@ -1157,7 +1234,9 @@
 
 
             var jsonSting = localStorage.getItem('cardOptions')
-            jsonSting = '[' + jsonSting.split('],[').join(',') + ']';
+            if(jsonSting){
+                jsonSting = '[' + jsonSting.split('],[').join(',') + ']';
+            }
             var jsonObj = JSON.parse(jsonSting)
             var jsonObj = jsonObj[0];
 
@@ -2712,3 +2791,10 @@ function reloadFilter(el,element){
     $("#filterBtn").trigger('click');
 
 }
+$(document).on('change', '.mesureClass', function(){
+    var mesureVal = $('option:selected', this).attr('data-val') ;
+    var rowPrice = parseFloat($(this).closest('tr').find('input[name="itemPrice[]"]').val());
+    $(this).closest('tr').find('.itemPrice').text(mesureVal * rowPrice);
+    $(this).closest('tr').find('.itemAmount').trigger('keyup');
+    calcTotal();
+});

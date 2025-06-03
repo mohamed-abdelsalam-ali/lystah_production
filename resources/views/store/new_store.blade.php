@@ -241,10 +241,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Delete Unit</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Delete Store</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('unit.destroy', 'test') }}" method="post">
+                <form action="{{ route('storesv.destroy', 'test') }}" method="post">
                     {{ method_field('Delete') }}
                     {{ csrf_field() }}
                     <div class="modal-body">
@@ -257,7 +257,7 @@
                                     <div class="col-12">
                                         <input id="store_id_delete" name="store_id" type="hidden" class=""
                                             required="">
-                                        <label for="recipient-name" class="col-form-label"> سيتم حذف هذه الوحدة </label>
+                                        <label for="recipient-name" class="col-form-label"> سيتم حذف هذا المخزن  </label>
 
                                         <input id="store_name_delete" name="name" type="text"
                                             class="form-control" readonly>

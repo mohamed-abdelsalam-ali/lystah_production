@@ -64,7 +64,8 @@ class StoresLog extends Model implements Auditable
 		'user_id',
 		'status',
 		'type_id',
-		'notes'
+		'notes',
+		'unit_id'
 	];
 
 	public function store()
@@ -144,4 +145,8 @@ class StoresLog extends Model implements Auditable
 		return $this->hasMany(StorelogSection::class,'store_log_id');
 
     }
+	public function unit()
+	{
+		return $this->belongsTo(Unit::class, 'unit_id');
+	}
 }

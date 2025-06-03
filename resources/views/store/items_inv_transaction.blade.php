@@ -164,7 +164,7 @@
                                             <td class="text-center">
 
                                                     <div class=""
-                                                        onclick="save_amount(this,{{ $item->order_supplier_id }},{{ $item->allpart_data[0]->id }},{{ $item->part_type_id }},{{ $item->part_id }},{{ $item->source_id }},{{ $item->status_id }},{{ $item->quality_id }},{{ $items[0]->id }},{{   $ratioamount  }})">
+                                                        onclick="save_amount(this,{{ $item->order_supplier_id }},{{ $item->allpart_data[0]->id }},{{ $item->part_type_id }},{{ $item->part_id }},{{ $item->source_id }},{{ $item->status_id }},{{ $item->quality_id }},{{ $items[0]->id }},{{   $ratioamount  }},{{ $item->unit_id }})">
                                                         <a class="menu-link px-3 btn btn-info save_send_amount">حفظ</a>
                                                     </div>
 
@@ -271,7 +271,7 @@ function calcamount($row, ratioValue) {
     }
 
     // var x=new KTAppEcommerceSalesListing;
-    function save_amount(el, o_s_id, all_p_id, p_type_id, p_id, sorce_id, status_id, q_id, inv_id ,ratio) {
+    function save_amount(el, o_s_id, all_p_id, p_type_id, p_id, sorce_id, status_id, q_id, inv_id ,ratio,unit_id) {
         // alert(p_id);
         var data_arr = [{
             'bisc_data': ""
@@ -288,7 +288,8 @@ function calcamount($row, ratioValue) {
             'part_id': p_id,
             'sorce_id': sorce_id,
             'status_id': status_id,
-            'quality_id': q_id
+            'quality_id': q_id,
+            'unit_id': unit_id
         });
 
         for (let i = 0; i < $(el.closest('tr')).find('.inserted_ammount').length; i++) {

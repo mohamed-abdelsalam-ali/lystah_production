@@ -674,12 +674,12 @@
                                         <button id="filterBtn" class="btn btn-block btn-prime rounded-0">  بحث تفصيلي <i class="ri-search-2-line"></i></button>
                                     </div>
                                     <div class="col-lg-12">
-                                        <label for="">بحث عن</label>
+                                        <label for="partNameSearchTxt">بحث عن</label>
                                         <input type="search" value="" class="form-control" name="number"
                                             id="partNameSearchTxt">
                                     </div>
                                     <div class="col-lg-12">
-                                        <label for="">النوع'TYPE' :</label>
+                                        <label for="brandtypeSlct">النوع'TYPE' :</label>
                                         <select name="brandType" class="form-select" id="brandtypeSlct">
                                             <option value="" selected disabled>Choose Here</option>
                                             @foreach ($Btype as $element)
@@ -688,7 +688,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-12">
-                                        <label for="">Brand</label>
+                                        <label for="brandSlct">Brand</label>
                                         <select name="brand" aria-label="Default select example" class="form-select"
                                             id="brandSlct">
                                             <option value="" selected disabled>Choose Here</option>
@@ -698,7 +698,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-12">
-                                        <label for="">MODEL</label>
+                                        <label for="modelSlct">MODEL</label>
                                         <select name="model" class="form-select" id="modelSlct">
                                             <option value="" selected disabled>Choose Here</option>
                                             @foreach ($allmodel as $element)
@@ -707,7 +707,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-12">
-                                        <label for="">SERIES</label>
+                                        <label for="seriesSlct">SERIES</label>
                                         <select name="series" class="form-select" id="seriesSlct">
                                             <option value="" selected disabled>Choose Here</option>
                                             @foreach ($allseries as $element)
@@ -716,12 +716,12 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-12">
-                                        <label for="">NUMBER</label>
+                                        <label for="partNumberSearchTxt">NUMBER</label>
                                         <input type="search" value="" class="form-control" name="number"
                                             id="partNumberSearchTxt">
                                     </div>
                                     <div class="col-lg-12">
-                                        <label for="">SUPPLIER</label>
+                                        <label for="supplierSlct">SUPPLIER</label>
                                         <select name="supplier" class="form-select" id="supplierSlct">
                                             <option value="" selected disabled>Choose Here</option>
                                             @foreach ($allSuppliers as $element)
@@ -730,7 +730,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-12">
-                                        <label for="">Group</label>
+                                        <label for="groupSlct">Group</label>
                                         <select name="group" class="form-select" id="groupSlct">
                                             <option value="" selected disabled>Choose Here</option>
                                             @foreach ($allGroups as $element)
@@ -739,7 +739,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-12">
-                                        <label for="">Sub Group</label>
+                                        <label for="SgroupSlct">Sub Group</label>
                                         <select name="subgroup" class="form-select" id="SgroupSlct">
                                             <option value="" selected disabled>Choose Here</option>
                                             @foreach ($allSGroups as $element)
@@ -892,6 +892,9 @@
                                             <th class="text-center">Store_action </th>
                                             <th class="text-center">StoreActionId </th>
                                             <th class="text-center">Amount </th>
+                                            <th class="text-center">ratio </th>
+                                            <th class="text-center">unit </th>
+                                            <th class="text-center">unit_id </th>
                                             <th class="text-center">Store </th>
                                             <th class="text-center">SrtorId </th>
                                             <th class="text-center">date </th>
@@ -1174,20 +1177,20 @@
                                 <div class="row" id="cashpay">
 
                                     <div class="col mb-3">
-                                        <label for="" class="form-label">paid</label>
+                                        <label for="invPaied" class="form-label">paid</label>
                                         <input type="text" class="form-control" name="invPaied" required=""
                                             id="invPaied" aria-describedby="helpId" placeholder="">
 
                                     </div>
                                     <div class="col mb-3">
-                                        <label for="" class="form-label"> Discount ( بالجنية )</label>
+                                        <label for="invDiscount" class="form-label"> Discount ( بالجنية )</label>
                                         <input type="text" class="form-control" name="invDiscount" value="0"
                                             id="invDiscount" aria-describedby="helpId" placeholder="">
 
 
                                     </div>
                                     <div class="col mb-3">
-                                        <label for="" class="form-label">Remain ( مديونية ) </label>
+                                        <label for="invMad" class="form-label">Remain ( مديونية ) </label>
 
                                         <input type="text" class="form-control" readonly="" name="invMad"
                                             value="0" id="invMad" aria-describedby="helpId" placeholder="">
@@ -1759,7 +1762,7 @@
                                 value="{{ $store_data[0]->id }}">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <label for=""> إرسال إالى مخزن</label>
+                                    <label for="storeId"> إرسال إالى مخزن</label>
                                     <select name="storeId" id="storeId" class="form-control" required>
                                         <option value="">إختر المخزن</option>
                                         @foreach ($allStores as $key => $value)
@@ -2314,42 +2317,42 @@ function toggle_pannel() {
             // });
 
 
-            $("#partSlct").on('change', function(e) {
-                var selectedText = $("#select2-partSlct-container").text();
-                var selectedType = $(this).select2('data')[0].type_id
-                var selectedPartID = $(this).val();
-                $.ajax({
-                    type: "GET",
-                    url: "allDataForId",
-                    data: {
-                        PartID: selectedPartID,
-                        typeId: selectedType,
-                        storeId: store_data[0].id
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        partsDt.clear();
-                        if (data.data.length > 0) {
-                            $('#datatable').DataTable();
-                            partsDt.rows.add(data.data).draw();
+$("#partSlct").on('change', function(e) {
+    var selectedText = $("#select2-partSlct-container").text();
+    var selectedType = $(this).select2('data')[0].type_id
+    var selectedPartID = $(this).val();
+    $.ajax({
+        type: "GET",
+        url: "allDataForId",
+        data: {
+            PartID: selectedPartID,
+            typeId: selectedType,
+            storeId: store_data[0].id
+        },
+        success: function(data) {
+            console.log(data);
+            partsDt.clear();
+            if (data.data.length > 0) {
+                $('#datatable').DataTable();
+                partsDt.rows.add(data.data).draw();
 
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'الصنف غير موجود بالمخزن ',
-                                footer: 'Not In Store  '
-                            });
-                        }
-
-
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'الصنف غير موجود بالمخزن ',
+                    footer: 'Not In Store  '
+                });
+            }
 
 
-                    }
-                })
 
 
-            });
+        }
+    })
+
+
+});
 
 
 

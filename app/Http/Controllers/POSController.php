@@ -476,15 +476,18 @@ class POSController extends Controller
                     ->join('part_quality', $arr[0] . '.quality_id', '=', 'part_quality.id')
                     ->where('stores_log.id', '=', $inbox_history[$i]->id)
 
-                    ->select('stores_log.amount as trans_amount', 'stores_log.id as stores_log_id', 'supplier.name as sup_name', 'stores_log.*', $arr[0] . '.*', $arr[2] . '.name as part_name', 'source.name_arabic as source_name', 'status.name as staus_name', 'part_quality.name as quality_name')
+                    ->select('stores_log.amount as trans_amount', 'stores_log.unit_id as trans_unit', 'stores_log.id as stores_log_id', 'supplier.name as sup_name', 'stores_log.*', $arr[0] . '.*', $arr[2] . '.name as part_name', 'source.name_arabic as source_name', 'status.name as staus_name', 'part_quality.name as quality_name')
 
                     ->get();
                     if($all_data[0]->type->id ==1){
                         $samllmeasureUnits = $all_data[0]->all_parts[0]->part->small_unit;
+                         $buy_Unit = $all_data[0]->unit;
                         $measureUnit = $all_data[0]->all_parts[0]->part->big_unit;
-                        $ratiounit = getSmallUnit($measureUnit, $samllmeasureUnits);
+                        $ratiounit = getSmallUnit($buy_Unit->id, $samllmeasureUnits);
                         $all_data[0]['ratio']= $ratiounit;
-                        $all_data[0]['bigunit']= $all_data[0]->all_parts[0]->part->bigunit->name;
+                        $all_data[0]['buy_unit']= $buy_Unit;
+                        $all_data[0]['buy_unit_id']= $buy_Unit->id;
+                        $all_data[0]['bigunit']= $buy_Unit->name;
                     }else{
                         $all_data[0]['ratio']= 1;
                         $all_data[0]['bigunit']= "بدون";
@@ -661,6 +664,7 @@ class POSController extends Controller
             $store_id = $request->data['store_id'];
             $store_action_id = $request->data['store_action_id'];
             $flag_completed = $request->data['flag_completed'];
+            $unit_id = $request->data['unit_id'];
             $supplier_order_id = '';
 
             if ($store_action_id == 1) {
@@ -679,6 +683,7 @@ class POSController extends Controller
                     'status' => 3,
                     'date' => date('Y-m-d H:i:s'),
                     'type_id' => $type_id,
+                    'unit_id'=>$unit_id
                 ])->id;
                 $logMessage.='تم دخول الكمية '.$amount .' الي'.$store_id.'<br/>';
                     
@@ -694,6 +699,7 @@ class POSController extends Controller
                         'date' => date('Y-m-d H:i:s'),
                         'type_id' => $type_id,
                         'notes' => $oldNotes,
+                        'unit_id'=>$unit_id
                     ]);
                      $logMessage.='تم دخول الكمية '.$actual_amount - $amount .' الي'.$store_id.'<br/>';
                     
@@ -780,6 +786,7 @@ class POSController extends Controller
                         'date' => date('Y-m-d H:i:s'),
                         'type_id' => $type_id,
                         'notes' => $oldNotes,
+                        'unit_id'=>$unit_id
                     ]);
                     $logMessage.='تم دخول الكمية '.$actual_amount - $amount .' الي'.$store_id.'<br/>';
                 }
@@ -6773,9 +6780,10 @@ class POSController extends Controller
                 $query =  $entity_tbl::join('stores_log', $store->table_name . '.store_log_id', '=', 'stores_log.id')
                     ->join('all_parts', 'stores_log.All_part_id', '=', 'all_parts.id')
                     ->where($store->table_name . '.part_id', $request->PartID)
-                    ->selectRaw('SUM(' . $store->table_name . '.amount) as amount, all_parts.part_id, all_parts.source_id, all_parts.status_id, all_parts.quality_id,MAX(stores_log.id) as store_log_id ,' . $store->table_name . '.type_id')
+                    ->selectRaw('SUM(' . $store->table_name . '.amount) as amount, all_parts.part_id, all_parts.source_id, all_parts.status_id, all_parts.quality_id,MAX(stores_log.id) as store_log_id ,' . $store->table_name . '.type_id,'. $store->table_name . '.unit_id')
                     ->groupBy('all_parts.part_id', 'all_parts.source_id', 'all_parts.status_id', 'all_parts.quality_id',  $store->table_name . '.type_id')
                     ->with([
+                        'unit',
                         'stores_log.all_parts.part.part_numbers',
                         'stores_log.all_parts.part.part_images',
                         'stores_log.all_parts.part.getsmallunit.unit',
@@ -7172,8 +7180,8 @@ class POSController extends Controller
                     $btn = 0;
                     if ($row->amount > 0) {
                         if($row->stores_log->all_parts[0]->part->bigunit){
-                            $ratiounit = getSmallUnit($row->stores_log->all_parts[0]->part->bigunit->id, $row->stores_log->all_parts[0]->part->smallunit->id);
-                            $btn = $row->amount / $ratiounit .' / '.$row->stores_log->all_parts[0]->part->bigunit->name;
+                            $ratiounit = getSmallUnit($row->unit_id, $row->stores_log->all_parts[0]->part->smallunit->id);
+                            $btn = $row->amount / $ratiounit .' / '.$row->unit->name;
                         }else{
                             $btn = $row->amount;
                         }
@@ -7289,7 +7297,7 @@ class POSController extends Controller
                                     if(count($filteredItems)>0){
                                         $ratiounit = 1;
                                         if($row->stores_log->all_parts[0]->part->bigunit){
-                                            $ratiounit = getSmallUnit($row->stores_log->all_parts[0]->part->bigunit->id, $row->stores_log->all_parts[0]->part->smallunit->id);
+                                            $ratiounit = getSmallUnit($row->unit_id, $row->stores_log->all_parts[0]->part->smallunit->id);
                                         }
                                             
                                             $btn =$filteredItems[0]['price'] * $ratiounit;
@@ -7471,7 +7479,15 @@ class POSController extends Controller
                     $btn = '<ul class="list-group fs-13 text-truncate">';
                     if(isset($row->stores_amount)){
                         for ($i=0; $i < count($row->stores_amount) ; $i++) {
-                            $btn .='<li>'.$row->stores_amount[$i]->name.'/'.$row->stores_amount[$i]->storepartCount.'</li>';
+                            if($row->stores_log->all_parts[0]->part->bigunit){
+                                $ratiounit = getSmallUnit($row->unit_id, $row->stores_log->all_parts[0]->part->smallunit->id);
+                                $btn = $row->amount / $ratiounit .' / '.$row->unit->name;
+                                $btn .='<li>'.$row->stores_amount[$i]->name.'/'.$row->stores_amount[$i]->storepartCount / $ratiounit .' / '.$row->unit->name.'</li>';
+
+                            }else{
+                                $btn .='<li>'.$row->stores_amount[$i]->name.'/'.$row->stores_amount[$i]->storepartCount.'</li>';
+
+                            }
 
                         }
                     }else{

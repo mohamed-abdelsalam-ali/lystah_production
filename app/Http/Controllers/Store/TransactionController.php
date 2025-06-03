@@ -540,15 +540,18 @@ class TransactionController extends Controller
                     ->join('part_quality', $arr[0] . '.quality_id', '=', 'part_quality.id')
                     ->where('stores_log.id', '=', $inbox_history[$i]->id)
 
-                    ->select('stores_log.amount as trans_amount', 'stores_log.id as stores_log_id', 'supplier.name as sup_name', 'stores_log.*', $arr[0] . '.*', $arr[2] . '.name as part_name', 'source.name_arabic as source_name', 'status.name as staus_name', 'part_quality.name as quality_name')
+                    ->select('stores_log.amount as trans_amount', 'stores_log.unit_id as trans_unit', 'stores_log.id as stores_log_id', 'supplier.name as sup_name', 'stores_log.*', $arr[0] . '.*', $arr[2] . '.name as part_name', 'source.name_arabic as source_name', 'status.name as staus_name', 'part_quality.name as quality_name')
 
                     ->get();
                     if($all_data[0]->type->id ==1){
                         $samllmeasureUnits = $all_data[0]->all_parts[0]->part->small_unit;
+                         $buy_Unit = $all_data[0]->unit;
                         $measureUnit = $all_data[0]->all_parts[0]->part->big_unit;
-                        $ratiounit = getSmallUnit($measureUnit, $samllmeasureUnits);
+                        $ratiounit = getSmallUnit($buy_Unit->id, $samllmeasureUnits);
                         $all_data[0]['ratio']= $ratiounit;
-                        $all_data[0]['bigunit']= $all_data[0]->all_parts[0]->part->bigunit->name;
+                        $all_data[0]['buy_unit']= $buy_Unit;
+                        $all_data[0]['buy_unit_id']= $buy_Unit->id;
+                        $all_data[0]['bigunit']= $buy_Unit->name;
                     }else{
                         $all_data[0]['ratio']= 1;
                         $all_data[0]['bigunit']= "بدون";
@@ -582,13 +585,6 @@ class TransactionController extends Controller
         }
 
 
-        // return $inbox_history_all;
-        // $data_inbox= $this->inbox_admin();
-
-        // return Datatables::of($inbox_history_all);
-
-        // return $dataTable->render('store.inbox_admin_transaction',compact('inbox_history_all','data_inbox'));
-        // return view('store.inbox_admin_transaction',compact('data_inbox'));
     }
     public function inbox_admin()
     {
@@ -653,6 +649,7 @@ class TransactionController extends Controller
                     'status' => 0,
                     'date' => date('Y-m-d H:i:s'),
                     'type_id' => $type_id,
+                    
 
                 ]);
 

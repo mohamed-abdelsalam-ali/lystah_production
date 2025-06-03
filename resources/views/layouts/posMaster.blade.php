@@ -71,11 +71,11 @@
 
         }
 
-        @font-face {
+        /* @font-face {
             font-family: Gess;
             src: url('../fonts/Gess.otf');
 
-        }
+        } */
 
         @media (min-width: 320px) and (max-width: 992px) {
             .text-nowrap {
@@ -501,7 +501,7 @@
                             <button title="الخزينة والموظفيين" type="button"
                                 class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img id="header-lang-img" src="assets/images/comingsoon.png" alt="Header Language"
+                                <img id="header-lang-img" src="{{ asset('assets/images/comingsoon.png') }}" alt="Header Language"
                                     height="20" class="rounded">
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
