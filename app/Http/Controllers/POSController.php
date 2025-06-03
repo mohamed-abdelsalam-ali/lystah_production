@@ -7576,7 +7576,7 @@ class POSController extends Controller
                                     $part_specs_json = json_encode($part_specs);
                                 }
                             }
-
+ 
                             $Tamount = $row->amount;
                             $type_id = $row->type_id;
                             $name = json_encode($row->stores_log->all_parts[0]->part->name); // Safely encode the name
