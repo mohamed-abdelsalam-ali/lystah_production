@@ -915,7 +915,8 @@ class POSController extends Controller
                         'store_log_id' => $Store_log_id,
                         'date' => date('Y-m-d H:i:s'),
                         'unit_id'=>$unit_id ,
-                        
+                    
+
                     ]);
                      $logMessage.='تم دخول part id '.$founded_row[0]->part_id.'الكمية '.$amount .' الي'.$store_table_name.'<br/>';
                  
