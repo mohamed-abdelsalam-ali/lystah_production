@@ -29,7 +29,6 @@
             //Normally set in the title tag of your page.
 
             // document.title = "Parts";
-
             partsDt = $("#example").DataTable({
                 // dom: "Bfrtip",
 
@@ -222,15 +221,10 @@
                 ]
 
             });
-
-
             $(".tableOverlay").addClass("d-none");
-
             partsDt.search('***').draw();
             /**************************************************************************/
-            /////////////////////////////////////////////////////////////////////////////
-
-
+            ////////////////////////////////////////////////////////////////////////////
             table = $('#transtbl').DataTable({
                 dom: '<"dt-buttons"Bf><"clear">lirtp',
                 paging: false,
@@ -446,7 +440,7 @@
 
             });
 
-                  table2 = $('#storetbl').DataTable({
+            table2 = $('#storetbl').DataTable({
                 dom: '<"dt-buttons"Bf><"clear">lirtp',
                 paging: false,
                 autoWidth: true,
@@ -575,66 +569,72 @@
                 ]
 
             });
-
-        reloadCart();
+           if(reloadCart()) {
+            $('.mesureClass').trigger('change');
+            calcTotal();
+            calcWeight();
+           } 
+        
+            
         });
-            $('#storemodal').on('click',function(){
-                $('#storeMdl').modal('show');
+        
+        $('#storemodal').on('click',function(){
+            $('#storeMdl').modal('show');
 
-                // if (table2 instanceof $.fn.dataTable.Api) {
-                //     table2.destroy()
-                // }else{
+            // if (table2 instanceof $.fn.dataTable.Api) {
+            //     table2.destroy()
+            // }else{
 
-                // }
+            // }
 
-                if(table2loaded == 0){
-                 $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        type: "GET",
-                        //ajax: "itemsStore/list/" + store_data[0].id,
-                        url: "itemsStore/list/"+ store_data[0].id,
+            if(table2loaded == 0){
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "GET",
+                    //ajax: "itemsStore/list/" + store_data[0].id,
+                    url: "itemsStore/list/"+ store_data[0].id,
 
-                        datatype: 'JSON',
-                        statusCode: {
-                            404: function() {
-                                alert("page not found");
-                            }
-                        },
-                        error: function(XMLHttpRequest, textStatus, errorThrown) {
-                            // alert("some error");
-                            console.log(errorThrown);
-                        },
-                        success: function(data) {
-                            console.log(data);
-                            table2.clear();
-                            if (data) {
-                                $('#storetbl').DataTable();
-                                // table2.rows().add(data);
-                                table2.rows.add(data.data).draw();
-
-                                // $('#example').DataTable().ajax.reload();
-                            }
-                            // SuccessAlert("Transaction Accepted" )
-
-                            // getAllNewParts();
-                            // getAllNewParts_inbox();
-                            // $('.nav-tabs a[href="#tab-3"]').tab('show');
-
-                            // var resArr1 = $.parseJSON(data);
-                            // console.log(resArr1);
-
-                            // arr_partNo_html = draw(resArr1['Last_Amount'], 'Last_Amount');
-                            // $(".Last_Amount").html(arr_partNo_html);
-
-
+                    datatype: 'JSON',
+                    statusCode: {
+                        404: function() {
+                            alert("page not found");
                         }
-                    });
-                table2loaded =1;
-                }
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        // alert("some error");
+                        console.log(errorThrown);
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        table2.clear();
+                        if (data) {
+                            $('#storetbl').DataTable();
+                            // table2.rows().add(data);
+                            table2.rows.add(data.data).draw();
 
-            });
+                            // $('#example').DataTable().ajax.reload();
+                        }
+                        // SuccessAlert("Transaction Accepted" )
+
+                        // getAllNewParts();
+                        // getAllNewParts_inbox();
+                        // $('.nav-tabs a[href="#tab-3"]').tab('show');
+
+                        // var resArr1 = $.parseJSON(data);
+                        // console.log(resArr1);
+
+                        // arr_partNo_html = draw(resArr1['Last_Amount'], 'Last_Amount');
+                        // $(".Last_Amount").html(arr_partNo_html);
+
+
+                    }
+                });
+            table2loaded =1;
+            }
+
+        });
 
         function send_to_other(el) {
 
@@ -960,7 +960,7 @@
                 var measureUnitsElement = '<select name="measureUnit[]" required class="form-control-sm py-0 mesureClass"><option value="" selected disabled>Choose Units</option>';
                 if(measureUnits.length > 0){
                     measureUnits.forEach(element => {
-                        if(element.unit.id == bigmeasureUnits.id){
+                        if(element.unit.id == rowData.unit_id){
                             measureUnitsElement +='<option value="'+element.unit.id+'"  data-val="'+element.value+'" selected>'+element.unit.name+'</option>';    
         
                         }else{
@@ -1000,7 +1000,7 @@
                 var measureUnitsElement = '<select name="measureUnit[]" required class="form-control-sm py-0 mesureClass"><option value=""  disabled>Choose Units</option>';
                 if(measureUnits.length > 0){
                     measureUnits.forEach(element => {
-                        if(element.unit.id == bigmeasureUnits.id){
+                        if(element.unit.id == rowData.unit_id){
                             measureUnitsElement +='<option value="'+element.unit.id+'"  data-val="'+element.value+'" selected>'+element.unit.name+'</option>';    
         
                         }else{
@@ -1063,7 +1063,7 @@
                 return false;
             }
 
-            if(Amount > totalAmount){
+            if(parseFloat(Amount) > parseFloat(totalAmount)){
                 Swal.fire({
                         text: "الكمية المطلوبة غير متاحة",
                         icon: "error",
@@ -1099,11 +1099,8 @@
                  $("#basketCounterLbl").text(parseInt($("#basketCounterLbl").text())+1);
                  $("#invoiceItems").append(`
                 <tr class="specscontainer" data-price='${priceList1}' data-val="${type_id}-${partId}-${SourceId}-${StatusId}-${qualityId}">
-
                     <td style="">${name}</td>
-
                     <td><input name="itemAmount[]"  class="form-control itemAmount p-1 text-center w-50" type="number" name="" value="${Amount}" min="0"  max="${totalAmount}" id=""></td>
-
                     <td class="itemPrice">${price}</td>
                     <td class="itemTotalPrice">${parseFloat(price) * parseFloat(Amount)}</td>
                     <td class="p-3" style="cursor: pointer;" onclick="removeItemFromInvoice(${indexRw},this)"><i class="mdi mdi-trash-can-outline p-1 rounded text-bg-danger"></i></td>
@@ -1140,85 +1137,85 @@
 
         });
 
-          function reloadCart(){
+        function reloadCart(){
 
 
-            var cardsaleType = localStorage.getItem('cardsaleType') || 0;
-            var cardClientId = localStorage.getItem('cardClientId') || 0;
+                var cardsaleType = localStorage.getItem('cardsaleType') || 0;
+                var cardClientId = localStorage.getItem('cardClientId') || 0;
 
 
 
-            if (parseInt(cardClientId) >  0) {
-                $("#clientSlct").val(cardClientId).trigger('change')
-            } else {
-
-            }
-            var jsonSting = localStorage.getItem('cardOptions')
-            if(jsonSting){
-                jsonSting = '[' + jsonSting.split('],[').join(',') + ']';
-            }
-              
-        
-
-            var storedData = JSON.parse(jsonSting) || [];
-            if (storedData.length > 0){
-                if (storedData[0].length === 0) {
+                if (parseInt(cardClientId) >  0) {
+                    $("#clientSlct").val(cardClientId).trigger('change')
                 } else {
-                    $("#invoiceItems").empty();
-                    storedData[0].forEach(function(item, index) {
-                        /************************************* */
+
+                }
+                var jsonSting = localStorage.getItem('cardOptions')
+                if(jsonSting){
+                    jsonSting = '[' + jsonSting.split('],[').join(',') + ']';
+                }
+                
+            
+
+                var storedData = JSON.parse(jsonSting) || [];
+                if (storedData.length > 0){
+                    if (storedData[0].length === 0) {
+                    } else {
+                        $("#invoiceItems").empty();
+                        storedData[0].forEach(function(item, index) {
+                            /************************************* */
 
 
 
 
 
-                                $("#basketCounterLbl").text(parseInt($("#basketCounterLbl").text())+1);
-                                $("#invoiceItems").append(`
-                                <tr class="specscontainer" data-price='${item.priceList}' data-val="${item.type_id}-${item.partId}-${item.SourceId}-${item.StatusId}-${item.qualityId}">
+                                    $("#basketCounterLbl").text(parseInt($("#basketCounterLbl").text())+1);
+                                    $("#invoiceItems").append(`
+                                        <tr class="specscontainer" data-price='${item.priceList}' data-val="${item.type_id}-${item.partId}-${item.SourceId}-${item.StatusId}-${item.qualityId}">
+                                            <td style="">${item.name}</td>
+                                            <td><input name="itemAmount[]"  class="form-control itemAmount p-1 text-center w-50" type="number" name="" value="${item.Amount}" min="0"  max="${item.totalAmount}" id=""></td>
+                                            <td class="itemPrice">${item.price}</td>
+                                            <td class="itemTotalPrice">${parseFloat(item.price) * parseFloat(item.Amount)}</td>
+                                            <td class="p-3" style="cursor: pointer;" onclick="removeItemFromInvoice(${item.indexRw},this)"><i class="mdi mdi-trash-can-outline p-1 rounded text-bg-danger"></i></td>
+                                            <td style="">${item.weight}</td>
+                                            <td style="">${item.measureUnitsElement}</td>
 
-                                    <td style="">${item.name}</td>
+                                            <input type="hidden" name="items_part[]" value="${item.partId}-${item.SourceId}-${item.StatusId}-${item.qualityId}-${item.type_id}">
+                                                <input type="hidden" name="pricetype[]" value="${item.PriceTypeId}">
+                                                <input type="hidden" name="itemPrice[]" value="${item.price}">
+                                                    <input type="hidden" name="samllmeasureUnits[]" value="${item.samllmeasureUnits}">
+                                                    <input type="hidden" name="bigunitid[]" value="${item.bigunitid}">
+                                        </tr>
 
-                                    <td><input name="itemAmount[]"  class="form-control itemAmount p-1 text-center w-50" type="number" name="" value="${item.Amount}" min="0"  max="${item.totalAmount}" id=""></td>
-
-                                    <td class="itemPrice">${item.price}</td>
-                                    <td class="itemTotalPrice">${parseFloat(item.price) * parseFloat(item.Amount)}</td>
-                                    <td class="p-3" style="cursor: pointer;" onclick="removeItemFromInvoice(${item.indexRw},this)"><i class="mdi mdi-trash-can-outline p-1 rounded text-bg-danger"></i></td>
-                                    <td style="">${item.weight}</td>
-                                    <td style=""></td>
-
-                                    <input type="hidden" name="items_part[]" value="${item.partId}-${item.SourceId}-${item.StatusId}-${item.qualityId}-${item.type_id}">
-                                        <input type="hidden" name="pricetype[]" value="${item.PriceTypeId}">
-                                        <input type="hidden" name="itemPrice[]" value="${item.price}">
-                                             <input type="hidden" name="samllmeasureUnits[]" value="${item.samllmeasureUnits}">
-                                            <input type="hidden" name="bigunitid[]" value="${item.bigunitid}">
-                                </tr>
-
-                                `);
+                                    `);
 
 
 
-                            calcTotal();
-                            calcWeight();
+                            /************************************* */
+                        });
+                    }
 
-                        /************************************* */
-                    });
                 }
 
-            }
+                // if (parseInt(cardsaleType) > 0) {
+                //     $("#saleTypeSlct").val(cardsaleType).trigger('change');
+                // } else {
 
-            // if (parseInt(cardsaleType) > 0) {
-            //     $("#saleTypeSlct").val(cardsaleType).trigger('change');
-            // } else {
+                // }
+                
+                if (parseInt(cardsaleType) > 0 && storedData.length > 0) {
+                    $("#saleTypeSlct").val(cardsaleType).trigger('change');
+                } else {
+                    $("#saleTypeSlct").val(5).trigger('change')
+                }
 
-            // }
-            
-             if (parseInt(cardsaleType) > 0 && storedData.length > 0) {
-                $("#saleTypeSlct").val(cardsaleType).trigger('change');
-            } else {
-                $("#saleTypeSlct").val(5).trigger('change')
-            }
+                
+                $('.mesureClass').trigger('change');
+                calcTotal();
+                calcWeight();
 
         }
+
          function removeItemFromInvoice(rowindex, el) {
             $("#basketCounterLbl").text(parseInt($("#basketCounterLbl").text())-1);
             var partDetails = $(el).closest('tr').attr('data-val');

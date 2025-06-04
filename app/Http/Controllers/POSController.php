@@ -7489,7 +7489,7 @@ class POSController extends Controller
                         for ($i=0; $i < count($row->stores_amount) ; $i++) {
                             if($row->stores_log->all_parts[0]->part->bigunit){
                                 $ratiounit = getSmallUnit($row->unit_id, $row->stores_log->all_parts[0]->part->smallunit->id);
-                                $btn = $row->amount / $ratiounit .' / '.$row->unit->name;
+                                // $btn = $row->amount / $ratiounit .' / '.$row->unit->name;
                                 $btn .='<li>'.$row->stores_amount[$i]->name.'/'.$row->stores_amount[$i]->storepartCount / $ratiounit .' / '.$row->unit->name.'</li>';
 
                             }else{
@@ -7556,6 +7556,7 @@ class POSController extends Controller
                     return $btn;
                 })
                 ->addColumn('action', function ($row) {
+                 
                     $btn = '';
                     if ($row->type_id == 1) {
                         if (count($row->stores_log->all_parts) > 0) {
@@ -7584,8 +7585,9 @@ class POSController extends Controller
                                     $part_specs_json = json_encode($part_specs);
                                 }
                             }
- 
-                            $Tamount = $row->amount;
+                            $ratiounit = getSmallUnit($row->unit_id, $row->stores_log->all_parts[0]->part->smallunit->id);
+                            // $btn = $row->amount / $ratiounit .' / '.$row->unit->name;
+                            $Tamount = $row->amount / $ratiounit;
                             $type_id = $row->type_id;
                             $name = json_encode($row->stores_log->all_parts[0]->part->name); // Safely encode the name
 
