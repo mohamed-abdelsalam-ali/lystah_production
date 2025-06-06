@@ -3523,4 +3523,7 @@ class StoreManageController extends Controller
             ], 500);
         }
     }
+    public function salam(){
+        
+    }
 }
