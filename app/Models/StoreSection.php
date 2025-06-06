@@ -69,7 +69,8 @@ class StoreSection extends Model implements Auditable
 		'quality_id',
 		'amount',
 		'notes',
-		'date'
+		'date',
+		'unit_id'
 	];
 
 	public function store()

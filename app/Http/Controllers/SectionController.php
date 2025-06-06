@@ -63,8 +63,9 @@ class SectionController extends Controller
         //
     }
     
-    public function GetSections(Store $store)
+    public function GetSections( $store)
     {
+        $store= Store::where('id',$store)->first();
         return StoreStructure::where('store_id',$store->id)->with('store')->get();
         
     }
