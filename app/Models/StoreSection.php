@@ -72,7 +72,10 @@ class StoreSection extends Model implements Auditable
 		'date',
 		'unit_id'
 	];
-
+	public function unit()
+	{
+		return $this->belongsTo(Unit::class, 'unit_id');
+	}
 	public function store()
 	{
 		return $this->belongsTo(Store::class);

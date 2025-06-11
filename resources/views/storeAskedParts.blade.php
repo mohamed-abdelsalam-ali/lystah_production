@@ -45,6 +45,9 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-4">
+                                                    <?php 
+                                                    $ratioamount=getSmallUnit($value->unit_id,$value->itemData->small_unit);
+                                                    ?>
                                                     <p><strong>التاريخ:</strong> {{ $value->created_at }}</p>
                                                     <p><strong>النوع:</strong> {{ $value->type }}</p>
                                                     <p><strong>المنشأ:</strong> {{ $value->source->name_en }}</p>
@@ -55,7 +58,7 @@
                                                     <p><strong>الجودة:</strong> {{ $value->part_quality->name }}</p>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <p><strong>الكمية المطلوبة :</strong> {{ $value->amount }}</p>
+                                                    <p><strong>الكمية المطلوبة :</strong> {{ $value->amount / $ratioamount }} /{{$value->unit->name  }}</p>
                                                     <p><strong>مطلوب لمخزن :</strong> {{ $value->fromstore->name }}</p>
                                                 </div>
                                             </div>
@@ -70,27 +73,51 @@
                                                 <input type="hidden" name="CurrentstoreId" value="{{ $value->to_store_id }}">
                                                 <input type="hidden" name="processFrom" value="askParts">
                                                 <input type="hidden" name="demand_id" value="{{ $value->id }}">
-                                                <input type="hidden" name="demand_amount" value="{{ $value->amount }}">
+                                                <input type="hidden" name="demand_amount" class='demand_amount' value="{{ $value->amount / $ratioamount }}">
+                                                <input type="hidden" class="mesurment_unit" name="unitsend_id" value="{{ $value->unit_id }}">
+                                                <input type="hidden" class="demand_ratio" name="demand_ratio" value="{{ $ratioamount }}">
                             
                                                 <div class="mt-3">
                                                     <hr>
                                                     <h2> المتاح </h2>
                                                     @foreach ($value->storeSection as $sec)
                                                         @if ($sec->amount > 0)
-                                                            
+                                                        <?php 
+                                                        $ratioamount=getSmallUnit($sec->unit_id,$value->itemData->small_unit);
+                                                        ?>
                                                             <div class="card mb-2">
                                                                 <div class="card-body">
                                                                     <div class="row">
                                                                         <div class="col-md-6">
                                                                             <p><strong>القسم:</strong> {{ $sec->store_structure->name }}</p>
-                                                                            <p><strong>الكمية:</strong> {{ $sec->amount }}</p>
+                                                                            <p><strong>الكمية:</strong> <span class="available-amount" data-amount="{{ $sec->amount / $ratioamount }}">{{ $sec->amount / $ratioamount }}</span>/{{ $sec->unit->name }}</p>
                                                                         </div>
-                                                                        <div class="col-md-6">
+                                                                        <div class="col-md-3">
                                                                             <div class="form-group">
-                                                                                <label>الكمية المرسلة:</label>
+                                                                                {{-- <label>الكمية المرسلة:</label> --}}
+                                                                            <p><strong>:</strong>الكمية المرسلة</p>
+
                                                                                 <input type="number" name="sectionAmount[]" class="form-control sectionAmount">
                                                                             </div>
                                                                             <input type="hidden" name="sectionIds[]" value="{{ $sec->section_id }}">
+                                                                        </div>
+                                                                            <div class="col-md-3">
+                                                                            @if ($value->type_id == 1)
+                                                                            {{-- <label >الوحدة :</label> --}}
+                                                                            <p><strong>:</strong>الوحدة</p>
+                                                                            <select name="unit_send[]" id="" class="form-control mesureClass unit">
+                    
+                                                                                @forelse ($value->itemData->getsmallunit as  $unit )
+                                                                                <option value="{{$unit->unit_id}}" data-val={{$unit->value}}>{{$unit->unit->name}}</option>
+                                                                                @empty
+                                                                                <option value=""></option>
+                                                                                @endforelse 
+                                                                              
+                                                                              
+                                                                              
+                                                                            </select>
+                                                                            @endif
+                                                                     
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -134,6 +161,8 @@
     @endsection
     @section('js')
     <script>
+  
+       
         document.getElementById("searchBar").addEventListener("input", function() {
             let searchValue = this.value.toLowerCase();
             let cards = document.querySelectorAll(".order-card");
@@ -169,6 +198,120 @@
             });
         });
     });
+
+
+    $(document).ready(function() {
+        $(document).on('change', '.mesureClass', function() {
+            var selected_unit = $(this).val();
+            $(this).closest('.order-card').find('.mesurment_unit').val(selected_unit);
+            check_amount($(this).closest('.card-body').find('.sectionAmount'));
+        }); 
+
+        // Add keyup event for sectionAmount inputs
+        $(document).on('keyup', '.sectionAmount', function() {
+            var card = $(this).closest('.order-card');
+            var sectionAmount = parseFloat($(this).val()) || 0;
+            var unitSelect = $(this).closest('.card-body').find('.mesureClass option:selected');
+            var unitValue = parseFloat(unitSelect.attr('data-val')) || 1;
+            var demandRatio = parseFloat(card.find('.demand_ratio').val()) || 1;
+            var demand_amount = parseFloat(card.find('.demand_amount').val()) || 1;
+            var availableAmount = parseFloat($(this).closest('.card-body').find('.available-amount').data('amount')) * demandRatio || 0;
+           var demandAmount =  demand_amount * demandRatio;
+            // Convert to base unit
+            var convertedAmount = sectionAmount * unitValue;
+            
+            // Validate against available amount
+            if (convertedAmount > availableAmount) {
+                
+                Swal.fire({
+                icon: 'error',
+                title: 'خطأ',
+                text: 'الكمية المدخلة تتجاوز الكمية المتاحة!',
+                });
+                $(this).val('');
+                card.find('.sendAmount').val(0);
+                return false;
+            }
+            
+            // Validate against demand amount
+            if (convertedAmount > demandAmount) {
+                Swal.fire({
+                icon: 'error',
+                title: 'خطأ',
+                text: 'الكمية المدخلة تتجاوز الكمية المطلوبة',
+                });
+                $(this).val('');
+                card.find('.sendAmount').val(0);
+                return false;
+            }
+            
+            // Calculate total amount
+            var totalAmount = 0;
+            var unitVal=1;
+            card.find('.sectionAmount').each(function() {
+                var amount = parseFloat($(this).val()) || 0;
+                 unitVal = parseFloat($(this).closest('.card-body').find('.mesureClass option:selected').attr('data-val')) || 1;
+                totalAmount += amount * unitVal;
+            });
+            
+            // Update total amount field
+            card.find('.sendAmount').val(totalAmount/unitVal);
+        });
+    });
+
+    function check_amount(el){
+        var card = $(el).closest('.order-card');
+            var sectionAmount = parseFloat($(el).val()) || 0;
+            var unitSelect = $(el).closest('.card-body').find('.mesureClass option:selected');
+            var unitValue = parseFloat(unitSelect.attr('data-val')) || 1;
+            var demandRatio = parseFloat(card.find('.demand_ratio').val()) || 1;
+            var demand_amount = parseFloat(card.find('.demand_amount').val()) || 1;
+            var availableAmount = parseFloat($(el).closest('.card-body').find('.available-amount').data('amount')) * demandRatio || 0;
+           var demandAmount =  demand_amount * demandRatio;
+            // Convert to base unit
+            var convertedAmount = sectionAmount * unitValue;
+            
+            // Validate against available amount
+            if (convertedAmount > availableAmount) {
+                Swal.fire({
+                icon: 'error',
+                title: 'خطأ',
+                text: 'الكمية المدخلة تتجاوز الكمية المتاحة!',
+                });
+
+                $(el).val('');
+                card.find('.sendAmount').val(0);
+                return false;
+            }
+            
+            // Validate against demand amount
+            if (convertedAmount > demandAmount) {
+                Swal.fire({
+                icon: 'error',
+                title: 'خطأ',
+                text: 'الكمية المدخلة تتجاوز الكمية المطلوبة',
+                });
+                $(el).val('');
+                card.find('.sendAmount').val(0);
+                return false;
+            }
+            
+            // Calculate total amount
+            var totalAmount = 0;
+            var unitVal=1;
+            card.find('.sectionAmount').each(function() {
+                var amount = parseFloat($(el).val()) || 0;
+                 unitVal = parseFloat($(el).closest('.card-body').find('.mesureClass option:selected').attr('data-val')) || 1;
+                totalAmount += amount * unitVal;
+            });
+            
+            // Update total amount field
+            card.find('.sendAmount').val(totalAmount/unitVal);
+        
+        return true;
+    }
     </script>
+  
+ 
 
     @endsection

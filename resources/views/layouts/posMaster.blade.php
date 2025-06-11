@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-layout="horizontal" data-sidebar="light" data-sidebar-size="lg" data-sidebar-image="none"
+<html  data-layout="horizontal" data-sidebar="light" data-sidebar-size="lg" data-sidebar-image="none"
     data-preloader="disable" dir="rtl">
 
 
@@ -396,12 +396,12 @@
         :is(.h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6){
             font-family: AllGenders !important;
         }
-        @font-face {
+        /* @font-face {
             font-family: AllGenders;
             src: url('../fonts/AllGenders.otf');
 
 
-        }
+        } */
         body {
             font-family: AllGenders !important;
 
@@ -501,7 +501,7 @@
                             <button title="الخزينة والموظفيين" type="button"
                                 class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img id="header-lang-img" src="{{ asset('assets/images/comingsoon.png') }}" alt="Header Language"
+                                <img id="header-lang-img" src="#" alt="Header Language"
                                     height="20" class="rounded">
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">

@@ -144,7 +144,7 @@ class NewPosController extends Controller
                 $invoiceItems->invoice_id = $invoice->id;
                 $invoiceItems->sale_type = $request->pricetype[$i];
                 $invoiceItems->unit_id = $request->measureUnit[$i];
-                $invoiceItems->amout_unit =  $amount; //zyada
+                $invoiceItems->amount_unit =  $amount; //zyada
                 $invoiceItems->save();
                 $logMessage.=' فاتورة بيع رقم '.$invoice->id.'/ الصنف FN'.$type_id.$part_id.$source_id.$status_id.$quality_id.' الكمية '.$amount.'<br/>';
                 $amount = $amount * $ratiounit;
@@ -12769,7 +12769,7 @@ class NewPosController extends Controller
                 if($request->typeId[$i] == 1){
                     $p_data = Part::find($request->partId[$i]);
                     $samllmeasureUnits = $p_data->small_unit;
-                    $measureUnit =$p_data->big_unit;
+                    $measureUnit = $request->unitask_id;
                     $ratiounit = getSmallUnit($measureUnit, $samllmeasureUnits);
                     $askAmount = $request->askAmount[$i] * $ratiounit;
                 }else{
@@ -12788,7 +12788,8 @@ class NewPosController extends Controller
                         'flag_send' => 0,
                         'from_store_id' => $request->Store_id[$i],
                         'to_store_id' => $request->askedStore_id[$i],
-                        'user_id' => Auth::user()->id
+                        'user_id' => Auth::user()->id,
+                        'unit_id'=> $request->unitask_id,
                     ]);
                 }else{
     
@@ -12818,6 +12819,7 @@ class NewPosController extends Controller
         ->with('status')
         ->with('part_quality')
         ->with('fromstore')
+        ->with('unit')
         ->get();
         foreach ($data as $key => $item) {
             $item['storeSection']  = StoreSection::where('part_id', $item->part_id)
@@ -12826,9 +12828,10 @@ class NewPosController extends Controller
             ->where('status_id', $item->status_id)
             ->where('quality_id', $item->quality_id)
             ->where('store_id', $store_id)
-            ->select('section_id', DB::raw('SUM(amount) as amount'))  // Summing up the amounts
+            ->select('section_id', DB::raw('SUM(amount) as amount'),'unit_id')  // Summing up the amounts
             ->groupBy('section_id')  // Grouping by section_id
             ->with('store_structure')  // Eager load store_structure
+            ->with('unit')
             ->get();
            if($item->type_id == 3){
                 $item['type'] = 'جرار';
@@ -12842,7 +12845,7 @@ class NewPosController extends Controller
                 $item['itemData'] = Equip::where('id',$item->part_id)->first();
            }elseif($item->type_id == 1){
                 $item['type'] = 'قطعة غيار';
-                $item['itemData'] = Part::where('id',$item->part_id)->first();
+                $item['itemData'] = Part::where('id',$item->part_id)->with('getsmallunit')->first();
             }elseif($item->type_id == 6){
                 $item['type'] = 'كيت';
                 $item['itemData'] = Kit::where('id',$item->part_id)->first();

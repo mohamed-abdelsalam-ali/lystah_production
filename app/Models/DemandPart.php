@@ -63,9 +63,13 @@ class DemandPart extends Model
 		'flag_send',
 		'from_store_id',
 		'to_store_id',
-		'user_id'
+		'user_id',
+		'unit_id'
 	];
-
+	public function unit()
+	{
+		return $this->belongsTo(Unit::class, 'unit_id');
+	}
 	public function source()
 	{
 		return $this->belongsTo(Source::class);

@@ -1758,6 +1758,7 @@
                             <input type="hidden" name="partSourceS" id="partSourceS" value="0">
                             <input type="hidden" name="partStatusS" id="partStatusS" value="0">
                             <input type="hidden" name="partQualityS" id="partQualityS" value="0">
+                            <input type="hidden" name="unitsend_id" id="unitsend_id" value="0">
                             <input type="hidden" name="CurrentstoreId" id="CurrentstoreId"
                                 value="{{ $store_data[0]->id }}">
                             <div class="row">
@@ -1838,6 +1839,7 @@
                             <input type="hidden" name="askpartSourceS" id="askpartSourceS" value="0">
                             <input type="hidden" name="askpartStatusS" id="askpartStatusS" value="0">
                             <input type="hidden" name="askpartQualityS" id="askpartQualityS" value="0">
+                            <input type="hidden" name="unitask_id" id="unitask_id" value="0">
                             <input type="hidden" name="askCurrentstoreId" id="askCurrentstoreId"
                                 value="{{ $store_data[0]->id }}">
                             
@@ -2366,7 +2368,7 @@ $("#partSlct").on('change', function(e) {
         </script>
 
         <script>
-            function SendToStoreNew(sections, partId, SourceId, StatusId, QualityId, name, Totalamount, ratiounit ,ratiounit_name, typeId) {
+            function SendToStoreNew(sections, partId, SourceId, StatusId, QualityId, name, Totalamount, ratiounit=1 ,ratiounit_name="قطعة",unit_send=null, typeId) {
 
                 sectiontbl_html = [];
                 if (sections.length > 0) {
@@ -2427,6 +2429,7 @@ $("#partSlct").on('change', function(e) {
                 $("#partSourceS").val(SourceId);
                 $("#partStatusS").val(StatusId);
                 $("#partQualityS").val(QualityId);
+                $("#unitsend_id").val(unit_send);
 
                 $("#sendMdl").modal('toggle');
                 $("#totalAmountNum").val(0);
@@ -2619,7 +2622,7 @@ $("#partSlct").on('change', function(e) {
         
          <script>
             //ask from store
-            function askStoreNew(sections, partId, SourceId, StatusId, QualityId, name, Totalamount, ratiounit ,ratiounit_name, typeId) {
+            function askStoreNew(sections, partId, SourceId, StatusId, QualityId, name, Totalamount, ratiounit=1 ,ratiounit_name="قطعه" ,unit_ask=null, typeId) {
                 sectiontbl_html = [];
                 if (sections.length > 0) {
 
@@ -2730,6 +2733,8 @@ $("#partSlct").on('change', function(e) {
                 $("#askitemAmountS").text(Totalamount / ratiounit );
                 $("#askitemAmountS_unit").text( ratiounit_name );
                 $("#askpartIdS").val(partId);
+                $("#unitask_id").val(unit_ask);
+                
                 $("#askpartTypeS").val(typeId);
                 $("#askpartSourceS").val(SourceId);
                 $("#askpartStatusS").val(StatusId);

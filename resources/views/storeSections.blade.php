@@ -130,6 +130,7 @@
                                                 <input type="hidden" name="Ptype[]" value="{{ $part->type_id }}">
                                                 <input type="hidden" name="samllmeasureUnits[]" value="{{ $part->partData[0]->small_unit }}">
                                                 <input type="hidden" name="measureUnit[]" value="{{$part->partData[0]->big_unit }}">
+                                                <input type="hidden" name="unit_slc[]" value="{{$part->unit_id }}">
                                                 
                                                 <td>{{ count($part->partData) > 0 ? strtoupper($part->partData[0]->name) : '-' }}
                                                 </td>
@@ -137,11 +138,11 @@
                                                 <td>{{ $part->status_name }}</td>
                                                 <td>{{ $part->quality_name }}</td>
                                                 <?php 
-                                                $ratioamount=getSmallUnit($part->partData[0]->big_unit,$part->partData[0]->small_unit);
+                                                $ratioamount=getSmallUnit($part->unit_id,$part->partData[0]->small_unit);
                                                 ?>
                                                 <td data-storeAmount="{{ $part->storeAmount }}"
                                                     data-sectionAmount="{{ $part->sectionAmount }}">
-                                                    {{ ($part->storeAmount - $part->sectionAmount )/ $ratioamount}} / {{$part->partData[0]->bigunit->name}}</td>
+                                                    {{ ($part->storeAmount - $part->sectionAmount )/ $ratioamount}} / {{$part->unit_name}}</td>
 
 
                                                 <td>
@@ -158,7 +159,7 @@
                                                 </td>
                                                 <td>
                                                 <input type="number" step=".1"
-                                                data-max="{{ $part->storeAmount - $part->sectionAmount }}"
+                                                data-max="{{ $part->storeAmount/ $ratioamount  - $part->sectionAmount / $ratioamount }}"
                                                         value="0" class="form-control sectionAmountcls"
                                                         name="sectionAmount[]">
                                                 </td>

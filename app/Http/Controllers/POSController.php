@@ -1679,6 +1679,8 @@ class POSController extends Controller
             ->leftJoin('source', 'all_kits.source_id', '=', 'source.id')
             ->leftJoin('status', 'all_kits.status_id', '=', 'status.id')
             ->leftJoin('part_quality', 'all_kits.quality_id', '=', 'part_quality.id')
+            ->leftJoin('unit', 'unit.id', '=', $tableN . '.unit_id')
+
             ->select(
                 'all_kits.part_id as part',
                 $tableN . '.store_log_id as store_log_id',
@@ -1689,6 +1691,8 @@ class POSController extends Controller
                 'status.name as status_name',
                 'part_quality.name as quality_name',
                 $tableN . '.type_id as type_id',
+                $tableN . '.unit_id as unit_id',
+                'unit.name as unit_name',
                 'all_kits.order_supplier_id as supplier_order_id',
                 DB::raw('SUM(' . $tableN . '.amount) as storeAmount'),
                 DB::raw('COALESCE((
@@ -1715,6 +1719,7 @@ class POSController extends Controller
             ->leftJoin('source', 'all_parts.source_id', '=', 'source.id')
             ->leftJoin('status', 'all_parts.status_id', '=', 'status.id')
             ->leftJoin('part_quality', 'all_parts.quality_id', '=', 'part_quality.id')
+            ->leftJoin('unit', 'unit.id', '=', $tableN . '.unit_id')
             ->select(
                 'all_parts.part_id as part',
                 $tableN . '.store_log_id as store_log_id',
@@ -1725,6 +1730,8 @@ class POSController extends Controller
                 'status.name as status_name',
                 'part_quality.name as quality_name',
                 $tableN . '.type_id as type_id',
+                $tableN . '.unit_id as unit_id',
+                'unit.name as unit_name',
                 'all_parts.order_supplier_id as supplier_order_id',
                 DB::raw('SUM(' . $tableN . '.amount) as storeAmount'),
                 DB::raw('COALESCE((
@@ -1752,6 +1759,8 @@ class POSController extends Controller
             ->leftJoin('source', 'all_wheels.source_id', '=', 'source.id')
             ->leftJoin('status', 'all_wheels.status_id', '=', 'status.id')
             ->leftJoin('part_quality', 'all_wheels.quality_id', '=', 'part_quality.id')
+            ->leftJoin('unit', 'unit.id', '=', $tableN . '.unit_id')
+
             ->select(
                 'all_wheels.part_id as part',
                 $tableN . '.store_log_id as store_log_id',
@@ -1762,6 +1771,8 @@ class POSController extends Controller
                 'all_wheels.status_id as status_id',
                 'all_wheels.quality_id as quality_id',
                 $tableN . '.type_id as type_id',
+                $tableN . '.unit_id as unit_id',
+                'unit.name as unit_name',
                 'all_wheels.order_supplier_id as supplier_order_id',
                 DB::raw('SUM(' . $tableN . '.amount) as storeAmount'),
                 DB::raw('COALESCE((
@@ -1791,6 +1802,8 @@ class POSController extends Controller
             ->leftJoin('source', 'all_clarks.source_id', '=', 'source.id')
             ->leftJoin('status', 'all_clarks.status_id', '=', 'status.id')
             ->leftJoin('part_quality', 'all_clarks.quality_id', '=', 'part_quality.id')
+            ->leftJoin('unit', 'unit.id', '=', $tableN . '.unit_id')
+
             ->select(
                 'all_clarks.part_id as part',
                 $tableN . '.store_log_id as store_log_id',
@@ -1801,6 +1814,8 @@ class POSController extends Controller
                 'status.name as status_name',
                 'part_quality.name as quality_name',
                 $tableN . '.type_id as type_id',
+                $tableN . '.unit_id as unit_id',
+                'unit.name as unit_name',
                 'all_clarks.order_supplier_id as supplier_order_id',
                 DB::raw('SUM(' . $tableN . '.amount) as storeAmount'),
                 DB::raw('COALESCE((
@@ -1828,6 +1843,8 @@ class POSController extends Controller
             ->leftJoin('source', 'all_tractors.source_id', '=', 'source.id')
             ->leftJoin('status', 'all_tractors.status_id', '=', 'status.id')
             ->leftJoin('part_quality', 'all_tractors.quality_id', '=', 'part_quality.id')
+            ->leftJoin('unit', 'unit.id', '=', $tableN . '.unit_id')
+
             ->select(
                 'all_tractors.part_id as part',
                 $tableN . '.store_log_id as store_log_id',
@@ -1838,6 +1855,8 @@ class POSController extends Controller
                 'status.name as status_name',
                 'part_quality.name as quality_name',
                 $tableN . '.type_id as type_id',
+                $tableN . '.unit_id as unit_id',
+                'unit.name as unit_name',
                 'all_tractors.order_supplier_id as supplier_order_id',
                 DB::raw('SUM(' . $tableN . '.amount) as storeAmount'),
                 DB::raw('COALESCE((
@@ -1865,6 +1884,8 @@ class POSController extends Controller
             ->leftJoin('source', 'all_equips.source_id', '=', 'source.id')
             ->leftJoin('status', 'all_equips.status_id', '=', 'status.id')
             ->leftJoin('part_quality', 'all_equips.quality_id', '=', 'part_quality.id')
+            ->leftJoin('unit', 'unit.id', '=', $tableN . '.unit_id')
+
             ->select(
                 'all_equips.part_id as part',
                 $tableN . '.store_log_id as store_log_id',
@@ -1875,6 +1896,8 @@ class POSController extends Controller
                 'status.name as status_name',
                 'part_quality.name as quality_name',
                 $tableN . '.type_id as type_id',
+                $tableN . '.unit_id as unit_id',
+                'unit.name as unit_name',
                 'all_equips.order_supplier_id as supplier_order_id',
                 DB::raw('SUM(' . $tableN . '.amount) as storeAmount'),
                 DB::raw('COALESCE((
@@ -1897,39 +1920,7 @@ class POSController extends Controller
         ->get();
 
 
-        // $newParts = new \Illuminate\Database\Eloquent\Collection(); //Create empty collection which we know has the merge() method
-        // $newParts = $newParts->concat($newkits);
-        // $newParts = $newParts->concat($newwheels);
-        // $newParts = $newParts->concat($newpar);
-        // $newParts = $newParts->concat($newclark);
-        // $newParts = $newParts->concat($newtractor);
-        // $newParts = $newParts->concat($newequip);
-         // for ($i = 0; $i < count($newParts); $i++) {
 
-        //     if ($newParts[$i]->type_id == 1) {
-        //         $newParts[$i]->partData = Part::where('id', $newParts[$i]->part)->get();
-
-        //     } elseif ($newParts[$i]->type_id == 2) {
-        //         $newParts[$i]->partData = Wheel::where('id', $newParts[$i]->part)->get();
-        //     } elseif ($newParts[$i]->type_id == 3) {
-        //         $newParts[$i]->partData = Tractor::where('id', $newParts[$i]->part)->get();
-        //     } elseif ($newParts[$i]->type_id == 4) {
-        //         $newParts[$i]->partData = Clark::where('id', $newParts[$i]->part)->get();
-        //     } elseif ($newParts[$i]->type_id == 5) {
-        //         $newParts[$i]->partData = Equip::where('id', $newParts[$i]->part)->get();
-        //     } elseif ($newParts[$i]->type_id == 6) {
-        //         $newParts[$i]->partData = Kit::where('id', $newParts[$i]->part)->get();
-        //     }
-
-        //     $newParts[$i]->partHistory = StoreSection::where('store_id',$storeId->id)
-        //     ->where('part_id',$newParts[$i]->part)
-        //     ->where('source_id',$newParts[$i]->source_id)
-        //     ->where('status_id',$newParts[$i]->status_id)
-        //     ->where('quality_id',$newParts[$i]->quality_id)
-        //     ->where('type_id',$newParts[$i]->type_id)
-        //     ->with('store_structure')
-        //     ->get();
-        // }
             $newParts = collect($newkits)
                 ->concat($newwheels)
                 ->concat($newpar)
@@ -2038,7 +2029,7 @@ class POSController extends Controller
             }
 
             $samllmeasureUnits = $request->samllmeasureUnits[$i];
-            $measureUnit = $request->measureUnit[$i];
+            $measureUnit = $request->unit_slc[$i];
              $ratiounit = getSmallUnit($measureUnit, $samllmeasureUnits);
             if ($type_id != 0) {        
                 $storeSection = new StoreSection();
@@ -2052,6 +2043,7 @@ class POSController extends Controller
                 $storeSection->quality_id = $allpart[0]->quality_id;
                 $storeSection->amount = $request->sectionAmount[$i] * $ratiounit;
                 $storeSection->date = Carbon::now();
+                $storeSection->unit_id = $request->unit_slc[$i];
                 $storeSection->save();
             }
         }
@@ -2445,8 +2437,10 @@ class POSController extends Controller
         $stores = Store::all();
 
         if ($type == 1) {
+
             return $stores->each(function ($item) use ($partId, $sourceId, $statusId, $qualityId, $type) {
                 // $storeClass = 'App\Models\\'.ucfirst($item->table_name);
+                $item->units = Part::where('id' , $partId)->with('getsmallunit')->get();
                 $item->storepart = DB::table($item->table_name)
                     ->select($item->table_name . '.*')
                     ->join('stores_log', $item->table_name . '.store_log_id', '=', 'stores_log.id')
@@ -2455,6 +2449,7 @@ class POSController extends Controller
                     ->where('all_parts.source_id', '=', $sourceId)
                     ->where('all_parts.status_id', '=', $statusId)
                     ->where('all_parts.quality_id', '=', $qualityId)
+                    
                     // ->where('stores_log.status', '=', 3)
                     // ->orWhere('stores_log.status', '=', 1)
                     ->get();
@@ -7842,9 +7837,9 @@ class POSController extends Controller
                         $partName = addslashes($row->stores_log->all_parts[0]->part->name);
                         $amount = $row->amount;
                         $typeId = $row->type_id;
-                        $ratiounit = getSmallUnit($row->stores_log->all_parts[0]->part->bigunit->id, $row->stores_log->all_parts[0]->part->smallunit->id);
-                        $ratiounit_name = addslashes($row->stores_log->all_parts[0]->part->bigunit->name);
-
+                        $ratiounit = getSmallUnit($row->unit_id, $row->stores_log->all_parts[0]->part->smallunit->id);
+                        $ratiounit_name = addslashes($row->unit->name);
+                        $unit_send=$row->unit_id;
                         $btn = '<span style="cursor: pointer;" onclick="SendToStoreNew(' .
                             htmlspecialchars($secc, ENT_QUOTES, 'UTF-8') . ', ' .
                             $partId . ', ' .
@@ -7855,6 +7850,7 @@ class POSController extends Controller
                             $amount . ', ' .
                             $ratiounit . ', \'' .
                             $ratiounit_name . '\', ' .
+                            $unit_send . ', ' .
                             $typeId . ')" class="fs-2 mdi mdi-share px-2 text-secondary"></span>';
                     } elseif ($row->type_id == 6) {
                         $secc = json_encode($row->stores_log->all_kits[0]->sectionswithoutorder);
@@ -7865,7 +7861,9 @@ class POSController extends Controller
                         $partName = addslashes($row->stores_log->all_kits[0]->kit->name);
                         $amount = $row->amount;
                         $typeId = $row->type_id;
-
+                        $ratiounit = getSmallUnit($row->unit_id, $row->stores_log->all_parts[0]->part->smallunit->id);
+                        $ratiounit_name = addslashes($row->unit->name);
+                        $unit_send=$row->unit_id;
                         $btn = '<span style="cursor: pointer;" onclick="SendToStoreNew(' .
                             htmlspecialchars($secc, ENT_QUOTES, 'UTF-8') . ', ' .
                             $partId . ', ' .
@@ -7874,6 +7872,9 @@ class POSController extends Controller
                             $partQualityId . ', \'' .
                             $partName . '\', ' .
                             $amount . ', ' .
+                            $ratiounit . ', \'' .
+                            $ratiounit_name . '\', ' .
+                            $unit_send  . ', ' .
                             $typeId . ')" class="fs-2 mdi mdi-share px-2 text-secondary"></span>';
                     } elseif ($row->type_id == 2) {
 
@@ -7970,9 +7971,9 @@ class POSController extends Controller
                         $partName = addslashes($row->stores_log->all_parts[0]->part->name);
                         $amount = $row->amount;
                         $typeId = $row->type_id;
-                        $ratiounit = getSmallUnit($row->stores_log->all_parts[0]->part->bigunit->id, $row->stores_log->all_parts[0]->part->smallunit->id);
-                        $ratiounit_name = addslashes($row->stores_log->all_parts[0]->part->bigunit->name);
-
+                        $ratiounit = getSmallUnit($row->unit_id, $row->stores_log->all_parts[0]->part->smallunit->id);
+                        $ratiounit_name = addslashes($row->unit->name);
+                        $unit_ask=$row->unit_id;
                         $btn = '<span style="cursor: pointer;" onclick="askStoreNew(' .
                             htmlspecialchars($secc, ENT_QUOTES, 'UTF-8') . ', ' .
                             $partId . ', ' .
@@ -7983,6 +7984,7 @@ class POSController extends Controller
                             $amount . ', ' .
                             $ratiounit . ', \'' .
                             $ratiounit_name . '\', ' .
+                            $unit_ask . ', ' .
                             $typeId . ')" class="fs-2 mdi mdi-download px-2 text-secondary"></span>';
                     } elseif ($row->type_id == 6) {
                         $secc = json_encode($row->stores_log->all_kits[0]->sectionswithoutorder);
@@ -7993,7 +7995,9 @@ class POSController extends Controller
                         $partName = addslashes($row->stores_log->all_kits[0]->kit->name);
                         $amount = $row->amount;
                         $typeId = $row->type_id;
-
+                        $ratiounit = getSmallUnit($row->unit_id, $row->stores_log->all_parts[0]->part->smallunit->id);
+                        $ratiounit_name = addslashes($row->unit->name);
+                        $unit_ask=$row->unit_id;
                         $btn = '<span style="cursor: pointer;" onclick="askStoreNew(' .
                             htmlspecialchars($secc, ENT_QUOTES, 'UTF-8') . ', ' .
                             $partId . ', ' .
@@ -8002,6 +8006,9 @@ class POSController extends Controller
                             $partQualityId . ', \'' .
                             $partName . '\', ' .
                             $amount . ', ' .
+                            $ratiounit . ', \'' .
+                            $ratiounit_name . '\', ' .
+                            $unit_ask . ', ' .
                             $typeId . ')" class="fs-2 mdi mdi-download px-2 text-secondary"></span>';
                     } elseif ($row->type_id == 2) {
 
@@ -8453,26 +8460,46 @@ class POSController extends Controller
             $allinvoices = new Collection();
             if ($request->partTypeS == 1) {
                 $allinvoices = AllPart::where('remain_amount', '>', 0)->where('part_id', $request->partIdS)->where('source_id', $request->partSourceS)->where('status_id', $request->partStatusS)->where('quality_id', $request->partQualityS)->orderBy('id')->get();
+                $allinvoices->each(function($invoice) {
+                    $invoice->type_id = 1;
+                });
             } else if ($request->partTypeS == 2) {
                 $allinvoices = AllWheel::where('remain_amount', '>', 0)->where('part_id', $request->partIdS)->where('source_id', $request->partSourceS)->where('status_id', $request->partStatusS)->where('quality_id', $request->partQualityS)->orderBy('id')->get();
+                $allinvoices->each(function($invoice) {
+                    $invoice->type_id = 2;
+                });
             } else if ($request->partTypeS == 6) {
                 $allinvoices = AllKit::where('remain_amount', '>', 0)->where('part_id', $request->partIdS)->where('source_id', $request->partSourceS)->where('status_id', $request->partStatusS)->where('quality_id', $request->partQualityS)->orderBy('id')->get();
+                $allinvoices->each(function($invoice) {
+                    $invoice->type_id = 6;
+                });
             } else if ($request->partTypeS == 3) {
                 $allinvoices = AllTractor::where('remain_amount', '>', 0)->where('part_id', $request->partIdS)->where('source_id', $request->partSourceS)->where('status_id', $request->partStatusS)->where('quality_id', $request->partQualityS)->orderBy('id')->get();
+                $allinvoices->each(function($invoice) {
+                    $invoice->type_id = 3;
+                });
             } else if ($request->partTypeS == 4) {
                 $allinvoices = AllClark::where('remain_amount', '>', 0)->where('part_id', $request->partIdS)->where('source_id', $request->partSourceS)->where('status_id', $request->partStatusS)->where('quality_id', $request->partQualityS)->orderBy('id')->get();
+                $allinvoices->each(function($invoice) {
+                    $invoice->type_id = 4;
+                });
             } else if ($request->partTypeS == 5) {
                 $allinvoices = AllEquip::where('remain_amount', '>', 0)->where('part_id', $request->partIdS)->where('source_id', $request->partSourceS)->where('status_id', $request->partStatusS)->where('quality_id', $request->partQualityS)->orderBy('id')->get();
+                $allinvoices->each(function($invoice) {
+                    $invoice->type_id = 5;
+                });
             }
             $lastlog = 0;
             $alllogs = [];
             // $sendAmount = $request->sendAmount;
             $sendAmount = $request->sendAmount;
             $ratiounit=1;
+            
             foreach ($allinvoices as $key => $element) {
+                // return $element;
                 if($element->type_id == 1){
                     $samllmeasureUnits = $element->part->small_unit;
-                    $measureUnit = $element->part->big_unit;
+                    $measureUnit = $request->unitsend_id;
                     $ratiounit = getSmallUnit($measureUnit, $samllmeasureUnits);
                     $sendAmount = $request->sendAmount * $ratiounit;
                 }else{
@@ -8491,6 +8518,7 @@ class POSController extends Controller
                         'date' => date('Y-m-d H:i:s'),
                         'type_id' => $request->partTypeS,
                         'notes' => 'To :' . $otherStore->name,
+                        'unit_id'=>$request->unitsend_id,
                     ])->id;
                     
                     $logMessage.='سيتم خروج من مخزن الكمية '.$sendAmount.'من AllPartId'.$element->id.' الي'.$otherStore->name.' من'.$currentStore->name.'<br/>';
@@ -8505,6 +8533,7 @@ class POSController extends Controller
                         'date' => date('Y-m-d H:i:s'),
                         'type_id' => $request->partTypeS,
                         'notes' => 'from :' . $currentStore->name,
+                        'unit_id'=>$request->unitsend_id,
                     ])->id;
                     
                     $logMessage.='سيتم دخول من مخزن الكمية '.$sendAmount.'من AllPartId'.$element->id.' من'.$currentStore->name.' الي'.$otherStore->name.'<br/>';
@@ -8523,6 +8552,7 @@ class POSController extends Controller
                         'date' => date('Y-m-d H:i:s'),
                         'type_id' => $request->partTypeS,
                         'notes' => 'To :' . $otherStore->name,
+                        'unit_id'=>$request->unitsend_id,
                     ])->id;
 
                     $logMessage.='سيتم خروج من مخزن الكمية '.$element->remain_amount.'من AllPartId'.$element->id.' من'.$currentStore->name.' الي'.$otherStore->name.'<br/>';
@@ -8537,6 +8567,7 @@ class POSController extends Controller
                         'date' => date('Y-m-d H:i:s'),
                         'type_id' => $request->partTypeS,
                         'notes' => 'from :' . $currentStore->name,
+                        'unit_id'=>$request->unitsend_id,
                     ])->id;
                     
                     $logMessage.='سيتم دخول من مخزن الكمية '.$element->remain_amount.'من AllPartId'.$element->id.' من'.$currentStore->name.' الي'.$otherStore->name.'<br/>';
@@ -8556,7 +8587,7 @@ class POSController extends Controller
                             // 'store_log_id' => $lastlog,
                             'section_id' =>  intval($value),
                             'store_id' =>  $currentStore->id,
-                            'amount' => intval($request->sectionAmount[$key]),
+                            'amount' => floatval($request->sectionAmount[$key]) * $ratiounit ,
                             'notes' => implode(" ", $alllogs)
                         ]);
                     }

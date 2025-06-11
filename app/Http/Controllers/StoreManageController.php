@@ -1705,7 +1705,7 @@ class StoreManageController extends Controller
                                         $section->source_id = $request->partSource[$i];
                                         $section->status_id = $request->partStatus[$i];
                                         $section->quality_id = $request->partQualty[$i];
-                                        $section->amount = $request->amount[$i];
+                                        $section->amount =  floatval($request->amount[$i]) * floatval($ratiounit);
                                         $section->date = Carbon::now();
                                         $section->unit_id = $request->unit[$i];
                                         $section->save();

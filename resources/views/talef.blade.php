@@ -79,7 +79,11 @@
     
                         <div class="row">
                             <div class="col-lg-6">
-                            <label for="">   الإجمالى</label><span class="badge badge-dark mx-3" id="storeAmount">0</span>{{$item->bigunit->name}}
+                            <label for="">   الإجمالى</label><span class="badge badge-dark mx-3" id="storeAmount">0</span>
+                            <select id="p_unit">
+                               
+                                <option value="">إختر الوحدة </option>
+                            </select>
                             <input required name="amount"  type="text" class="form-control">
                             </div>
                             <div class="col-lg-6">
@@ -121,11 +125,36 @@
         <script>
             var store_datax = {!! $amount !!};
             var store_id = {!! $store_id !!};
+console.log(store_datax);
 
             $(document).ready(function() {
+                var ratio = $('.ratioamount').val();
                 var xx = store_datax.find(x => x.id == store_id).storepartCount;
+                var units = store_datax.find(x => x.id == store_id).units[0].getsmallunit;
+                var units_drp=[];
                 $("#storeAmount").text(xx/ratio);
                 $(".talefamount").attr('max',xx/ratio);
+                // units.forEach(element => {
+                //    units_drp.append(`<option value = ${element.value}>${element.id}</option>`)
+                    
+                // });
+            //     // $('#p_unit').html(units_drp);
+            //     partunitx +=`<option selected disabled value="">Select Unit</option>`;
+                    
+            //             if(units.length > 0){
+            //                 smallUnit = ($(this).select2('data').length > 0) ? $(this).select2('data')[0].small_unit : 0;
+
+            //                 units.forEach(unit => {
+            //                         partunitx +=`<option value="${unit.unit.id}">${unit.unit.name}</option>`;
+            //                 });
+
+            //             }else{
+            //                 partunitx +=`<option value="1">وحدة</option>`;
+            //             }
+                  
+            //     <select class="form-select partQualty text-left" name="unit[]" id="" required>
+            //         $('#p_unit').html(units_drp);
+            // </select>
             })
             $(".talefamount").on('keyup', function() {
                 var ratio = $('.ratioamount').val();
