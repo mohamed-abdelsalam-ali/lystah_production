@@ -1223,9 +1223,10 @@ class PartsController extends Controller
         return View('printInvoice' , compact('invoice','invoiceItems','paperTitle','recordName','recordValue','recoredId','recoredUrl'));
     }
 
-     public function printInvoice(Invoice $id)
+     public function printInvoice($id)
     {
-        $invoice =  $id;
+        $invoice =  Invoice::find($id);
+        $id =  Invoice::find($id);
 
          $presaleFlag = 0;
         if($invoice->presale_order_id){

@@ -303,8 +303,7 @@ class NewPosController extends Controller
                             break;
                         }
                     }
-
-                    $store = Store::where('id', $request->storeId)->get();
+                     $store = Store::where('id', $request->storeId)->get();
                     $store_id = $store[0]->id;
                     $store_name = $store[0]->name;
                     $store_table_name = $store[0]->table_name;
@@ -1205,9 +1204,9 @@ class NewPosController extends Controller
             }
 
             /////////////////////adel///////////
-            $store = Store::where('id', $request->storeId)->first();
+             $store = Store::where('id', $request->storeId)->first();
 
-            $storees = Store::where('safe_accountant_number', $request->payment)->first();
+              $storees = Store::where('safe_accountant_number', $request->payment)->first();
 
             if ($storees) {
                 $total = MoneySafe::where('store_id', $request->storeId)
@@ -1266,8 +1265,8 @@ class NewPosController extends Controller
                 $newqayd->save();
 
             } else {
-                $storees = BankType::where('accountant_number', $request->payment)->first();
-                $total = BankSafeMoney::where('bank_type_id', $storees->id)
+                  $storees = BankType::where('accountant_number', $request->payment)->first();
+                 $total = BankSafeMoney::where('bank_type_id', $storees->id)
                     ->latest()
                     ->first();
 
@@ -1307,7 +1306,8 @@ class NewPosController extends Controller
                     ' الي بنك '.$storees->id.'<br/>';
                 }
                 
-                
+                // DB::rollback();
+                // return 
                 $newqayd = new Newqayd();
                 $newqayd->refrence='BANK/'.date('Y').'/'.date('m').'/'.$nqayd->id;
                 $newqayd->coa_id=40;
@@ -1558,7 +1558,7 @@ class NewPosController extends Controller
             $newqayd->show_no='2';
             $newqayd->save();
 
-
+            
             $quaditems = [];
             $automaicQayd = new QaydController();
             array_push($quaditems, (object) ['acountant_id' => 37, 'dayin' => 0, 'madin' => $total_item_buy_price]); // المبيعات مدين
@@ -1572,6 +1572,7 @@ class NewPosController extends Controller
                 'invoiceid' => $invoice->id,
                 'flag' => 1
             ]);
+            
             // /********************************** Automaic qayd*******************************************************
             // $request->taxval الضريبة
             // $request->taxes انواع الضرائب
@@ -1586,7 +1587,7 @@ class NewPosController extends Controller
             $invoiceac = 0;
             $taxac = 0;
             $binvoiceac = 0;
-
+           
             if (floatval($request->taxval) > 0) {
                 foreach ($request->taxes as $key => $value) {
                     if ($value == '14') {
@@ -1606,22 +1607,7 @@ class NewPosController extends Controller
                     $binvoiceac += round($invoiceac - $taxac);
                 }
             }
-            //  if(floatval($request->taxval) > 0 ){
-            //     // غير شامل
-
-            //     $taxac = $request->subtotal * 14 /100 ; // الضريبة
-            //     $invoiceac = floatval($request->subtotal) + $taxac; //الاجمالي بعد الضريبة
-            //     $binvoiceac =round($invoiceac - $taxac);
-            //     //   array_push ( $quaditems , (object) [ 'acountant_id'=> 2636  , 'madin'=> 0 , 'dayin'=> $taxac ] ); // الضريبة دائن
-            //     // هنا هنزود الضرائب التانية
-
-            // }
-            // else{
-            //     // شامل
-            //     $binvoiceac = round(floatval($request->total) / 1.14); //  المشتريات غير شامل الضريبة
-            //     $taxac = floatval($request->total) -$binvoiceac ; // الضريبة
-            //     $invoiceac =  round($binvoiceac + $taxac);
-            // }
+            
 
             if ($request->invPaied == $request->total) {
                 // البيع كاش
@@ -1652,7 +1638,7 @@ class NewPosController extends Controller
                     array_push($quaditems, (object) ['acountant_id' => $request->payment, 'dayin' => 0, 'madin' => $request->invPaied]); // بنك مدين
                 }
             }
-
+           
             //   return $taxac;
 
             // هنضيف الضريبة
@@ -1662,22 +1648,24 @@ class NewPosController extends Controller
             if ($request->invDiscount > 0) {
                 array_push($quaditems, (object) ['acountant_id' => 4513, 'madin' => $request->invDiscount, 'dayin' => 0]); // مسموحات مبيعات دائن
             }
-
+            $automaicQayd = new QaydController();
             $date = Carbon::now();
             $type = null;
             $notes = 'فاتورة بيع رقم' . $invoice->id;
-            $qyadidss = $automaicQayd->AutomaticQayd($quaditems, $date, $type, $notes);
+             $qyadidss = $automaicQayd->AutomaticQayd($quaditems, $date, $type, $notes);
             $logMessage.='مبلغ فاتورة بيع رقم '.$invoice->id.' تم اضافة القيد'.$qyadidss.'<br/>';
+          
             Qayditem::where('qaydid', $qyadidss)->update([
                 'invoiceid' => $invoice->id,
                 'flag' => 1
             ]);
-
-            $user = User::find(33); // Get the user
+           
+         
+             $user = User::where('id',33)->first(); // Get the user
+            //  dd($store->name);
             $user->notify(new NotifyUser('تم إضافة فاتورة بيع رقم '.$invoice->id.' من مخزن '.$store->name));
         
-        $user = User::find(39); // Get the user
-            $user->notify(new NotifyUser('تم إضافة فاتورة بيع رقم '.$invoice->id.' من مخزن '.$store->name));
+           
             // /*****************************************************************************************
             DB::commit();
             $log = new LogController();
@@ -1685,7 +1673,7 @@ class NewPosController extends Controller
             return redirect()->to('printInvoice/' . $invoice->id);
         } catch (\Exception $e) {
             DB::rollback();
-            // dd($e);
+            dd($e);
             session()->flash("success", "لا يمكن حفظ الفاتورة" . $e);
             return redirect()->back();
         }
