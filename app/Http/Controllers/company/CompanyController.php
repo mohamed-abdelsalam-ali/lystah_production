@@ -56,7 +56,7 @@ class CompanyController extends Controller
         // DB::reconnect('mysql');
         $users = User::get();
         
-        return view('company.dashboard', compact('users', 'currentSubscription', 'latestPayment', 'user_general'));
+        return view('company.dashboard', compact('users', 'currentSubscription', 'latestPayment', 'user_general' ));
     }
 
     /**
@@ -136,7 +136,7 @@ class CompanyController extends Controller
             'company_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
        
-        
+
 
         $updateData = $request->only('work', 'company_tax_file', 'company_commercial_register');
 

@@ -78,7 +78,7 @@
                     <!-- Edit Company    Information -->
                     <div class="card mb-4">
                         <div class="card-header bg-secondary text-white">
-                            <h4 class="mb-0">تعديل بيانات الشركة</h4>
+                            <h4 class="mb-0">تعديل بيانات الشركة لتظهر فى الفواتير</h4>
                         </div>
                         <div class="card-body">
                             <form action="{{ route('company.profile.update') }}" method="POST" enctype="multipart/form-data">
