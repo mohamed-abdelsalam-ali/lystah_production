@@ -74,6 +74,9 @@
                             الذهاب للصفحة الرئيسية
                         </a>
                     </div>
+
+
+                    
                     <p class="fs-17 text-bg-dark text-center">المستخدمين</p>
                     <div class="card-body table-responsive">
                             <table class="table table-striped table-bordered cell-border " style="font-size: smaller;width:100%" id="kt_ecommerce_sales_table_inbox">
