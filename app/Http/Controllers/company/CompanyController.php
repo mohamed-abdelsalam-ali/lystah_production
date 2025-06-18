@@ -52,8 +52,13 @@ class CompanyController extends Controller
             ->first();
      
 
+
+
+
+
             
-        // config(['database.connections.mysql.database' => $user->db_name]);
+
+    // config(['database.connections.mysql.database' => $user->db_name]);
         // DB::purge('mysql');
         // DB::reconnect('mysql');
         $users = User::get();
