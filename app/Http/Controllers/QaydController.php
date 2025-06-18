@@ -262,27 +262,21 @@ class QaydController extends Controller
     
     
                 foreach($quaditems as $item ){
-                    $branch =BranchTree::where('accountant_number', intval($item->acountant_id))->first();
-                    $branchid=1;
-                    if($branch){
-                        $branchid=$branch->id;
-                    }
                     $qayditemFrom= Qayditem::create([
                         'qaydid' =>  $qayd_id,
-                        'branchid' =>  $branchid,
+                        'branchid' => BranchTree::where('accountant_number', intval($item->acountant_id))->first()->id ,
                         'dayin'=> $item->dayin,
                         'madin'=> $item->madin,
                         'topic'=> $notes,
                         'date' => Carbon::now()
                     ]);
                 }
-                
+       
 
             DB::commit();
             return $qayd_id;
        } catch (\Exception $e) {
             //throw $th;
-            return $e;
             DB::rollback();
             session()->flash("error", $e);
             return $e;

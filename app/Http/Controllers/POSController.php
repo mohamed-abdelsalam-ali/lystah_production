@@ -2410,7 +2410,7 @@ class POSController extends Controller
                 
                 DB::commit();
                 return view('sanad.print_sanad_sarf', compact('note','emp','payment_types', 'paperTitle', 'recordName', 'recordValue', 'recoredUrl', 'moneyVal', 'personName', 'datee'));
-                // return redirect()->to('Supplierinvoice/' . $request->supplier_id);
+                return redirect()->to('Supplierinvoice/' . $request->supplier_id);
 
             } catch (\Exception $e) {
                 //throw $th;
@@ -2434,8 +2434,7 @@ class POSController extends Controller
     public function PartInStoresCount($partId, $sourceId, $statusId, $qualityId, $type)
     {
         // get all stores
-        // $stores = Store::all();
-        $stores= Store::where('table_name', '!=', 'damaged_parts')->get();
+        $stores = Store::all();
 
         if ($type == 1) {
 
@@ -2443,9 +2442,8 @@ class POSController extends Controller
                 // $storeClass = 'App\Models\\'.ucfirst($item->table_name);
                 $item->units = Part::where('id' , $partId)->with('getsmallunit')->get();
                 $item->storepart = DB::table($item->table_name)
-                    ->select($item->table_name . '.*','unit.*')
+                    ->select($item->table_name . '.*')
                     ->join('stores_log', $item->table_name . '.store_log_id', '=', 'stores_log.id')
-                    ->join('unit', $item->table_name . '.unit_id', '=', 'unit.id')
                     ->join('all_parts', 'stores_log.All_part_id', '=', 'all_parts.id')
                     ->where('all_parts.part_id', '=', $partId)
                     ->where('all_parts.source_id', '=', $sourceId)
@@ -8913,14 +8911,11 @@ class POSController extends Controller
             $item = [];
             $amount=[];
         }
-          $unit_store = collect($amount)->filter(function ($x) use($store_data) {
-                return $x->id === $store_data[0]->id;
-            })->first();
         $source = Source::where('id',$source_id)->first();
         $status = Status::where('id',$status_id)->first();
         $quality = PartQuality::where('id',$quality_id)->first();
         // return $amount;
-        return view('talef',compact('store_data','unit_store','stores','employee','item','source','status','quality','store_id','amount','type_id'));
+        return view('talef',compact('store_data','stores','employee','item','source','status','quality','store_id','amount','type_id'));
     }
 
       public function save_talef(Request $request){
@@ -9055,8 +9050,8 @@ class POSController extends Controller
                     ->where('source_id', $source_id)
                     ->where('status_id', $status_id)
                     ->where('quality_id', $quality_id)
-                    ->where('store_id',$request->store)
                     ->get();
+
                 $requestSecAmount = $amount;
                 foreach ($allsecc as $key => $element) {
 
@@ -9851,7 +9846,6 @@ class POSController extends Controller
             $talef->employee_id= $request->employee;
             $talef->notes= $request->notes;
             $talef->user_id=  Auth::user()->id;
-            $talef->unit_id= $request->p_unit;
             $talef->save();
 
             // insert qayd

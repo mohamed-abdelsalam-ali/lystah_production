@@ -6,7 +6,3 @@ app/Http/Requests/Auth/LoginRequest.php
 config/services.php
 app/Http/Requests/Auth/LoginRequest.php
 app/Http/Controllers/Auth/GoogleController.php
-app/Http/Controllers/company/CompanyRegesterController.php
-.env
-config/services.php
-app/Http/Middleware/SetUserDatabase.php

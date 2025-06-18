@@ -66,15 +66,7 @@
                                         <input type="hidden" name="status_id" value="{{ $status->id }}">
                                         <input type="hidden" name="quality_id" value="{{ $quality->id }}">
                                         <input type="hidden" name="type_id" value="{{ $type_id }}">
-                                       <?php
-                                       $ratio = 1;
-                                       $store_unit_id= 0;
-                                       if(isset($unit_store->storepart[0]->unit_id)){
-                                        $store_unit_id=$unit_store->storepart[0]->unit_id;
-                                        $ratio=getSmallUnit($unit_store->storepart[0]->unit_id,$item->small_unit) ;
-                                       }
-                                       ?>
-                                        <input type="hidden" name="ratioamount" class="ratioamount" value="{{  $ratio }}" >
+                                        <input type="hidden" name="ratioamount" class="ratioamount" value="{{ getSmallUnit($item->big_unit,$item->small_unit) }}" >
 
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $source->name_arabic }}</td>
@@ -86,53 +78,22 @@
                         </div>
     
                         <div class="row">
-                            <div class="col-lg-3">
-                                <label for="">   إجمالى المتاح</label></br>
-                                <span class="badge badge-dark mx-3" id="storeAmount">0</span>{{$unit_store->storepart[0]->name  }}
-                            </div>
-                            <div class="col-lg-3">
-                                <label for="">الوحدة </label>                              
+                            <div class="col-lg-6">
+                            <label for="">   الإجمالى</label><span class="badge badge-dark mx-3" id="storeAmount">0</span>
+                            <select id="p_unit">
                                
-                                <select id="p_unit" name="p_unit" class="form-control mesur_unit">
-                              
                                 <option value="">إختر الوحدة </option>
-                                @forelse ($unit_store->units[0]->getsmallunit as $unit )
-
-                                    @if (intval($store_unit_id) == intval($unit->unit_id) )
-                                   
-                                    <option selected value="{{ $unit->unit_id }}" data-val='{{ $unit->value }}'>{{ $unit->unit->name }}</option>
-
-                                    @else
-                                    <option  value="{{ $unit->unit_id }}" data-val='{{ $unit->value }}'>{{ $unit->unit->name }}</option>
-
-                                    @endif
-
-                                @empty
-                                <option value="">لايوجد وحدات</option>
-                                @endforelse
                             </select>
-                        </div>
-                        <div class="col-lg-3">
-                            <label for="">الكمية التالفة </label>
-
-                            <input required name="amount"  type="number" step='0.01' class="form-control talefamount">
-                        </div>
-                            <div class="col-lg-3">
-                                <label for="">المتسبب فى التلف </label>      
-                                <a href="/employee" class="btn btn-primary w-50"> + </a>
-
-                                
+                            <input required name="amount"  type="text" class="form-control">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="">المتسبب </label>
                                 <select class="form-control" name="employee" id="" required>
                                     <option selected disabled  value="">اختر</option>
-                                    @forelse($employee as $key => $employe)
+                                    @foreach($employee as $key => $employe)
                                         <option value="{{ $employe->id }}">{{ $employe->employee_name }}</option>
-                                    @empty
-                                    <option value="0">لايوجد موظفين</option>
-                                    @endforelse
+                                    @endforeach
                                 </select>
-                          
-
-
                             </div>
                         </div>
     
@@ -164,56 +125,50 @@
         <script>
             var store_datax = {!! $amount !!};
             var store_id = {!! $store_id !!};
-// console.log(store_datax);
+console.log(store_datax);
 
             $(document).ready(function() {
-                // $(".mesur_unit").select2();
-                $(".mesur_unit").on('change', function() {
-
-                var ratio = $(this).find('option:selected').attr("data-val");
-                $('.ratioamount').val(ratio);
-                var xx = store_datax.find(x => x.id == store_id).storepartCount;
-                var amount =$(this).parents().find("input[name='amount']").val();
-                $(this).parents().find("input[name='amount']").val(xx/ratio);
-                if(amount > xx/ratio){
-                    swal.fire({
-                        title: 'خطأ',
-                        text: 'الكمية المدخلة أكبر من الكمية المتاحة',
-                        icon: 'error',
-                        confirmButtonText: 'حسنا'
-                    });
-                    $(this).parents().find("input[name='amount']").val(xx/ratio);
-                }
-            })
                 var ratio = $('.ratioamount').val();
                 var xx = store_datax.find(x => x.id == store_id).storepartCount;
                 var units = store_datax.find(x => x.id == store_id).units[0].getsmallunit;
                 var units_drp=[];
                 $("#storeAmount").text(xx/ratio);
-                $(".talefamount").attr('max',xx/ratio);      
-        
+                $(".talefamount").attr('max',xx/ratio);
+                // units.forEach(element => {
+                //    units_drp.append(`<option value = ${element.value}>${element.id}</option>`)
+                    
+                // });
+            //     // $('#p_unit').html(units_drp);
+            //     partunitx +=`<option selected disabled value="">Select Unit</option>`;
+                    
+            //             if(units.length > 0){
+            //                 smallUnit = ($(this).select2('data').length > 0) ? $(this).select2('data')[0].small_unit : 0;
+
+            //                 units.forEach(unit => {
+            //                         partunitx +=`<option value="${unit.unit.id}">${unit.unit.name}</option>`;
+            //                 });
+
+            //             }else{
+            //                 partunitx +=`<option value="1">وحدة</option>`;
+            //             }
+                  
+            //     <select class="form-select partQualty text-left" name="unit[]" id="" required>
+            //         $('#p_unit').html(units_drp);
+            // </select>
             })
             $(".talefamount").on('keyup', function() {
                 var ratio = $('.ratioamount').val();
                 var xx = store_datax.find(x => x.id == store_id).storepartCount;
                 var amount = $(this).val();
                 if(amount > xx/ratio){
-                    swal.fire({
-                        title: 'خطأ',
-                        text: 'الكمية المدخلة أكبر من الكمية المتاحة',
-                        icon: 'error',
-                        confirmButtonText: 'حسنا'
-                    });
                     $(this).val(xx/ratio);
                 }
             })
             $("#storeSlct").on('change', function() {
                 var storeId = $(this).val();
                 var xx = store_datax.find(x => x.id == storeId).storepartCount;
-
                 $("#storeAmount").text(xx/ratio);
             })
-          
         </script>
 
     @endsection

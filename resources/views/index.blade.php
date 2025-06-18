@@ -819,7 +819,7 @@
                                     <div class="flex-shrink-0">
 
 
-                                        @if($presalorder_last)
+                                        @if($sell_Invoice_last)
                                         <h4 class="text-success fs-20 mb-0">
                                             <a href="/getclientinvoice/{{ $presalorder_last['client']->id }}">
                                                 {{ $presalorder_last['client']->name }}</a>

@@ -60,12 +60,9 @@ class Talef extends Model
 		'amount',
 		'employee_id',
 		'notes',
-		 'user_id',
-		 'unit_id'
+		 'user_id'
 	];
-	public function unit(){
-		return $this->belongsTo(Unit::class,'unit_id','id');
-	}
+
 	public function store()
 	{
 		return $this->belongsTo(Store::class);
