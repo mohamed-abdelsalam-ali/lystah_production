@@ -56,7 +56,7 @@ class CompanyController extends Controller
         // DB::reconnect('mysql');
         $users = User::get();
         
-        return view('company.dashboard', compact('users', 'currentSubscription', 'latestPayment', 'user_general'));
+        return view('company.dashboard', compact('users', 'currentSubscription', 'latestPayment'));
     }
 
     /**
@@ -124,34 +124,45 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function updateProfile(Request $request)
+    public function update(Request $request)
     {
-        $user = auth()->user();
-        $user_general = User::on('mysql_general')->where('email', $user->email)->first();
-
-        $request->validate([
-            'work' => 'nullable|string|max:255',
-            'company_tax_file' => 'nullable|string|max:255',
-            'company_commercial_register' => 'nullable|string|max:255',
-            'company_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-       
-
-        $updateData = $request->only('work', 'company_tax_file', 'company_commercial_register');
-
-        if ($request->hasFile('company_logo')) {
-            // Delete old logo if it exists
-            if ($user_general->logo_print && \Illuminate\Support\Facades\Storage::disk('public')->exists($user_general->logo_print)) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($user_general->logo_print);
+        // return $request;
+        $company=Company::where('id',$request->company_id)->first();
+        // return $company;
+        if ($request->hasfile('company_image')){
+            if(isset($company->company_image))
+            {
+             $image_path = public_path() . '/company_images' . '/' . $company->company_image;
+             unlink($image_path);
+     
             }
-            // Store new logo
-            $path = $request->file('company_logo')->store('company_logos', 'public');
-            $updateData['logo_print'] = $path;
+            $var = date_create();
+            $time = date_format($var, 'YmdHis');
+            $image_company = $time . '-' . $request->name . '-' . $request->company_image->getClientOriginalName();
+            $request->company_image->move(public_path('company_images'), $image_company);
+            $company->update([
+                'name'=>$request->name,
+                'address'=>$request->address,
+                'telephone'=>$request->telephone,
+                'company_image'=>$image_company,
+                'mail'=>$request->mail,
+                'desc'=>$request->desc,
+
+            ]);
+        }else{
+            $company->update([
+                'name'=>$request->name,
+                'address'=>$request->address,
+                'telephone'=>$request->telephone,
+                'mail'=>$request->mail,
+                'desc'=>$request->desc,
+
+            ]);
+            
         }
-
-        $user_general->update($updateData);
-
-        return redirect()->route('company.dashboard')->with('success', 'تم تحديث بيانات الشركة بنجاح.');
+        session()->flash("success", "تم التعديل بنجاح");
+        return redirect()->route('company.index');
+       
     }
 
     /**
