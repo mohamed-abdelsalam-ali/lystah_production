@@ -70,7 +70,9 @@ class User extends Authenticatable implements Auditable
         'is_active',
         'settings',
         'google_id',
-        'company_logo'
+        'company_logo',
+         'db_user',
+        'db_pass'
     ];
 
     protected $hidden = [

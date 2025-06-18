@@ -74,22 +74,25 @@
                             الذهاب للصفحة الرئيسية
                         </a>
                     </div>
-                    <h4>Users</h4>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Actions</th>
+                    <p class="fs-17 text-bg-dark text-center">المستخدمين</p>
+                    <div class="card-body table-responsive">
+                            <table class="table table-striped table-bordered cell-border " style="font-size: smaller;width:100%" id="kt_ecommerce_sales_table_inbox">
+                                <thead  style="background: #67b1736e;">
+                                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+
+
+                                <th class="text-center">الإسم</th>
+                                <th class="text-center">البريد الإلكتروني</th>
+                                <th class="text-center">الوظيف</th>
+                                <th class="text-center">الإجراءات</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="fw-semibold text-gray-500">
                             @foreach($users as $user)
                                 <tr>
-                                    <td>{{ $user->username }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->is_admin ? 'Admin' : 'User' }}</td>
+                                    <td class="text-center">{{ $user->username }}</td>
+                                    <td class="text-center">{{ $user->email }}</td>
+                                    <td class="text-center">{{ $user->is_admin ? 'Admin' : 'User' }}</td>
                                     <td>
                                         {{-- <!-- Edit/Delete buttons --> --}}
                                     </td>
