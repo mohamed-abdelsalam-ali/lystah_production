@@ -75,6 +75,46 @@
                         </a>
                     </div>
 
+                    <!-- Edit Company Information -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-secondary text-white">
+                            <h4 class="mb-0">تعديل بيانات الشركة</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{ route('company.profile.update') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+
+                                <div class="mb-3">
+                                    <label for="work" class="form-label">مجال الشركة</label>
+                                    <input type="text" class="form-control" id="work" name="work" value="{{ $user_general->work }}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="company_tax_file" class="form-label">الملف الضريبي للشركة</label>
+                                    <input type="text" class="form-control" id="company_tax_file" name="company_tax_file" value="{{ $user_general->company_tax_file }}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="company_commercial_register" class="form-label">السجل التجاري للشركة</label>
+                                    <input type="text" class="form-control" id="company_commercial_register" name="company_commercial_register" value="{{ $user_general->company_commercial_register }}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="company_logo" class="form-label">لوجو الشركة</label>
+                                    <input type="file" class="form-control" id="company_logo" name="company_logo">
+                                    @if($user_general->logo_print)
+                                        <img src="{{ asset('storage/' . $user_general->logo_print) }}" alt="Company Logo" class="img-thumbnail mt-2" width="150">
+                                    @elseif($user_general->company_logo)
+                                        <img src="{{ $user_general->company_logo }}" alt="Company Logo" class="img-thumbnail mt-2" width="150">
+                                    @endif
+                                </div>
+
+                                <button type="submit" class="btn btn-success">حفظ التغييرات</button>
+                            </form>
+                        </div>
+                    </div>
+
 
                     
                     <p class="fs-17 text-bg-dark text-center">المستخدمين</p>

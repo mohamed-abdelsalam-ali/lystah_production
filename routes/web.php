@@ -149,6 +149,8 @@ Route::middleware(['auth', 'company.admin'])->group(function () {
     // Add New User
     Route::post('/company/users', [NewCompanyController::class, 'addUser'])
         ->name('company.users.store');
+
+    Route::put('/company/profile/update', [CompanyController::class, 'updateProfile'])->name('company.profile.update');
 });
 
 // Super admin routes - only accessible by super_admin from general DB
