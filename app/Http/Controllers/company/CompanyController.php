@@ -50,7 +50,9 @@ class CompanyController extends Controller
             ->with(['paymentMethod'])
             ->latest()
             ->first();
-    
+     
+
+            
         // config(['database.connections.mysql.database' => $user->db_name]);
         // DB::purge('mysql');
         // DB::reconnect('mysql');
