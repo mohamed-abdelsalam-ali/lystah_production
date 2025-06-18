@@ -136,6 +136,7 @@ class CompanyController extends Controller
             'company_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
        
+        
 
         $updateData = $request->only('work', 'company_tax_file', 'company_commercial_register');
 

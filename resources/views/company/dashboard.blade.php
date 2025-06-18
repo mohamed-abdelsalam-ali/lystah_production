@@ -75,7 +75,7 @@
                         </a>
                     </div>
 
-                    <!-- Edit Company Information -->
+                    <!-- Edit Company    Information -->
                     <div class="card mb-4">
                         <div class="card-header bg-secondary text-white">
                             <h4 class="mb-0">تعديل بيانات الشركة</h4>

@@ -150,6 +150,7 @@ Route::middleware(['auth', 'company.admin'])->group(function () {
     Route::post('/company/users', [NewCompanyController::class, 'addUser'])
         ->name('company.users.store');
 
+    // Update Company Profile
     Route::put('/company/profile/update', [CompanyController::class, 'updateProfile'])->name('company.profile.update');
 });
 
