@@ -15,7 +15,7 @@ class StoresInvoicesLog extends Model
    
     use \Awobaz\Compoships\Compoships;
 
-	protected $table = 'storesInvoicesLog';
+	protected $table = 'storesinvoiceslog';
 	public $timestamps = true;
 	
     protected $fillable = [
