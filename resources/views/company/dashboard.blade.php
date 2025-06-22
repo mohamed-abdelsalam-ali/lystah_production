@@ -84,7 +84,7 @@
                             <form action="{{ route('company.profile.update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-
+    
                                 <div class="mb-3">
                                     <label for="work" class="form-label">مجال الشركة</label>
                                     <input type="text" class="form-control" id="work" name="work" value="{{ $user_general->work }}">
@@ -104,7 +104,7 @@
                                     <label for="company_logo" class="form-label">لوجو الشركة</label>
                                     <input type="file" class="form-control" id="company_logo" name="company_logo">
                                     @if($user_general->logo_print)
-                                        <img src="{{ asset('storage/' . $user_general->logo_print) }}" alt="Company Logo" class="img-thumbnail mt-2" width="150">
+                                        <img src="{{ asset( 'assets/' . $user_general->logo_print) }}" alt="Company Logo" class="img-thumbnail mt-2" width="150">
                                     @elseif($user_general->company_logo)
                                         <img src="{{ $user_general->company_logo }}" alt="Company Logo" class="img-thumbnail mt-2" width="150">
                                     @endif

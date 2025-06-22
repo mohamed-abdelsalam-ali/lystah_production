@@ -61,9 +61,10 @@
                             <div class="tm_logo " style="float: left;">
                               
                                 @if($generalUser->logo_print)
-                                    <img src="{{ asset('storage/' . $generalUser->logo_print) }}" alt="Company Logo" style="max-width: 150px; height: auto;">
+                                <img src="{{ asset( 'assets/' . $generalUser->logo_print) }}" alt="Company Logo" style="max-width: 150px; height: auto; margin-bottom: 10px;">
+
                                 @elseif($generalUser->company_logo)
-                                    <img src="{{ $generalUser->company_logo }}" alt="Company Logo" style="max-width: 150px; height: auto;">
+                                    <img src="{{ $generalUser->company_logo }}" alt="Company Logo" style="max-width: 150px; height: auto; margin-bottom: 10px;">
                                 @endif                                <div
                                     class="tm_f20 tm_flex tm_primary_color tm_text_uppercase tm_text_center papertitleCls">
                                     فاتورة شراء</div>

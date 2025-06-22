@@ -6,6 +6,8 @@
  */
 namespace App\Models;
 
+use App\Models\Company\UserPayment;
+use App\Models\Company\UserSubscription;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -185,7 +187,7 @@ class User extends Authenticatable implements Auditable
 
             return $role ? $role->name : null;
         } catch (\Exception $e) {
-            \Log::error('Failed to get user role: ' . $e->getMessage());
+            // \Log::error('Failed to get user role: ' . $e->getMessage());
             return null;
         }
     }

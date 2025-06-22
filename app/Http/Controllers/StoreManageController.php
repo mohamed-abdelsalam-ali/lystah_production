@@ -2965,11 +2965,12 @@ class StoreManageController extends Controller
         //
     }
 
-    public function deleteInv(BuyTransaction $id)
+    public function deleteInv( $id)
     {
         // return $id;
         DB::beginTransaction();
         try {
+            $id = BuyTransaction::where('id',$id)->first();
             $orderSup = OrderSupplier::where('transaction_id', $id->id)->get();
             StoreSection::where('order_supplier_id', $orderSup[0]->id)->delete();
 
@@ -3082,9 +3083,10 @@ class StoreManageController extends Controller
         return View('printBuyInvoice', compact(['invoice', 'orderSup', 'items', 'company']));
     }
 
-    public function storeManageItems(BuyTransaction $id)
+    public function storeManageItems( $id)
     {
         // return $id;
+        $id = BuyTransaction::where('id',$id)->first();
         $buyTrans = $id;
         $orderSup = OrderSupplier::where('transaction_id', $buyTrans->id)->with('supplier')->with('currency_type')->get();
         if (count($orderSup) <= 0) {
@@ -3102,10 +3104,17 @@ class StoreManageController extends Controller
         // return $items;
 
         foreach ($items as $key => $item) {
+            // return $item;
             // $item['remainAmountInInvoice'] = StoresLog::where('All_part_id',$item->id)->where('store_action_id',3)->where('type_id',1)->sum('amount');
-            $item['remainAmountInInvoice'] = StoresLog::where('All_part_id', $item->id)->where('store_action_id', 3)->where('status', 3)->sum('amount');
+            $item['remainAmountInInvoice'] = StoresLog::where('All_part_id', $item->id)
+        ->where('store_action_id', 3)
+        ->where('status', 3)
+        ->selectraw('sum(amount) as amount ,unit_id')
+        ->with('unit')
+        ->first();
+        // $item['remainAmountInInvoice'] = $item['remainAmountInInvoice'] ? $item['remainAmountInInvoice'] : 0;
 
-            $item['needConfirmAmountInInvoice'] = StoresLog::where('All_part_id', $item->id)->where('store_action_id', 1)->where('status', 0)->sum('amount');
+            $item['needConfirmAmountInInvoice'] = StoresLog::where('All_part_id', $item->id)->where('store_action_id', 1)->where('status', 0)->sum('amount');   
             if (isset($item->part)) {
                 $item['type'] = 1;
             } elseif (isset($item->wheel)) {
@@ -3138,7 +3147,7 @@ class StoreManageController extends Controller
                 $amount = $request->$storeName[$i];
 
                 if ($amount <> null && intval($amount) > 0) {
-
+                    $ratioamount=getSmallUnit($request->unit[$i],$request->small_unit[$i]);
                     // /*******************************************************************************************************
                     $storex = Store::where('id', $storeId)->first();
                     $Ac_inv = Replyorder::where('order_supplier_id', $request['orderSupplierId'])
@@ -3175,10 +3184,11 @@ class StoreManageController extends Controller
 
                     $storelog->store_action_id = 3;
                     $storelog->store_id = $storeId;
-                    $storelog->amount = $amount;
+                    $storelog->amount = $amount*$ratioamount;
                     $storelog->date = Carbon::now();
                     $storelog->status = 3;
                     $storelog->type_id = $request->types[$i];
+                    $storelog->unit_id = $request->unit[$i];
                     $storelog->save();
 
 
@@ -3195,11 +3205,12 @@ class StoreManageController extends Controller
                         $storeCls = new $storeClsName();
 
                         $storeCls->part_id = $request->partIds[$i];
-                        $storeCls->amount = $amount;
+                        $storeCls->amount = $amount*$ratioamount;
                         $storeCls->supplier_order_id = $request->orderSupplierId;
                         $storeCls->type_id = $request->types[$i];;
                         $storeCls->store_log_id = $storelog->id;
                         $storeCls->date = Carbon::now();
+                        $storeCls->unit_id = $request->unit[$i];
                         $storeCls->save();
                     } catch (\Throwable $th) {
                         //throw $th;

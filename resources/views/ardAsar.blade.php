@@ -665,10 +665,10 @@
                                 dataRow += `<td> ${element.source.name_arabic} </td>`;
                                 dataRow += `<td> ${element.status.name} </td>`;
                                 dataRow += `<td> ${element.part_quality.name} </td>`;
-                                dataRow += `<td>(${element.remain_amount /element.ratiounit} / ${element.part.bigunit.name}) المتاح</td>`;
+                                dataRow += `<td>(${element.remain_amount /element.ratiounit} / ${element.unit_name}) المتاح</td>`;
                                 element.stores.forEach(element2 => {
                                     dataRow +=
-                                    `<td>${element2.totalAmount / element.ratiounit}  / ${element.part.bigunit.name}/ ${element2.store.name} </td>`;
+                                    `<td>${element2.totalAmount / element.ratiounit}  / ${element.unit_name}/ ${element2.store.name} </td>`;
                                 });
                                 dataRow +=
                                     // `<td>${ element.pricing > 0 ?  element.pricing[0].price : 0} ج</td>`;
@@ -770,8 +770,13 @@
                     }
                     var measureUnits = object.getsmallunit;
                     var samllmeasureUnits = object.smallunit;
-                    var bigmeasureUnits = object.bigunit;
-                    console.log(bigmeasureUnits);
+                    // var bigmeasureUnits = object.bigunit;
+                    if(element.buy_unit){
+                        var bigmeasureUnits = element.buy_unit;
+                    }else{
+                        var bigmeasureUnits =  object.bigunit;
+                    }
+                    console.log(object);
                     var measureUnitsElement = '<select name="measureUnit[]" required class="form-control-sm py-0 mesureClass"><option value="" selected disabled>Choose Units</option>';
                     if(measureUnits.length > 0){
                         measureUnits.forEach(element => {
@@ -802,8 +807,8 @@
                     }
                     var measureUnits = object.getsmallunit;
                     var samllmeasureUnits = object.smallunit;
-                    var bigmeasureUnits = object.bigunit;
-                    console.log(bigmeasureUnits);
+                    var bigmeasureUnits = object.buy_unit;
+                    // console.log(bigmeasureUnits);
                     var measureUnitsElement = '<select name="measureUnit[]" required class="form-control-sm py-0 mesureClass"><option value="" selected disabled>Choose Units</option>';
                     if(measureUnits.length > 0){
                         measureUnits.forEach(element => {
@@ -911,7 +916,7 @@
                             <input type="hidden" name="status[]" value="${element.status_id}">
                             <input type="hidden" name="quality[]" value="${element.quality_id}">
                                <input type="hidden" name="samllmeasureUnits[]" value="${samllmeasureUnits.id}">
-                             <input type="hidden" name="itemPrice[]" value="${element.pricing.length > 0 ? element.pricing[0].price : ''}">
+                             <input type="hidden" step="any" name="itemPrice[]" value="${element.pricing.length > 0 ? element.pricing[0].price : ''}">
                                 <input type="hidden" name="bigunitid[]" value="${bigmeasureUnits.id}">
                                 <td>${namee}</td>
                                 <td>${weight}</td>
@@ -921,14 +926,14 @@
                                 <td><input class="form-control amounts"  type="number" name="amount[]" id="" value="1" required></td>
                                 <td>${measureUnitsElement}</td>
 
-                                <td><input type="number" name="price[]" step=".1" class="form-control prices" id=""   value="${element.pricing.length > 0 ? element.pricing[0].price : ''}" required></td>
+                                <td><input type="number" step="any" name="price[]" class="form-control prices" id=""   value="${element.pricing.length > 0 ? element.pricing[0].price : ''}" required></td>
                                 <input type="hidden" class="init_price" value="${element.pricing.length > 0 ? element.pricing[0].price : ''}">
 
-                                <td class="minprices">${element.pricing.length > 0 ? Math.min(...element.pricing.map(item => item.price)) : ''}</td>
-                                 <td class="maxprices">${element.pricing.length > 0 ? Math.max(...element.pricing.map(item => item.price)) : ''}</td>
+                                <td class="minprices">${element.pricing.length > 0 ? Math.min(...element.pricing.map(item => item.price))*element.ratiounit : ''}</td>
+                                 <td class="maxprices">${element.pricing.length > 0 ? Math.max(...element.pricing.map(item => item.price))*element.ratiounit : ''}</td>
                                 <td onclick="$('#itemCounter').text( parseInt($('#itemCounter').text()) -1 );$(this).closest('tr').remove();checksubTotal()"><button class="btn btn-danger">DELETE</button></td>
-                              <input type="hidden" class="initminprices" value="${element.pricing.length > 0 ? Math.min(...element.pricing.map(item => item.price))*element.ratiounit : ''}">
-                                <input type="hidden" class="initmaxprices" value="${element.pricing.length > 0 ? Math.max(...element.pricing.map(item => item.price))*element.ratiounit : ''}">
+                              <input type="hidden" class="initminprices" value="${element.pricing.length > 0 ? Math.min(...element.pricing.map(item => item.price)) : ''}">
+                                <input type="hidden" class="initmaxprices" value="${element.pricing.length > 0 ? Math.max(...element.pricing.map(item => item.price)) : ''}">
                                 </tr>
                         `);
                     } else {
@@ -946,8 +951,8 @@
                             <td><select name="status[]" class="form-select required" id="" required>${statusOption}</select></td>
                             <td class=""><select name="quality[]" class="form-select required" id="" required>${qualityOption}</select></td>
                             <td><input class="form-control amounts"  type="number" name="amount[]" id="" value="1" ></td>
-                            <td><input type="number" step=".1" name="price[]" class="form-control prices" id="" required>
-                            <input type="hidden" class="init_price" value="0">
+                            <td><input type="number" step="any" name="price[]" class="form-control prices" id="" required>
+                            <input type="hidden" class="init_price" value="0" step="any">
 
                             </td>
                           
@@ -969,11 +974,13 @@
                 var mesureVal = $('option:selected', this).attr('data-val') ;
                 var rowPrice = parseFloat($(this).closest('tr').find('.init_price').val());
                 var initminprices = parseFloat($(this).closest('tr').find('.initminprices').val());
-                var initminprices = parseFloat($(this).closest('tr').find('.initminprices').val());
+                var initmaxprices = parseFloat($(this).closest('tr').find('.initmaxprices').val());
                 $(this).closest('tr').find('.prices').val(mesureVal * rowPrice);
+                $(this).closest('tr').find('.minprices').val(mesureVal * initminprices);
+                $(this).closest('tr').find('.maxprices').val(mesureVal * initmaxprices);
                 $(this).closest('tr').find('.amounts').trigger('keyup');
-                $(this).closest('tr').find('.minprices').text()
-                $(this).closest('tr').find('.maxprices').text()
+                $(this).closest('tr').find('.minprices').text(  mesureVal * initminprices);
+                $(this).closest('tr').find('.maxprices').text(  mesureVal * initmaxprices);
                 
                 
                 checkweightTotal();
@@ -1017,8 +1024,9 @@
                                     $("#preorderstatusTbl tbody").append(`<tr style="background:red">
                                     <td>${element.part.name}</td>
                                     <td> ${element.amount / element.ratiounit} / ${element.unit.name}</td>
-                                    <td> ${element.status.name} </td>
+                                 
                                     <td> ${element.source.name_arabic} </td>
+                                       <td> ${element.status.name} </td>
                                     <td> ${element.quality.name} </td>
                                     <td> ${element.total / element.ratiounit} / ${element.unit.name} </td>
 
@@ -1028,8 +1036,9 @@
                                     $("#preorderstatusTbl tbody").append(`<tr>
                                     <td>${element.part.name}</td>
                                     <td> ${element.amount / element.ratiounit}  / ${element.unit.name}</td>
-                                    <td> ${element.status.name} </td>
+                                   
                                     <td> ${element.source.name_arabic} </td>
+                                     <td> ${element.status.name} </td>
                                     <td> ${element.quality.name} </td>
                                     <td> ${element.total / element.ratiounit} / ${element.unit.name}</td>
 
@@ -1129,92 +1138,92 @@
 
 
 
-            $(document).on('change', 'input[name="shownumbers22"]',function() {
-                if (this.checked) {
-                    var xx = $(this).closest('tr').find('.printbtns');
+        $(document).on('change', 'input[name="shownumbers22"]',function() {
+            if (this.checked) {
+                var xx = $(this).closest('tr').find('.printbtns');
 
-                    for (let index = 0; index < xx.length; index++) {
-                        const element = xx[index];
-                        var h = element.href.slice(0, -1);
-                        h = h + '1';
-                        $(element).prop('href', h)
-                    }
-
-                } else {
-                    var xx = $(this).closest('tr').find('.printbtns');
-
-                    for (let index = 0; index < xx.length; index++) {
-                        const element = xx[index];
-                        var h = element.href.slice(0, -1);
-                        h = h + '0';
-                        $(element).prop('href', h)
-                    }
+                for (let index = 0; index < xx.length; index++) {
+                    const element = xx[index];
+                    var h = element.href.slice(0, -1);
+                    h = h + '1';
+                    $(element).prop('href', h)
                 }
 
+            } else {
+                var xx = $(this).closest('tr').find('.printbtns');
 
-            });
-            
-               $(document).on('change', 'input[name="shownumbers"]',function() {
+                for (let index = 0; index < xx.length; index++) {
+                    const element = xx[index];
+                    var h = element.href.slice(0, -1);
+                    h = h + '0';
+                    $(element).prop('href', h)
+                }
+            }
+
+
+        });
+        
+        $(document).on('change', 'input[name="shownumbers"]',function() {
+        if (this.checked) {
+            var xx = $(this).closest('tr').find('.printbtns');
+
+            for (let index = 0; index < xx.length; index++) {
+                const element = xx[index];
+                var h = element.href.slice(0, -1);
+                h = h + '1';
+
+                var url = new URL(element.href);
+                var pathParts = url.pathname.split('/'); // Split the path into parts
+                pathParts[pathParts.length - 1] = '1';
+                url.pathname = pathParts.join('/');
+                $(element).prop('href', url)
+            }
+
+        } else {
+            var xx = $(this).closest('tr').find('.printbtns');
+
+            for (let index = 0; index < xx.length; index++) {
+                const element = xx[index];
+                var h = element.href.slice(0, -1);
+                h = h + '0';
+                var url = new URL(element.href);
+                var pathParts = url.pathname.split('/'); // Split the path into parts
+                pathParts[pathParts.length - 1] = '0';
+                url.pathname = pathParts.join('/');
+                $(element).prop('href', url)
+                // $(element).prop('href', h)
+            }
+        }
+
+
+        });
+
+        $(document).on('change', 'input[name="showLogo"]',function() {
+            var url = window.location.href;
+                var newUrl;
+                var param = 'kethm';
+                var value = 0;
                 if (this.checked) {
-                    var xx = $(this).closest('tr').find('.printbtns');
 
-                    for (let index = 0; index < xx.length; index++) {
-                        const element = xx[index];
-                        var h = element.href.slice(0, -1);
-                        h = h + '1';
-
-                        var url = new URL(element.href);
-                        var pathParts = url.pathname.split('/'); // Split the path into parts
-                        pathParts[pathParts.length - 1] = '1';
-                        url.pathname = pathParts.join('/');
-                        $(element).prop('href', url)
-                    }
+                    value = 1;
 
                 } else {
-                    var xx = $(this).closest('tr').find('.printbtns');
+                    value = 0;
+                }
+                var xx = $(this).closest('tr').find('.printbtns');
 
-                    for (let index = 0; index < xx.length; index++) {
-                        const element = xx[index];
-                        var h = element.href.slice(0, -1);
-                        h = h + '0';
-                        var url = new URL(element.href);
-                        var pathParts = url.pathname.split('/'); // Split the path into parts
-                        pathParts[pathParts.length - 1] = '0';
-                        url.pathname = pathParts.join('/');
-                        $(element).prop('href', url)
-                        // $(element).prop('href', h)
-                    }
+
+                for (let index = 0; index < xx.length; index++) {
+                    const element = xx[index];
+                    var url = new URL(element.href);
+                    var searchParams = url.searchParams;
+                    searchParams.delete('kethm');
+                    searchParams.append('kethm',value)
+                    url.search =searchParams.toString()
+                    $(element).prop('href', url.toString())
                 }
 
-
-            });
-
-            $(document).on('change', 'input[name="showLogo"]',function() {
-                var url = window.location.href;
-                    var newUrl;
-                    var param = 'kethm';
-                    var value = 0;
-                    if (this.checked) {
-
-                        value = 1;
-
-                    } else {
-                        value = 0;
-                    }
-                    var xx = $(this).closest('tr').find('.printbtns');
-
-
-                    for (let index = 0; index < xx.length; index++) {
-                        const element = xx[index];
-                        var url = new URL(element.href);
-                        var searchParams = url.searchParams;
-                        searchParams.delete('kethm');
-                        searchParams.append('kethm',value)
-                        url.search =searchParams.toString()
-                        $(element).prop('href', url.toString())
-                    }
-
-            });
+        });
             
         $("#checkPrice").click(function(e){
                 e.preventDefault();
@@ -1235,7 +1244,7 @@
         
         
         
-           function addNewClient(telNumber) {
+        function addNewClient(telNumber) {
             return $.ajax({
                 type: "get",
                 url: "newClientInline/" + telNumber

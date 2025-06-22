@@ -28,6 +28,7 @@ use App\Models\PartQuality;
 use App\Models\PresaleOrder;
 use App\Models\PresaleOrderPart;
 use App\Models\PresaleOrderTax;
+use App\Models\Replyorder;
 use App\Models\SalePricing;
 use App\Models\Source;
 use App\Models\Status;
@@ -68,176 +69,7 @@ class ArdasarController extends Controller
 
 
         $stores = Store::where('table_name', '<>', 'damaged_parts')->get();
-        // foreach ($parts as $key => $value) {
-        //     foreach ($value->all_parts as $key => $pp) {
-        //         $pp['pricing'] = SalePricing::where('part_id',$pp->part_id)->where('source_id',$pp->source_id)->where('status_id',$pp->status_id)->where('quality_id',$pp->quality_id)->where('type_id',1)->where('to',null)->orderBy('price','Desc')->get();
-        //         $pp['source'] = Source::where('id',$pp->source_id)->first();
-        //         $pp['status'] = Status::where('id',$pp->status_id)->first();
-        //         $pp['quality'] =PartQuality::where('id',$pp->quality_id)->first();
-        //         $pp['part'] =Part::where('id',$pp->part_id)->with('part_details.part_spec')->with('part_details.mesure_unit')->first();
-        //         $pp['type'] = 1;
-        //     }
-        //     $storeData =[];
-        //     foreach ($stores as $key => $st) {
-        //         $storeClsName=ucfirst($st->table_name);
-        //         $storeClsName ='App\Models\\'.$storeClsName;
-        //         $storeClsName = str_replace([' ','_','-'],"",$storeClsName);
-        //         if($st->table_name == "damaged_parts"){
-
-        //         }else{
-        //             array_push($storeData , (object) [ 'name' => $st->name ,'id' => $st->id , 'amount' => $storeClsName::where('part_id',$value->id)->where('type_id',1)->sum('amount') ]) ;
-        //         }
-        //     }
-        //     $value['stores'] = $storeData;
-        //     $value['type'] = 1;
-        // }
-
-        // foreach ($wheels as $key => $value) {
-        //     foreach ($value->all_wheels as $key => $pp) {
-        //         $pp['pricing'] = SalePricing::where('part_id',$pp->part_id)->where('source_id',$pp->source_id)->where('status_id',$pp->status_id)->where('quality_id',$pp->quality_id)->where('type_id',2)->where('to',null)->orderBy('price','Desc')->get();
-        //         $pp['source'] = Source::where('id',$pp->source_id)->first();
-        //         $pp['status'] = Status::where('id',$pp->status_id)->first();
-        //         $pp['quality'] =PartQuality::where('id',$pp->quality_id)->first();
-        //         $pp['part'] =Wheel::where('id',$pp->part_id)->with([
-        //             'wheel_details' => function ($q) {
-        //                 $q->with('wheel_spec')->with('mesure_unit')->get();
-        //             },
-        //         ])->first();
-        //         $pp['type'] = 2;
-        //     }
-        //     $storeData =[];
-        //     foreach ($stores as $key => $st) {
-        //         $storeClsName=ucfirst($st->table_name);
-        //         $storeClsName ='App\Models\\'.$storeClsName;
-        //         $storeClsName = str_replace([' ','_','-'],"",$storeClsName);
-        //         if($st->table_name == "damaged_parts"){
-
-        //         }else{
-        //             array_push($storeData , (object) [ 'name' => $st->name ,'id' => $st->id , 'amount' => $storeClsName::where('part_id',$value->id)->where('type_id',2)->sum('amount') ]) ;
-        //         }
-        //     }
-        //     $value['stores'] = $storeData;
-        //     $value['type'] = 2;
-        // }
-
-        // foreach ($kits as $key => $value) {
-        //     foreach ($value->all_kits as $key => $pp) {
-        //         $pp['pricing'] = SalePricing::where('part_id',$pp->part_id)->where('source_id',$pp->source_id)->where('status_id',$pp->status_id)->where('quality_id',$pp->quality_id)->where('type_id',6)->where('to',null)->orderBy('price','Desc')->get();
-        //         $pp['source'] = Source::where('id',$pp->source_id)->first();
-        //         $pp['status'] = Status::where('id',$pp->status_id)->first();
-        //         $pp['quality'] =PartQuality::where('id',$pp->quality_id)->first();
-        //         $pp['part'] =Kit::where('id',$pp->part_id)->with([
-        //             'kit_details' => function ($q) {
-        //                 $q->with('kit_specs')->with('mesure_unit')->get();
-        //             },
-        //         ])->first();
-        //         $pp['type'] = 6;
-
-        //     }
-        //     $storeData =[];
-        //     foreach ($stores as $key => $st) {
-        //         $storeClsName=ucfirst($st->table_name);
-        //         $storeClsName ='App\Models\\'.$storeClsName;
-        //         $storeClsName = str_replace([' ','_','-'],"",$storeClsName);
-        //         if($st->table_name == "damaged_parts"){
-
-        //         }else{
-        //             array_push($storeData , (object) [ 'name' => $st->name ,'id' => $st->id , 'amount' => $storeClsName::where('part_id',$value->id)->where('type_id',6)->sum('amount') ]) ;
-        //         }
-        //     }
-        //     $value['stores'] = $storeData;
-        //     $value['type'] = 6;
-        // }
-
-        // foreach ($tractors as $key => $value) {
-        //     foreach ($value->all_tractors as $key => $pp) {
-        //         $pp['pricing'] = SalePricing::where('part_id',$pp->part_id)->where('source_id',$pp->source_id)->where('status_id',$pp->status_id)->where('quality_id',$pp->quality_id)->where('type_id',3)->where('to',null)->orderBy('price','Desc')->get();
-        //         $pp['source'] = Source::where('id',$pp->source_id)->first();
-        //         $pp['status'] = Status::where('id',$pp->status_id)->first();
-        //         $pp['quality'] =PartQuality::where('id',$pp->quality_id)->first();
-        //         $pp['part'] =Tractor::where('id',$pp->part_id)->with([
-        //             'tractor_details' => function ($q) {
-        //                 $q->with('tractor_spec')->with('mesure_unit')->get();
-        //             },
-        //         ])->first();
-        //         $pp['type'] = 3;
-
-        //     }
-        //     $storeData =[];
-        //     foreach ($stores as $key => $st) {
-        //         $storeClsName=ucfirst($st->table_name);
-        //         $storeClsName ='App\Models\\'.$storeClsName;
-        //         $storeClsName = str_replace([' ','_','-'],"",$storeClsName);
-        //         if($st->table_name == "damaged_parts"){
-
-        //         }else{
-        //             array_push($storeData , (object) [ 'name' => $st->name ,'id' => $st->id , 'amount' => $storeClsName::where('part_id',$value->id)->where('type_id',3)->sum('amount') ]) ;
-        //         }
-        //     }
-        //     $value['stores'] = $storeData;
-        //     $value['type'] = 3;
-        // }
-
-        // foreach ($clarcks as $key => $value) {
-        //     foreach ($value->all_clarks as $key => $pp) {
-        //         $pp['pricing'] = SalePricing::where('part_id',$pp->part_id)->where('source_id',$pp->source_id)->where('status_id',$pp->status_id)->where('quality_id',$pp->quality_id)->where('type_id',4)->where('to',null)->orderBy('price','Desc')->get();
-        //         $pp['source'] = Source::where('id',$pp->source_id)->first();
-        //         $pp['status'] = Status::where('id',$pp->status_id)->first();
-        //         $pp['quality'] =PartQuality::where('id',$pp->quality_id)->first();
-        //         $pp['part'] =Clark::where('id',$pp->part_id)->with([
-        //             'clark_details' => function ($q) {
-        //                 $q->with('clark_spec')->with('mesure_unit')->get();
-        //             },
-        //         ])->first();
-        //         $pp['type'] = 4;
-
-        //     }
-        //     $storeData =[];
-        //     foreach ($stores as $key => $st) {
-        //         $storeClsName=ucfirst($st->table_name);
-        //         $storeClsName ='App\Models\\'.$storeClsName;
-        //         $storeClsName = str_replace([' ','_','-'],"",$storeClsName);
-        //         if($st->table_name == "damaged_parts"){
-
-        //         }else{
-        //             array_push($storeData , (object) [ 'name' => $st->name ,'id' => $st->id , 'amount' => $storeClsName::where('part_id',$value->id)->where('type_id',4)->sum('amount') ]) ;
-        //         }
-        //     }
-        //     $value['stores'] = $storeData;
-        //     $value['type'] = 4;
-        // }
-
-        // foreach ($equips as $key => $value) {
-        //     foreach ($value->all_equips as $key => $pp) {
-        //         $pp['pricing'] = SalePricing::where('part_id',$pp->part_id)->where('source_id',$pp->source_id)->where('status_id',$pp->status_id)->where('quality_id',$pp->quality_id)->where('type_id',5)->where('to',null)->orderBy('price','Desc')->get();
-        //         $pp['source'] = Source::where('id',$pp->source_id)->first();
-        //         $pp['status'] = Status::where('id',$pp->status_id)->first();
-        //         $pp['quality'] =PartQuality::where('id',$pp->quality_id)->first();
-        //         $pp['part'] =Equip::where('id',$pp->part_id)->with([
-        //             'equip_details' => function ($q) {
-        //                 $q->with('equip_spec')->with('mesure_unit')->get();
-        //             },
-        //         ])->first();
-        //         $pp['type'] = 5;
-
-        //     }
-        //     $storeData =[];
-        //     foreach ($stores as $key => $st) {
-        //         $storeClsName=ucfirst($st->table_name);
-        //         $storeClsName ='App\Models\\'.$storeClsName;
-        //         $storeClsName = str_replace([' ','_','-'],"",$storeClsName);
-        //         if($st->table_name == "damaged_parts"){
-
-        //         }else{
-        //             array_push($storeData , (object) [ 'name' => $st->name ,'id' => $st->id , 'amount' => $storeClsName::where('part_id',$value->id)->where('type_id',5)->sum('amount') ]) ;
-        //         }
-        //     }
-        //     $value['stores'] = $storeData;
-        //     $value['type'] = 5;
-        // }
-
-
-        // return $wheels;
+   
         $clients = Client::all();
         $source = Source::all();
         $status = Status::all();
@@ -477,8 +309,9 @@ class ArdasarController extends Controller
         //
     }
 
-    public function GetOrderStatus(PresaleOrder $orderId)
+    public function GetOrderStatus( $orderId)
     {
+        $orderId = PresaleOrder::where('id' , $orderId)->first();
         $presaleOrders = PresaleOrder::where('id' , $orderId->id)->with('presaleorderpart.unit')->with('store')->first();
 
         $stores = Store::where('table_name', '<>', 'damaged_parts')->get();
@@ -619,9 +452,9 @@ class ArdasarController extends Controller
         return $presaleOrders;
     }
 
-    public function preSaleToInvoice(PresaleOrder $orderId)
+    public function preSaleToInvoice( $orderId)
     {
-
+        $orderId = PresaleOrder::where('id' , $orderId)->first();
         $presaleOrders = PresaleOrder::where('id' , $orderId->id)->with('presaleorderpart.unit')->with('presaleTaxes')->with('client')->with('store')->first();
         $stores = Store::all();
 
@@ -847,8 +680,9 @@ class ArdasarController extends Controller
         return $closest;
     }
 
-    public function printpreSale($lang, PresaleOrder $orderId, $showflag)
+    public function printpreSale($lang,  $orderId, $showflag)
     {
+        $orderId = PresaleOrder::where('id' , $orderId)->first();
         $presaleOrders = PresaleOrder::where('id', $orderId->id)
             ->with([
                 'presaleorderpart' => function ($qq) {
@@ -1194,7 +1028,7 @@ class ArdasarController extends Controller
                 $invoiceItems->discount = $discount_temp * $ratiounit ;
                 $invoiceItems->over_price = $overprice_temp * $ratiounit ;
                 $invoiceItems->unit_id = $request->measureUnit[$i];
-                $invoiceItems->amout_unit =  $amount; //zyada
+                $invoiceItems->amount_unit =  $amount; //zyada
                 $invoiceItems->save();
                 $amount = $amount * $ratiounit;
 
@@ -2421,12 +2255,12 @@ class ArdasarController extends Controller
                 ->selectRaw('SUM(all_parts.amount) as amount,SUM(all_parts.remain_amount) as remain_amount, all_parts.part_id, all_parts.source_id, all_parts.status_id, all_parts.quality_id ')
                 ->groupBy('all_parts.part_id', 'all_parts.source_id', 'all_parts.status_id', 'all_parts.quality_id')
                 ->with([
+                    
                     'part.part_numbers',
                     'source',
                     'status',
                     'part_quality',
                     'pricing.sale_type',
-                    'order_supplier.buy_transaction',
                     'part.sub_group.group',
                     'part.part_details.part_spec',
                     'part.part_models.series.model.brand',
@@ -2440,16 +2274,17 @@ class ArdasarController extends Controller
 
             if (count($query) > 0) {
                 foreach ($query as $key => $part) {
+                    // return $part;   
                     $partId = $part->part_id;
                     $sourceId = $part->source_id;
                     $statusId = $part->status_id;
                     $qualityId = $part->quality_id;
                     $type = 1;
-                    $part['ratiounit']=getSmallUnit($part->part->big_unit,$part->part->small_unit);
-
+                    // $part['unit'] = $part->order_supplier->replyorders->unit;
                     $storesData = [];
                     foreach ($storesx as $key => $item) {
-                        $sd = $item->storepartCount = DB::table($item->table_name)
+                        // return $item;
+                       $sd = $item->storepartCount = DB::table($item->table_name)
                             ->select('*')
                             ->join('stores_log', $item->table_name . '.store_log_id', '=', 'stores_log.id')
                             ->join('all_parts', 'stores_log.All_part_id', '=', 'all_parts.id')
@@ -2461,10 +2296,15 @@ class ArdasarController extends Controller
                             // ->orWhere('stores_log.status', '=', 1)
                             ->where($item->table_name . '.type_id', '=', $type)
                             ->sum($item->table_name . '.amount');
-                        array_push($storesData, (object)['totalAmount' => $sd, 'store' => $item]);
+                                 $unit =Replyorder::where('part_id', $partId)->orderBy('creation_date', 'desc')->with('unit')->first();
+                                 $item->buy_unit = $unit->unit;
+                        array_push($storesData, (object)['totalAmount' => $sd , 'store' => $item]);
                     }
-
-                    $part['stores'] = $storesData;
+                    // return $storesData[0]->store->buy_unit;
+                      $part['ratiounit']=getSmallUnit($storesData[0]->store->buy_unit->id,$part->part->small_unit);
+                      $part['stores'] = $storesData;
+                      $part['unit_name']=$storesData[0]->store->buy_unit->name;
+                      $part['buy_unit']=$storesData[0]->store->buy_unit;
                 }
             } else {
                 return Part::where('id', $request->PartID)->with('all_parts')->with('part_details.part_spec')->with('part_details.mesure_unit')->get();

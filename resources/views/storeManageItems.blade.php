@@ -77,7 +77,10 @@
                                                 <tr>
                                                     <td>{{ $m}}</td>
                                                     <td>
-                                                        <span class="p-1 px-2 rounded-circle text-bg-danger">{{ $item->amount }}  </span>
+                                                    <?php 
+                                                        $ratioamount=getSmallUnit($item->remainAmountInInvoice->unit_id,$item->part->small_unit);
+                                                    ?>
+                                                        <span class="p-1 px-2 rounded-circle text-bg-danger">{{ $item->amount / $ratioamount }}/{{ $item->remainAmountInInvoice->unit->name }} </span>
                                                         <input readonly name="part[]" class="border-0 w-auto d-block" type="text" value="{{ isset($item->part) ? $item->part->name : (isset($item->kit) ? $item->kit->name : $item->wheel->name) }}">
                                                         <input type="hidden" name="status[]" value="{{ $item->status->id }}">
                                                         <input type="hidden" name="partIds[]" value="{{ isset($item->part) ? $item->part->id : (isset($item->kit) ? $item->kit->id : $item->wheel->id) }}">
@@ -85,11 +88,13 @@
                                                         <input type="hidden" name="source[]" value="{{ $item->source->id }}">
                                                         <input type="hidden" name="quality[]" value="{{ $item->part_quality->id }}">
                                                         <input type="hidden" name="types[]" value="{{ $item->type }}">
+                                                        <input type="hidden" name="unit[]" value="{{ $item->remainAmountInInvoice->unit_id }}">
+                                                        <input type="hidden" name="small_unit[]" value="{{ $item->part->small_unit }}">
                                                         <span>{{ $item->status->name }}</span>
                                                         <span>{{ $item->source->name_arabic }}</span>
                                                         <span>{{ $item->part_quality->name }}</span>
-                                                        <span class="d-block"> متبقي لم يتم  توزيعه <span class="p-1 px-2 rounded-circle text-bg-success"> {{ $item->amount - $item->remainAmountInInvoice - $item->needConfirmAmountInInvoice }}</span></span>
-                                                        <span class="d-block"> متبقي لم يتم  استلامه <span class="p-1 px-2 rounded-circle text-bg-success"> {{ $item->needConfirmAmountInInvoice }}</span></span>
+                                                        <span class="d-block"> متبقي لم يتم  توزيعه <span class="p-1 px-2 rounded-circle text-bg-success"> {{ ($item->amount - $item->remainAmountInInvoice->amount - $item->needConfirmAmountInInvoice)/ $ratioamount }} / {{ $item->remainAmountInInvoice->unit->name }}</span></span>
+                                                        <span class="d-block"> متبقي لم يتم  استلامه <span class="p-1 px-2 rounded-circle text-bg-success"> {{ ($item->needConfirmAmountInInvoice)/ $ratioamount }} / {{ $item->remainAmountInInvoice->unit->name }}</span></span>
 
                                                         {{-- <input readonly class="border-0 w-auto" type="text" value="{{ $item->status->name }}">
                                                         <input readonly class="border-0 w-auto" type="text" value="{{ $item->source->name_arabic }}">
@@ -99,7 +104,7 @@
                                                     @for ($i =0 ; $i < count($store) ; $i++)
                                                         <td>
                                                             <label for="">{{  $store[$i]->name }}</label>
-                                                            <input class="form-control row{{$m}}" onkeyup="CheckSum('{{ $item->amount - $item->remainAmountInInvoice }}','row{{$m}}')" value="0" min="0" style="width: 100px" type="number" max="{{ $item->amount }}" name="store{{  $store[$i]->id }}[]" id="">
+                                                            <input class="form-control row{{$m}}" onkeyup="CheckSum('{{ ($item->amount - $item->remainAmountInInvoice->amount)/ $ratioamount }}','row{{$m}}')" value="0" min="0" style="width: 100px" type="number" max="{{ ($item->amount - $item->remainAmountInInvoice->amount)/ $ratioamount }}" name="store{{  $store[$i]->id }}[]" id="">
 
                                                         </td>
                                                     @endfor
@@ -138,11 +143,11 @@
 <script>
 
    function CheckSum(total,row){
-       console.log($("."+row));
+    //    console.log($("."+row));
        var sumOfValues=0;
        $("."+row).each(function(){
-           sumOfValues+=$(this).val();
-           if(sumOfValues > total){
+           sumOfValues+=parseFloat($(this).val());
+           if(parseFloat(sumOfValues) > parseFloat(total)){
                 alert("Error !");
                 $(this).val(0);
                 return false;

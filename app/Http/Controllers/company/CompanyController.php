@@ -9,6 +9,8 @@ use App\Models\Company\UserPayment;
 use Illuminate\Support\Facades\DB;
 use App\Models\Company\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
+
 class CompanyController extends Controller
 {
     /**
@@ -126,31 +128,48 @@ class CompanyController extends Controller
      */
     public function updateProfile(Request $request)
     {
+        
+    
         $user = auth()->user();
         $user_general = User::on('mysql_general')->where('email', $user->email)->first();
-
+    
+        if (!$user_general) {
+            return redirect()->back()->with('error', 'User profile not found.');
+        }
+    
         $request->validate([
             'work' => 'nullable|string|max:255',
             'company_tax_file' => 'nullable|string|max:255',
             'company_commercial_register' => 'nullable|string|max:255',
             'company_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-       
-
-
+    
         $updateData = $request->only('work', 'company_tax_file', 'company_commercial_register');
-
+    
         if ($request->hasFile('company_logo')) {
+        
             // Delete old logo if it exists
-            if ($user_general->logo_print && \Illuminate\Support\Facades\Storage::disk('public')->exists($user_general->logo_print)) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($user_general->logo_print);
+            if ($user_general->logo_print && \Illuminate\Support\Facades\File::exists(public_path('assets/company_logo/' . basename($user_general->logo_print)))) {
+                \Illuminate\Support\Facades\File::delete(public_path('assets/company_logo/' . basename($user_general->logo_print)));
             }
-            // Store new logo
-            $path = $request->file('company_logo')->store('company_logos', 'public');
-            $updateData['logo_print'] = $path;
+        
+            // Rename and move image manually
+            $originalName = $request->file('company_logo')->getClientOriginalName();
+            $cleanedName = preg_replace('/[^A-Za-z0-9]/', '', pathinfo($originalName, PATHINFO_FILENAME));
+            $extension = $request->file('company_logo')->getClientOriginalExtension();
+            $imageName = time() . $cleanedName . '.' . $extension;
+        
+            $request->file('company_logo')->move(public_path('assets/company_logo'), $imageName);
+        
+            // Save relative path in DB
+            $updateData['logo_print'] = 'company_logo/' . $imageName;
+        } else {
+            \Log::info('No company logo file found in the request.');
         }
-
+    
         $user_general->update($updateData);
+        $user_general->refresh();
+        // return redirect()->back()->with('debug', $updateData);
 
         return redirect()->route('company.dashboard')->with('success', 'تم تحديث بيانات الشركة بنجاح.');
     }

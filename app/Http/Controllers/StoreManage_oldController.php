@@ -1914,8 +1914,9 @@ class StoreManageController extends Controller
         return View('printBuyInvoice',compact(['invoice','orderSup','items','company']));
     }
 
-    public function storeManageItems(BuyTransaction $id){
+    public function storeManageItems($id){
         // return $id;
+        $id = BuyTransaction::where('id',$id)->first();
         $buyTrans = $id;
         $orderSup = OrderSupplier::where('transaction_id',$buyTrans->id)->with('supplier')->with('currency_type')->get();
         if(count($orderSup) <= 0){
@@ -2111,8 +2112,9 @@ class StoreManageController extends Controller
 
     }
 
-    public function buyInv(BuyTransaction $id){
+    public function buyInv( $id){
         // return $id;
+        $id = BuyTransaction::where('id',$id)->first();
         $buyTrans = $id;
         $orderSup = OrderSupplier::where('transaction_id',$buyTrans->id)->with('supplier')->get();
 
