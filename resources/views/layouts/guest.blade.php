@@ -32,7 +32,7 @@
             <div class="flex flex-1 justify-center p-6 pt-24">
                 <div class="max-w-lg ">
                 <div class="border-1 border-white mb-6">
-                    <img src="{{ asset('assets/images/Lystah-logo.png') }}" alt="Lystah Logo" class="border border-1 h-32 object-contain w-32" />
+                    <img src="{{ asset('assets/images/Lystah-Logo.png') }}" alt="Lystah Logo" class="border border-1 h-32 object-contain w-32" />
                         </div>
                     <h1 class="text-4xl font-bold text-gray-900 mb-4">نظام إدارة متكامل </h1>
                     <p class="text-xl text-gray-600">إدارة أعمالك في مكان واحد</p>
