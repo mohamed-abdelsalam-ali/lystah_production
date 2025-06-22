@@ -3083,9 +3083,10 @@ class StoreManageController extends Controller
         return View('printBuyInvoice', compact(['invoice', 'orderSup', 'items', 'company']));
     }
 
-    public function storeManageItems( $id)
+    public function storeManageItems($id)
     {
         // return $id;
+        
         $id = BuyTransaction::where('id',$id)->first();
         $buyTrans = $id;
         $orderSup = OrderSupplier::where('transaction_id', $buyTrans->id)->with('supplier')->with('currency_type')->get();
