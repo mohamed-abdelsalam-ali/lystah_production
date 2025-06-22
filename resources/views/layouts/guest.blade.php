@@ -12,7 +12,7 @@
     
     <!-- Flowbite CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
-    <link rel="icon" type="image/x-icon" href="{{ URL::asset('assets/images/NFavicon.ico') }}">
+    <link rel="icon" type="image/x-icon" href="{{ URL::asset('assets/images/favicon.ico') }}">
     <!-- Custom Styles -->
     <style>
     html, body {
