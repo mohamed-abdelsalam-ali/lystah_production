@@ -392,7 +392,7 @@
                                     @endif
 
                                     @if($buy_Invoice_last)
-                                        <a href="/printBuyInvoice/{{ $buy_Invoice_last->id }}">
+                                        <a href="/printBuyInvoice/{{ $buy_Invoice_last->transaction_id }}">
                                             <div class="avatar-xs flex-shrink-0">
                                                 <span class="avatar-title bg-light fs-3 rounded">
                                                     <i class="bx bx-printer text-bg-light"></i>
