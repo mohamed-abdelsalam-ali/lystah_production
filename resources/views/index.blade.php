@@ -733,7 +733,7 @@
                                             {{ ($buy_Invoice_last) ?  $buy_Invoice_last->currency_type->name: 'لا يوجد'}}
                                         </h4>
                                         @if($buy_Invoice_last)
-                                        <a href="/printBuyInvoice/{{ $buy_Invoice_last->id }}"
+                                        <a href="/printBuyInvoice/{{ $buy_Invoice_last->transaction_id }}"
                                             class="text-decoration-underline text-muted">إظهار التفاصيل</a>
                                         @else
                                         <a href="#"
