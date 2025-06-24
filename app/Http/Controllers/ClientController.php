@@ -388,9 +388,9 @@ class ClientController extends Controller
         return $clients;
         return view('SupplierInvoices',compact('bank_types','store_safe','supplier'));
     }
-    function getclientinvoice(Client $clientId){
+    function getclientinvoice( $clientId){
+        $client = Client::where('id',$clientId)->first();
         $store = store::where('id',8)->first();
-        $client = $clientId;
         $as_sup_madunia = 0;
         $supplierData = 0;
         $supinvoiceMad = 0;
